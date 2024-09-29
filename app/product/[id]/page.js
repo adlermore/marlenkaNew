@@ -4,10 +4,7 @@ import { useState, useRef } from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import "@/styles/product_inner.scss";
-import { filterColors, productListing } from '@/utils/data/productList';
-import { belongsProducts, bestProducts } from '@/utils/data/homeData';
-import AlsoLikeSlider from '@/components/slider/AlsoLikeSlider';
-import BelongsSlider from '@/components/slider/BelongsSlider';
+import { bestProducts } from '@/utils/data/homeData';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@/redux/cartSlice';
 import Product from '@/components/product/Product';
@@ -19,14 +16,14 @@ const ProductPage = () => {
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
 
-	const [productCount, setProductCount] = useState(1); // Initial count set to 1
+	const [productCount, setProductCount] = useState(1); 
 
 	const incrementCount = () => {
 		setProductCount((prevCount) => prevCount + 1);
 	};
 
 	const decrementCount = () => {
-		setProductCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1)); // Prevent count going below 1
+		setProductCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1)); 
 	};
 
 
@@ -93,8 +90,12 @@ const ProductPage = () => {
 	const dispatch = useDispatch();
 
 	const handleAddToCart = (e) => {
-		e.preventDefault();
-		dispatch(addToCart(bestProducts[0]));
+    e.preventDefault();
+    const productToAdd = {
+        ...bestProducts[0],
+        quantity: productCount 
+    };
+    dispatch(addToCart(productToAdd));
 	};
 
 
@@ -165,7 +166,7 @@ const ProductPage = () => {
 							<span>{productCount}</span>
 							<button onClick={incrementCount} className='py-[10px] text-2xl w-[40px] h-full flex items-center justify-center'>+</button>
 						</div>
-						<button className='site_btn !ml-0 mt-[50px]'>Add to Cart</button>
+						<button className='site_btn !ml-0 mt-[50px]'   onClick={handleAddToCart} >Add to Cart</button>
 					</div>
 				</div>
 			</div>

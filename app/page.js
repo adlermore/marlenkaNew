@@ -17,7 +17,6 @@ import category5 from "@/public/images/category5.png"
 import category6 from "@/public/images/category6.png"
 import category7 from "@/public/images/category7.png"
 
-
 import videoSection from "@/public/images/videoSection.png"
 import timeline from "@/public/images/timeline.png"
 import 'react-modal-video/scss/modal-video.scss';

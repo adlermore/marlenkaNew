@@ -20,9 +20,15 @@ function Product({ product, onClick }) {
   const isInWishlist = wishlist.some(item => item.id === product.id);
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(product));
-  };
+	const handleAddToCart = (e) => {
+    e.preventDefault();
+    const productToAdd = {
+        ...product,
+        quantity: 1 
+    };
+    dispatch(addToCart(productToAdd));
+	};
+  
 
   const detectScrollBarWidth = () => {
     const documentWidth = document.documentElement.clientWidth;

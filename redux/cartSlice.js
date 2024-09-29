@@ -40,25 +40,53 @@ const cartSlice = createSlice({
     addToCart(state, action) {
       const product = action.payload;
       const existingItemIndex = state.items.findIndex(item => item.id === product.id);
-
+  
       if (existingItemIndex >= 0) {
-        // If item exists, show a message that it is already in the cart
-        toast(`${product.title} is already in your cart`);
+          // Show a toast message if the item is already in the cart
+          toast(`${product.title} is already in your cart`);
       } else {
-        // If item doesn't exist, add it to the cart
-        state.items.push({
-          ...product,
-          totalPrice: parseFloat(product.price),
-        });
-        toast.success(`${product.title} added to your cart`);
+          // If item doesn't exist, add it to the cart
+          state.items.push({
+              ...product,
+              totalPrice: parseFloat(product.price) * product.quantity, // Total price based on initial quantity
+          });
+          toast.success(`${product.title} added to your cart`);
       }
-
+  
       // Update total amount
       state.totalAmount = calculateTotalAmount(state.items);
-
+  
       // Save updated cart to localStorage
       saveCartToLocalStorage(state.items);
-    },
+  },  
+  updateCartQuantity(state, action) {
+    const { productId, amount } = action.payload;
+    const existingItemIndex = state.items.findIndex(item => item.id === productId);
+
+    if (existingItemIndex >= 0) {
+        // Update the quantity
+        const newQuantity = state.items[existingItemIndex].quantity + amount;
+
+        if (newQuantity <= 0) {
+            // Remove item if quantity is zero or less
+            state.items.splice(existingItemIndex, 1);
+            toast.success('Product removed from your cart');
+        } else {
+            // Update quantity and total price
+            state.items[existingItemIndex].quantity = newQuantity;
+            state.items[existingItemIndex].totalPrice = parseFloat(state.items[existingItemIndex].price) * newQuantity;
+            toast.success('Product quantity updated in your cart');
+        }
+
+        // Update total amount
+        state.totalAmount = calculateTotalAmount(state.items);
+
+        // Save updated cart to localStorage
+        saveCartToLocalStorage(state.items);
+    } else {
+        toast.error('Item not found in your cart');
+    }
+},
     removeFromCart(state, action) {
       const productId = action.payload.id;
       const existingItemIndex = state.items.findIndex(item => item.id === productId);
@@ -93,5 +121,5 @@ export const initializeCart = () => (dispatch) => {
   }
 };
 
-export const { addToCart, removeFromCart, resetCart } = cartSlice.actions;
+export const { addToCart, updateCartQuantity, removeFromCart, resetCart } = cartSlice.actions;
 export default cartSlice.reducer;
