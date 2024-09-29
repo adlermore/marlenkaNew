@@ -177,7 +177,6 @@ export default function UserInfoPage() {
           {status === 'loading' ? " " : " Save Changes"}
         </button>
       </form>
-
     </div>
   );
 }

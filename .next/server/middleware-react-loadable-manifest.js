@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST='{"app/productListing/page.jsx -> @/components/product/Product":{"id":5826,"files":["static/chunks/444-72b36a0bd4920960.js","static/chunks/975-a953f8c001609622.js","static/chunks/826-780ee238dec0f177.js"]}}';

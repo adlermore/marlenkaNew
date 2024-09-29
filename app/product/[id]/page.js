@@ -173,27 +173,27 @@ const ProductPage = () => {
 				<div className='flex gap-[80px] pt-[30px]'>
 					<div className='text-[#AE8839] text-2xl font-medium'>Details</div>
 					<div className='pb-[30px] text-xl text-black'>
-					Let yourself be carried away by the sounds of the Viennese waltz and enjoy this year’s first new product from Marlenka: the Viennese honey Cake. Based on a traditional recipe, we bring you a combination of fluffy honey dough, delicious apricot cream filling and rich cocoa icing.
-					<br/>
-					<br/>
-					This premium cake is perfect for special occasions as well as with your afternoon coffee. You can serve it with whipped cream or pieces of apricots. This combination of two traditional desserts, the classic Viennese cake and Armenian honey cake, is sure to delight you.
+						Let yourself be carried away by the sounds of the Viennese waltz and enjoy this year’s first new product from Marlenka: the Viennese honey Cake. Based on a traditional recipe, we bring you a combination of fluffy honey dough, delicious apricot cream filling and rich cocoa icing.
+						<br />
+						<br />
+						This premium cake is perfect for special occasions as well as with your afternoon coffee. You can serve it with whipped cream or pieces of apricots. This combination of two traditional desserts, the classic Viennese cake and Armenian honey cake, is sure to delight you.
 					</div>
 				</div>
 				<div className='flex gap-[80px] pt-[30px]'>
 					<div className='text-[#AE8839] text-2xl font-medium'>Technical</div>
 					<div className='w-full'>
-									<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-										<div className='font-xl text-black font-medium'>Weight:</div>
-										<div>1 g</div>
-									</div>
-									<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-										<div className='font-xl text-black font-medium'>Box dimensions::</div>
-										<div>220 x 225 x 50 mm</div>
-									</div>
-									<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-										<div className='font-xl text-black font-medium'>Package EAN:</div>
-										<div>859407165263</div>
-									</div>
+						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
+							<div className='font-xl text-black font-medium'>Weight:</div>
+							<div>1 g</div>
+						</div>
+						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
+							<div className='font-xl text-black font-medium'>Box dimensions::</div>
+							<div>220 x 225 x 50 mm</div>
+						</div>
+						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
+							<div className='font-xl text-black font-medium'>Package EAN:</div>
+							<div>859407165263</div>
+						</div>
 					</div>
 				</div>
 			</div>

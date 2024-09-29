@@ -14,7 +14,7 @@ export default function Page() {
     <div className='favorite_wrapper h-full'>
       {wishList?.items.length > 0 ?
         <div className='grid gap-[15px] grid-cols-4'>
-          {wishList.items.map((item, index) => (
+          {wishList?.items.map((item, index) => (
             <Product key={index} product={item} />
           ))}
         </div>
