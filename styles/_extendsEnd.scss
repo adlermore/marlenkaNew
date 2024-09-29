@@ -1,0 +1,77 @@
+%opacity300 {
+    @include animStyle(opacity 0.3s);
+}
+%color300 {
+    @include animStyle(color 0.3s);
+}
+%back300 {
+    @include animStyle(background-color 0.3s);
+}
+%all300 {
+    @include animStyle(all 0.3s);
+}
+%opacity150 {
+    @include animStyle(opacity 0.15s);
+}
+%color150 {
+    @include animStyle(color 0.15s);
+}
+%back150 {
+    @include animStyle(background-color 0.15s);
+}
+%all150 {
+    @include animStyle(all 0.15s);
+}
+%opacityHover07 {
+    &:hover {
+        opacity: 0.7;
+    }
+}
+%opacityHover1 {
+    &:hover {
+        opacity: 1;
+    }
+}
+%opacityActive{
+    @include animStyle(opacity 1.5s);
+    &:active {
+        opacity: 1;
+    }
+}
+%blackColorHover {
+    &:hover {
+        color: $black;
+    }
+}
+%whiteHover07 {
+    &:hover {
+        color: rgba($white,0.7);
+    }
+}
+%whiteColorHover {
+    &:hover {
+        color: $white;
+    }
+}
+%siteColorHover {
+    &:hover {
+        color: $gray66;
+    }
+}
+%textUnSelect {
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+%maskedInput {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+}
+

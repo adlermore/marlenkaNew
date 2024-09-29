@@ -1,0 +1,66 @@
+@import 'variables';
+@import 'mixins';
+@import 'extendsStart';
+@import 'extendsEnd';
+
+.account_section {
+	.account_line {
+		margin-top: 45px;
+		display: flex;
+		width: 100%;
+		nav{
+			width: 200px;
+			min-height: 415px;
+			border-right: 1px solid #D3BA87;
+			padding-right: 10px;
+		}
+		ul{
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			li{
+				width: 100%;
+				margin-bottom: 30px;
+				&.log_out{
+				flex: 1;
+				display: flex;
+				align-items: flex-end;
+				margin-bottom: 0;
+					a{
+						color: #B63E2C;
+						svg path{
+							fill: #B63E2C;
+						}
+					}
+				}
+			}
+			a{
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				font-size: 17px;
+				line-height: 20px;
+				color: #949494;
+				align-items: center;
+				svg path{
+					fill:#949494;
+					width: 22px;
+				}
+				&.active-link{
+					pointer-events: none;
+					color: $black;
+					svg path{
+						fill: $black;
+						color: $black;
+					}
+				}
+			}
+		}
+	}
+	.inner_wrapper{
+		padding-left: 90px;
+	}
+}

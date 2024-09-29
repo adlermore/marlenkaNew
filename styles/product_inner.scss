@@ -1,0 +1,158 @@
+@import 'variables';
+@import 'mixins';
+@import 'extendsStart';
+@import 'extendsEnd';
+
+.product_section {
+	padding-top: 60px;
+	display: flex;
+	margin: 0 auto;
+	.product_images {
+		flex: 0 0 65%;
+		max-width: 65%;
+	}
+	.img_block {
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+	.small_images {
+		margin-top: 25px;
+		height: 160px;
+		.slick-slider{
+			height: 100%;
+		}
+
+		.slick-slide.slick-current{
+			.img_block{
+				padding: 10px;
+				border: 1px solid #AE8839;
+				border-radius: 6px;
+			}
+		}
+		.slick-list {
+			height: 100% !important;
+			margin:  0 -10px;
+		}
+		.slide_block {
+			padding: 0 10px;
+			height: 100%;
+		}
+		.slick-track {
+			height: 100% !important;
+		}
+		.slick-slide{
+			width: 100%;
+			height: 100%;
+			>div{
+				width: 100%;
+				height: 100%;
+			}
+		}
+		.images_slider {
+			// @include overHidden();
+			height: 100%;
+		}
+	}
+
+	.big_images {
+		flex: 1;
+		// overflow: hidden;
+		max-height: 400px;
+		padding: 0 40px;
+		height: 100%;
+		@include slider();
+		.slide_block {
+			@include slide();
+			width: 100%;
+			position: relative;
+			// overflow: hidden;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.img_block {
+				background-color: $white;
+				max-height: 400px;
+				display: block;
+				@extend %standardNarrow;
+			}
+		}
+		.images_slider {
+			// @include overHidden();
+			height: 100%;
+			.slick-arrow {
+				&:before {
+					content: "\e902";
+					@extend %iconElement;
+					font-size: 1.8rem;
+					color: #AE8839;
+				}
+				&.slick-next {
+					position: absolute;
+					top: 50% !important;
+					right: 0;
+					left: auto;
+				}
+
+				&.slick-prev {
+					top: 50%;
+					right: auto;
+					left: 20px;
+					transform: translate(-50% , -50%);
+					transform: rotate(-180deg);
+				}
+			}
+		}
+	}
+
+	.slick-arrow {
+		position: absolute;
+		font-size: 0;
+		z-index: 3;
+		border: none;
+		background: transparent;
+		padding: 0;
+		display: block;
+		left: 50%;
+		margin-left: -10px;
+		color: $black33;
+		@extend %color300;
+
+		&:hover {
+			opacity: 0.7;
+		}
+
+		&.slick-disabled {
+			opacity: 0.5;
+			cursor: default;
+		}
+
+		&:before {
+			display: block;
+			font-size: 3.4rem;
+			font-weight: bold;
+		}
+
+		&.slick-prev {
+			@include transStyle(rotate(90deg));
+		}
+	}
+	.product_table{
+		margin-top: 30px;
+		width: 100%;
+		.table_line{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 20px;
+			line-height: 24px;
+			color: $black;
+			padding-bottom: 20px;
+			margin-bottom: 20px;
+			border-bottom: 2px solid #D3BA87;
+		}
+	}
+
+}
+
+

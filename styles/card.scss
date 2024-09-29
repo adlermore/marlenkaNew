@@ -1,0 +1,553 @@
+@import 'variables';
+@import 'mixins';
+@import 'extendsStart';
+@import 'extendsEnd';
+
+
+.shopping_bag_block {
+    font-size: 10px;
+    line-height: 1.4286em;
+    width: 0;
+    // overflow: hidden;
+    color: $black;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 101;
+    background: rgba($black , 0.2);
+    @include animStyle(width 0.7s);
+
+    .shoping_inner_block {
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: 0;
+        background: $white;
+        @include animStyle(width 0.5s);
+        @include animDelay(0.3s);
+    }
+
+    .shoping_container {
+        width: 475px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .top_block {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 40px;
+        padding-bottom: 10px;
+        position: relative;
+    }
+
+    .arrow_top_button {
+        width: 100%;
+        height: 20px;
+        position: absolute;
+        bottom: 0;
+        @include animStyle(all 0.3s);
+        cursor: default;
+        border-bottom: 1px solid $grayE5;
+        display: flex;
+        justify-content: center;
+
+        &:before {
+            transform: rotate(90deg);
+            position: relative;
+            top: -5px;
+            @include animStyle(all 0.3s);
+            font-size: 120%;
+            color: $grayE5;
+        }
+    }
+
+    .bottom_block {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 0;
+        position: relative;
+        padding-top: 20px;
+        .arrow_bottom_button {
+            width: 100%;
+            height: 20px;
+            position: absolute;
+            top: 0;
+            cursor: default;
+            @include animStyle(all 0.3s);
+            border-top: 1px solid $grayE5;
+            display: flex;
+            justify-content: center;
+
+            &:before {
+                transform: rotate(90deg);
+                @include animStyle(all 0.3s);
+                position: relative;
+                bottom: -5px;
+                font-size: 120%;
+                color: $grayE5;
+            }
+        }
+    }
+
+    .shoping_bag_list {
+        flex: 1;
+        overflow-x: hidden;
+        height: 100%;
+        padding: 20px 0;
+
+    }
+
+    .block_title {
+        font-size: 180%;
+        line-height: 24px;
+        font-family: $bold;
+        margin-left: 25px;
+    }
+
+    .icon_menu_close {
+        margin-right: 30px;
+        @include animStyle(all 0.3s);
+        @extend %opacityHover07;
+        color: $black;
+        font-size: 140%;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+
+    .scrolling {
+        .arrow_top_button {
+            cursor: pointer;
+
+            &:hover {
+                border-bottom: 1px solid $black33;
+
+                &:before {
+                    color: $black;
+                    top: -8px;
+                }
+            }
+        }
+
+        .arrow_bottom_button {
+            cursor: pointer !important;
+
+            &:hover {
+                border-top: 1px solid $black33;
+
+                &:before {
+                    color: $black;
+                    bottom: -8px;
+                }
+            }
+        }
+    }
+
+    .empty_block {
+        // display: none;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .icon_cart {
+        width: 80px;
+        height: 80px;
+        border: 1px solid rgba($black , 0.10);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+
+        &:before {
+            color: $black;
+            font-size: 160%;
+        }
+    }
+
+    .empty_inner {
+        margin-top: -90px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .empty_title {
+        margin-top: 20px;
+        font-family: $bold;
+        font-size: 160%;
+        line-height: 24px;
+    }
+
+    .empty_desc {
+        margin-top: 5px;
+        font-size: 140%;
+        line-height: 21px;
+    }
+
+    .empty {
+        .bottom_block {
+            display: none;
+        }
+
+        .shoping_list_inner {
+            display: none;
+        }
+
+        .empty_block {
+            display: flex;
+            border-top: 1px solid rgba($black, 0.1);
+        }
+
+        .arrow_top_button {
+            cursor: default !important;
+
+            &:before {
+                opacity: 0;
+            }
+        }
+    }
+
+    .subtotal_block {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 25px;
+        width: 100%;
+
+        .inner_title {
+            font-size: 180%;
+            text-transform: uppercase;
+            line-height: 24px;
+            font-family: $bold;
+        }
+
+        .total_sum {
+            font-size: 180%;
+            line-height: 24px;
+            font-family: $bold;
+        }
+    }
+
+    .shipping_block {
+        padding: 0 25px;
+        margin-top: 5px;
+        display: flex;
+        font-size: 140%;
+        line-height: 19px;
+        width: 100%;
+        justify-content: space-between;
+
+        .inner_title {
+            margin-top: 15px;
+            // text-align: center;
+            width: 100%;
+        }
+    }
+
+    .card_buttons {
+        width: 100%;
+        padding: 0 25px;
+    }
+
+    .pay_button {
+        margin-bottom: 40px;
+        margin-top: 20px;
+
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 180%;
+        line-height: 21px;
+        @include animStyle(all 0.5s);
+        border: 1px solid #D3BA87;
+        color: #D3BA87;
+
+        &:hover {
+            background: #D3BA87;
+            color: $white;
+            opacity: 1;
+        }
+
+    }
+
+    .checkout_button {
+        margin: 0 auto;
+        margin-top: 30px;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 180%;
+        line-height: 21px;
+        color: $black;
+        background: #D3BA87;
+        @include animStyle(all 0.5s);
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    .shoping_list_inner {
+        position: relative;
+        height: 100%;
+        @include animStyle(top 0.8s);
+        top: 0;
+    }
+
+    .product_block {
+        padding: 20px 30px;
+        display: flex;
+        border-bottom: 1px solid $grayE5;
+
+        .image_block {
+            position: relative;
+            width: 150px;
+            padding-bottom: 35%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card_heart {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        .info_block {
+            flex: 1;
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bottom_ineer_block {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .modal_link {
+            font-size: 120%;
+            color: $black;
+            line-height: 18px;
+            text-transform: uppercase;
+            @include animStyle(all 0.3s);
+            @extend %opacityHover07;
+            width: 32px;
+            white-space: normal;
+            text-decoration: underline;
+
+            span {
+                display: block;
+                padding-top: 5px;
+            }
+        }
+
+        .product_count {
+            display: flex;
+            align-items: center;
+            max-width: 90px;
+            height: 40px;
+            border: 1px solid rgba($black , 0.1);
+
+            input {
+                border: none;
+                width: 100%;
+                font-size: 120%;
+                line-height: 17px;
+                text-align: center;
+            }
+
+            .left_arrow {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 100%;
+                font-size: 70%;
+
+                &::before {
+                    @include animStyle(all 0.3s);
+                }
+
+                &:hover {
+                    &:before {
+                        color: $black;
+                    }
+                }
+            }
+
+            .right_arrow {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 100%;
+                font-size: 70%;
+
+                &::before {
+                    @include animStyle(all 0.3s);
+                }
+
+                &:hover {
+                    &:before {
+                        color: $black;
+                    }
+                }
+            }
+        }
+
+        .icon_trash {
+            fill: $siteColor;
+            @include animStyle(all 0.5s);
+            font-size: 140%;
+            width: 15px;
+            opacity: 1;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+
+        .product_name {
+            font-size: 140%;
+            line-height: 18px;
+            font-family: $black_;
+        }
+
+        .product_code {
+            display: flex;
+            margin-top: 10px;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: #D3BA87;
+
+            span {
+                display: block;
+                color: $black;
+            }
+        }
+
+        .active_price {
+            white-space: nowrap;
+            font-size: 160%;
+            line-height: 18px;
+            font-family: $black_;
+        }
+    }
+
+    .remove_btn {
+        color: #B63E2C;
+        text-transform: uppercase;
+        font-size: 14px;
+        transition: 0.3s;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    .scroll-wrapper {
+        overflow: visible !important;
+    }
+
+    .scroll-arrow_less {
+        position: absolute;
+        display: block;
+        border-radius: 0;
+        width: 100%;
+        top: -30px;
+        height: 29px !important;
+        @include animStyle(all 0.3s);
+        @extend %opacityHover07;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid $grayE5;
+
+        &:hover {
+            border-bottom: 1px solid $black;
+
+            &:before {
+                color: $black;
+                top: -5px;
+            }
+        }
+
+        &:before {
+            transform: rotate(90deg);
+            @extend %iconElement;
+            content: "\e901";
+            font-size: 100%;
+            position: relative;
+            @include animStyle(all 0.3s);
+            top: 0;
+            color: rgba($black, 0.1);
+        }
+    }
+
+    .scroll-arrow_more {
+        position: absolute;
+        display: block;
+        border-radius: 0;
+        width: 100%;
+        height: 30px !important;
+        @include animStyle(all 0.5s);
+        @extend %opacityHover07;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top: 1px solid $grayE5;
+
+        &:hover {
+            border-top: 1px solid $black;
+
+            &:before {
+                color: $black;
+                bottom: -5px;
+            }
+        }
+
+        &:before {
+            @extend %iconElement;
+            content: "\e901";
+            font-size: 100%;
+            transform: rotate(-90deg);
+            color: rgba($black , 0.1);
+            @include animStyle(all 0.3s);
+            position: relative;
+            bottom: 0;
+        }
+    }
+}
+
+.shopping_opened {
+    overflow: hidden;
+
+    .shopping_bag_block {
+        width: 100%;
+        @include animDelay(0.1s);
+
+        .shoping_inner_block {
+            width: 475px;
+            @include animDelay(0s);
+        }
+    }
+}

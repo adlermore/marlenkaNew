@@ -1,0 +1,91 @@
+@mixin standardList() {
+    padding: 0;
+		margin: 0;
+		list-style-type: none;
+}
+@mixin slider() {
+	position: relative;
+	white-space: nowrap;
+	font-size: 0;
+	overflow: hidden;
+}
+@mixin slide() {
+	display: inline-block;
+	white-space: normal;
+	font-size: 1rem;
+}
+@mixin centerCover() {
+	background-size: cover !important;
+	background-position: center !important;
+}
+@mixin animStyle($parameters) {
+  	-o-transition: $parameters;
+	-ms-transition: $parameters;
+	-moz-transition: $parameters;
+	-webkit-transition: $parameters;
+	transition: $parameters;
+}
+@mixin animStyles($param1,$param2) {
+	-o-transition: $param1,$param2;
+  -ms-transition: $param1,$param2;
+  -moz-transition: $param1,$param2;
+  -webkit-transition: $param1,$param2;
+  transition: $param1,$param2;
+}
+@mixin transStyle($parameters) {
+	transform: $parameters;
+	-moz-transform: $parameters;
+    -ms-transform: $parameters;
+    -webkit-transform: $parameters;
+    -o-transform: $parameters;
+}
+@mixin torigin($parameters) {
+	transform-origin: $parameters;
+	-webkit-transfrom-origin: $parameters;
+}
+@mixin animDelay($parameters) {
+	-o-transition-delay: $parameters;
+	-ms-transition-delay: $parameters;
+	-moz-transition-delay: $parameters;
+	-webkit-transition-delay: $parameters;
+	transition-delay: $parameters;
+}
+@mixin dropArrow() {
+	color: inherit;
+	border-style: solid;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+@mixin overHidden() {
+	position: relative;
+	overflow: hidden;
+}
+@mixin psevdoAbs() {
+	display: block;
+	content: "";
+	position: absolute;
+}
+@mixin maskedInput() {
+	position: absolute;
+	width: 0;
+	height: 0;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+}
+@mixin colCount($col) {
+	-moz-column-count: $col;
+    -webkit-column-count: $col;
+    column-count: $col;
+}
+@mixin colGap($gap) {
+    -webkit-column-gap: $gap;
+    -moz-column-gap: $gap;
+    column-gap: $gap;
+}
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}  
+}
