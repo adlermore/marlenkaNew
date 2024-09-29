@@ -1,5 +1,5 @@
 'use client';
-import userImg from '@/public/images/userImg.png';
+// import userImg from '@/public/images/userImg.png';
 import Image from 'next/image';
 import { userScheme } from '@/validation/userScheme';
 import { useForm } from 'react-hook-form';
@@ -30,11 +30,11 @@ export default function UserInfoPage() {
     <div className='user_wrapper w-full'>
       <div className='flex gap-[30px] items-center'>
         <div className='relative'>
-          <Image
+          {/* <Image
             src={userImg}
             alt="User Image"
             priority={true}
-          />
+          /> */}
         </div>
         <div>
           <div className='text-[18px] color-black font-medium'>Name Surname</div>

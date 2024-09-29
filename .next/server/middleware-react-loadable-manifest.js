@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app/productListing/page.jsx -> @/components/product/Product\":{\"id\":\"app/productListing/page.jsx -> @/components/product/Product\",\"files\":[\"static/chunks/_app-pages-browser_components_product_Product_jsx.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST='{"app/productListing/page.jsx -> @/components/product/Product":{"id":5826,"files":["static/chunks/444-72b36a0bd4920960.js","static/chunks/975-ab43a1b5bd2501a2.js","static/chunks/826-c7ed0be675146ccb.js"]}}';
