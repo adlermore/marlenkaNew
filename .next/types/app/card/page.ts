@@ -1,4 +1,4 @@
-// File: /Users/armorbita/Desktop/Marlenka/app/card/page.js
+// File: /workspaces/marlenkaNew/app/card/page.js
 import * as entry from '../../../../app/card/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

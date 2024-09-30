@@ -1,14 +1,14 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/card/page": "app/card/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
-  "/card/page": "app/card/page.js",
-  "/productListing/page": "app/productListing/page.js",
   "/product/[id]/page": "app/product/[id]/page.js",
+  "/productListing/page": "app/productListing/page.js",
   "/account/notifications/page": "app/account/notifications/page.js",
-  "/account/personalList/page": "app/account/personalList/page.js",
+  "/account/myCart/page": "app/account/myCart/page.js",
   "/account/page": "app/account/page.js",
-  "/account/wishList/page": "app/account/wishList/page.js",
+  "/account/personalList/page": "app/account/personalList/page.js",
   "/account/userInfo/page": "app/account/userInfo/page.js",
-  "/account/myCart/page": "app/account/myCart/page.js"
+  "/account/wishList/page": "app/account/wishList/page.js"
 }

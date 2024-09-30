@@ -1,4 +1,4 @@
-// File: /Users/armorbita/Desktop/Marlenka/app/account/layout.jsx
+// File: /workspaces/marlenkaNew/app/account/layout.jsx
 import * as entry from '../../../../app/account/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
