@@ -1,14 +1,10 @@
-'use client'
-
 import Link from "next/link";
 import MainSlider from "@/components/slider/MainSlider";
 import { homeSliderData } from "@/utils/data/homeData";
 import { bestProducts } from "@/utils/data/homeData";
-
 import home1 from "@/public/images/home1.png"
 import home2 from "@/public/images/home2.png"
 import home3 from "@/public/images/home3.png"
-
 import category1 from "@/public/images/category1.png"
 import category2 from "@/public/images/category2.png"
 import category3 from "@/public/images/category3.png"
@@ -16,19 +12,13 @@ import category4 from "@/public/images/category4.png"
 import category5 from "@/public/images/category5.png"
 import category6 from "@/public/images/category6.png"
 import category7 from "@/public/images/category7.png"
-
-import videoSection from "@/public/images/videoSection.png"
 import timeline from "@/public/images/timeline.png"
-import 'react-modal-video/scss/modal-video.scss';
 import Image from "next/image";
-import ModalVideo from 'react-modal-video';
-import { useState } from "react";
 import Product from "@/components/product/Product";
 import IconProductHeart from "@/public/icons/IconProductHeart";
-
+import ModalVideoWrap from "@/components/ModalVideoWrap";
 
 export default function Home() {
-  const [isOpen, setOpen] = useState(false);
 
   return (
     <div className="home_page">
@@ -61,29 +51,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <ModalVideo
-        channel="youtube"
-        youtube={{ mute: 0, autoplay: 1 }}
-        autoplay={1}
-
-        isOpen={isOpen}
-        videoId="QiwtxINIVn8"
-        onClose={() => setOpen(false)}
-      />
-
-      <div className="relative cursor-pointer duration-300 hover:opacity-90" onClick={() => setOpen(true)}>
-        <Image
-          src={videoSection}
-          alt="Ricardo portrait"
-          priority={true}
-          unoptimized={true}
-          sizes="80vw"
-          style={{
-            objectFit: "cover",
-          }}
-        />
-      </div>
+      <ModalVideoWrap />
       <div className="bg-white !py-[80px]">
         <div className="custom_container">
           <div className="text-[32px] text-center uppercase">Best Sellers</div>
@@ -95,7 +63,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       <div className="flex bg-[#6D1316] py-[40px] relative mt-[-20px] tablet:pb-[40px]">
         <div className="custom_container flex justify-between overflow-hidden h-[650px] laptopHorizontal:h-[500px] tablet:flex-col tablet:h-auto">
           <div className="absolute left-0 top-0  flex items-center justify-center overflow-hidden bottom-20 h-full w-[55%] tablet:relative tablet:w-full tablet:h-[300px]">
@@ -294,31 +261,6 @@ export default function Home() {
           <Link href='/' className="text-[#B62025] text-2xl ml-auto block text-right mt-[-30px]">Read our history</Link>
         </div>
       </div>
-
-
-
-      {/*
-      <CategoryGrid category={categoryGrid} />
-      <ProductSlider sliderContent={bestProducts} />
-      <ParentSlider>
-        {newStores.map((store, i) => (
-          <div key={i}>
-            <ChildSlider gallery={store.gallery} />
-            <div className="mt-[30px] laptop:mt-20 text-[20px] text-center">
-              {store.title}
-            </div>
-            <Link
-              href="/"
-              className="visitStore_btn flex items-center w-[215px] mx-auto h-[50px] text-[#916D50] text-[24px] bg-[#F8F6F5] justify-center mt-[25px] laptop:mt-15  laptop:text-base"
-            >
-              Visit Store
-            </Link>
-          </div>
-        ))}
-      </ParentSlider>
-      <ProductSlider sliderContent={bestProducts} />
-      */}
-      {/* <FooterHero />  */}
     </div>
   );
 }
