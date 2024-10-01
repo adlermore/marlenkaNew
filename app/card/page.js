@@ -68,7 +68,7 @@ const CardPage = () => {
 													<button onClick={() => incrementQuantity(item.id)} className='py-[10px] text-2xl w-[40px] h-full flex items-center justify-center'>+</button>
 												</div>
 											</div>
-											<div>{item?.totalPrice}$</div>
+											<div>{item?.totalPrice.toFixed(1)}$</div>
 											<div>
 												<button className="remove_btn duration-300 hover:opacity-45" onClick={() => handleRemoveFromCart(item)}>
 													<IconTrash />
@@ -91,9 +91,9 @@ const CardPage = () => {
 							<div className='grid grid-cols-1 mb-[30px] gap-[10px] py-[18px] border-b border-[#CCC]'>
 								Order summary
 							</div>
-							<div className='flex items-center justify-between text-[#525252] mb-20'>Sub total <span className='ml-auto text-black text-xl font-medium'>${cart?.totalAmount}</span></div>
+							<div className='flex items-center justify-between text-[#525252] mb-20'>Sub total <span className='ml-auto text-black text-xl font-medium'>${cart?.totalAmount.toFixed(1)}</span></div>
 							<div className='flex items-center justify-between text-[#525252] mb-20'>Delivery<span className='ml-auto text-black  text-xl font-medium'>$5</span></div>
-							<div className='flex items-center justify-between text-[#525252] border-t  border-[#CCC] pt-20 font-bold'>Total<span className='ml-auto text-black  text-xl font-medium'>${cart?.totalAmount + 5}</span></div>
+							<div className='flex items-center justify-between text-[#525252] border-t  border-[#CCC] pt-20 font-bold'>Total<span className='ml-auto text-black  text-xl font-medium'>${cart?.totalAmount.toFixed(1) + 5}</span></div>
 							<div className='flex flex-1 items-end pb-[13px]'>
 							<button className='bg-[#CE090F] duration-300 hover:opacity-70 text-white rounded-[30px]  w-full h-[46px] border-none'>Checkout Now</button>
 
