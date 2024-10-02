@@ -40,6 +40,19 @@ body {
   }
 }
 
+@media (max-width: 991px) {
+    .cover_container .mobile_container.isScrolled {
+    a{
+      color: #0c1b20 !important;
+    }
+  }
+}
+
+
+.hamburger-react >div >div{
+  background: #520e11 !important;
+}
+
 ul {
   padding: 0;
   list-style: none;
@@ -311,6 +324,11 @@ a {
     input {
       width: 280px;
       opacity: 1;
+    }
+  }
+  @media (max-width:575px){
+    input {
+      width: calc(100vw - 40px);
     }
   }
 }
