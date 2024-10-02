@@ -33,7 +33,7 @@ function Header() {
     }
     if (window.scrollY > 10) {
       setIsScrolled(true);
-    } 
+    }
     if (isOpen) {
       document.body.style.overflow = "hidden";
       document.body.classList.add('menu_opened');
@@ -48,14 +48,14 @@ function Header() {
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setIsScrolled(true);
-      } else if(pathname == '/'){
+      } else if (pathname == '/') {
         setIsScrolled(false);
       }
     };
 
-    if (pathname !== '/' || window.scrollY > 10){
+    if (pathname !== '/' || window.scrollY > 10) {
       setIsScrolled(true);
-    }else{
+    } else {
       setIsScrolled(false);
     }
 
@@ -90,10 +90,10 @@ function Header() {
   };
 
 
-  const handelFavoriteDirect = () =>{
-    if(isAuth){
+  const handelFavoriteDirect = () => {
+    if (isAuth) {
       router.push('/account/wishList');
-    }else{
+    } else {
       loginPopupOpen()
     }
   }
@@ -110,9 +110,9 @@ function Header() {
             width={170}
           />
         </Link>
-        <div className={isOpen ? 'menu-open laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-full laptop:ml-0   laptop:h-full laptop:bottom-0 overflow-hidden  laptop:right-0  duration-[0.7s] mobile:duration-[0.5s]  ' : ' mobile:duration-[0.5s] duration-[0.7s] laptop:right-0 laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-0 laptop:ml-0   laptop:h-full laptop:bottom-0 overflow-hidden  '}>
-          <div className='ml-auto laptop:w-full  w-full laptop:m-0 laptop:flex laptop:justify-end laptop:z-[-1] tablet:w-[calc(100vw)] laptop:left-0 laptop:h-full z-20 laptop:bg-blueDark1 laptop:bg-opacity-35   tablet:bg-white mobile:bg-transparent tablet:text-black laptop:top-[86px] relative  '>
-            <div className={`${isScrolled && 'isScrolled'} mobile_container relative flex items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-32px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[30px] laptop:mr-0  laptop:gap-[30px]`}>
+        <div className={`laptop:fixed  flex gap-[30px] justify-around w-full max-w-[1070px] items-center z-20 ml-auto laptop:z-0 laptop:h-full laptop:bottom-0 laptop:right-0 overflow-hidden duration-[0.7s] mobile:duration-[0.5s] ${isOpen ? 'menu-open laptop:w-full' : 'laptop:w-0'}`}>
+          <div className="ml-auto w-full laptop:w-full laptop:m-0 laptop:flex laptop:justify-end tablet:w-[calc(100vw)] z-20 relative laptop:left-0 laptop:h-full laptop:bg-blueDark1 laptop:bg-opacity-35 laptop:z-[-1] laptop:top-[120px] tablet:bg-white mobile:bg-transparent tablet:text-black">
+            <div className={`${isScrolled && 'isScrolled'} mobile_container relative flex justify-center items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-32px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[70px] laptop:mr-0  laptop:justify-start laptop:gap-[30px]`}>
               {HeaderLinks.map((link, i) => (
                 <Link
                   key={i}
@@ -120,28 +120,25 @@ function Header() {
                   className={`${pathname === link.href && ' pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[38px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-white text-[18px] `}
                 >
                   {link.title}
-                  <span className='laptop:block hidden'>
-                    {'>'}
-                  </span>
                 </Link>
               ))}
             </div>
           </div>
-        </div>
-        <div className='flex items-center ml-auto gap-[30px] tablet:hidden'>
-          <div><SearchToggle /> </div>
-          <div onClick={handelFavoriteDirect} className='favorite_btn duration-300 relative cursor-pointer hover:opacity-70'>
-            <IconHeart
-              className='text-white'
-            />
-                  {wishListItems.length > 0 && 
-           <span className="red_count">{wishListItems.length}</span>
-          }
+          <div className='flex items-center ml-auto gap-[30px] laptop:absolute laptop:top-[119px] laptop:right-0 tablet:w-full laptop:bg-[#520e11] laptop:p-10 laptop:w-[350px] laptop:justify-center laptop:border-t border-siteCrem'>
+            <div><SearchToggle /> </div>
+            <div onClick={handelFavoriteDirect} className='favorite_btn duration-300 relative cursor-pointer hover:opacity-70'>
+              <IconHeart
+                className='text-white'
+              />
+              {wishListItems.length > 0 &&
+                <span className="red_count">{wishListItems.length}</span>
+              }
+            </div>
+            <CardCanvas />
+            <AccountToggle />
           </div>
-          <CardCanvas />
-          <AccountToggle />
         </div>
-        <div className="hidden z-20 laptop:flex  items-center justify-center relative before:absolute before:w-40 before:bg-blueDark1 before:h-40 mobile:right-[-5px]">
+        <div className="hidden z-20 laptop:flex  items-center justify-center color-black relative before:absolute before:w-40 before:bg-siteCrem before:h-40 mobile:right-[-5px]">
           <Hamburger
             toggled={isOpen}
             toggle={setOpen}

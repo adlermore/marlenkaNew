@@ -23,7 +23,7 @@ function SearchToggle() {
   };
 
   return (
-    <div className={searchOpened ? "search_li opened" : "search_li"} ref={ref}>
+    <div className={`${searchOpened ? "search_li opened" : "search_li"} laptop:fixed  laptop:top-[43px] laptop:right-[90px]`} ref={ref}>
       <input type="text" ref={SearchRef} placeholder="Search ..." />
       <a href="/#" className="search_btn" onClick={(e) => inputToggleSubmit(e)}>
         <IconSearch

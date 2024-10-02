@@ -86,6 +86,7 @@ function LoginPopup() {
       registerPopupOpen()
     }, 500);
   }
+  
   return (
     <div className="login_popup">
       <div

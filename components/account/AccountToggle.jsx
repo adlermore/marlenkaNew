@@ -86,7 +86,7 @@ function AccountToggle() {
         <div className="drop_btn cursor-pointer" onClick={dropToggle}>
           <div className="flex relative text-white items-center gap-20">
             <IconUser className="text" />
-            <span>Sign in</span>
+            <span className='whitespace-nowrap'>Sign in</span>
           </div>
         </div>
         <div className="account_drop">
