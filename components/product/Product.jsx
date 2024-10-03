@@ -65,7 +65,7 @@ function Product({ product, onClick }) {
 
   return (
     <div className="slider_block">
-      <div className="product_image h-[289px] laptopHorizontal:h-[350px] tablet:h-[300px] overflow-hidden laptop:h-[320px] w-full flex justify-center items-center relative">
+      <div className="product_image h-[289px] laptopHorizontal:h-[350px] overflow-hidden laptop:h-[260px] w-full flex justify-center items-center relative">
         <Link
           href={`/product/${product.id}`}
           onClick={onClick}

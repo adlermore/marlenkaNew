@@ -104,7 +104,7 @@ const Footer = () => {
   };
   
   return (
-    <div className='footer pt-[60px] pb-[140px] bg-[#520E11] text-white relative laptopHorizontal:py-[80px] mobile:py-[40px]'>
+    <div className='footer pt-[60px] laptopHorizontal:pt-[30px] pb-[140px] bg-[#520E11] text-white relative laptopHorizontal:py-[80px] mobile:py-[40px]'>
       <div className='custom_container '>
         <div className="flex items-center justify-between gap-20">
           <Image
@@ -112,15 +112,17 @@ const Footer = () => {
             alt="Ricardo portrait"
             priority={true}
             unoptimized={true}
+            className="laptopHorizontal:max-w-[160px] mobile:hidden"
           />
           <Image
             src={footerImg2}
             alt="Ricardo portrait"
             priority={true}
             unoptimized={true}
+            className="laptopHorizontal:max-w-[160px]"
           />
         </div>
-        <div className='flex footer_menu  mt-[50px] items-center gap-20 justify-between tablet:grid tablet:grid-cols-2 tablet:gap-40 mobile:grid-cols-1'>
+        <div className='flex footer_menu  mt-[50px] items-center gap-20 justify-between tablet:grid-cols-2 laptop:grid laptop:grid-cols-3 laptop:gap-40 mobile:grid-cols-1'>
           <div className="menu_block">
             <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Shortcuts</h2>
             <Link href="/">Home</Link>
