@@ -19,15 +19,15 @@ export default async function RootLayout({ children }) {
   return (
     <JsonContextProvider>
       <html lang="en">
-        <body className="flex flex-col siteBody">
+        <body className="flex flex-col siteBody success_opened">
           <Toaster   containerStyle={{zIndex: 99999}} position="bottom-right" />
           <Providers>
             <Header />
             <SuccessPopup />
-            {/* <div className="flex-1 main-wrapper">{children}</div> */}
+            <div className="flex-1 main-wrapper">{children}</div>
             <LoginPopup />
             <RegisterPopup />
-            {/* <Footer /> */}
+            <Footer />
           </Providers>
         </body>
       </html>

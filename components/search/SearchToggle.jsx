@@ -23,14 +23,14 @@ function SearchToggle() {
   };
 
   return (
-    <div className={`${searchOpened ? "search_li opened" : "search_li"} laptop:fixed  laptop:top-[43px] laptop:right-[90px]`} ref={ref}>
+    <div className={`${searchOpened ? "search_li opened" : "search_li"} laptop:fixed  laptop:top-[43px] mobile:top-[95px]  laptop:right-[90px] mobile:right-[25px]`} ref={ref}>
       <input type="text" ref={SearchRef} placeholder="Search ..." />
       <a href="/#" className="search_btn" onClick={(e) => inputToggleSubmit(e)}>
         <IconSearch
           className={`${
             searchOpened
               ? "text-black [&>path]:fill-black"
-              : "text-whitsiteCreme [&>path]:fill-siteCrem"
+              : "text-whitsiteCreme [&>path]:fill-siteCrem mobile:[&>path]:fill-black"
           } [&>path]:duration-300`}
         />
       </a>

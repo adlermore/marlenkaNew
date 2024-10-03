@@ -23,8 +23,8 @@ export default function Home() {
   return (
     <div className="home_page">
       <MainSlider sliderData={homeSliderData} />
-      <div className="flex bg-[#FFEED9] py-[90px] relative mt-[-20px] tablet:pb-[40px]">
-        <div className="custom_container flex justify-between overflow-hidden h-[500px] laptopHorizontal:h-[500px] tablet:flex-col tablet:h-auto">
+       <div className="flex bg-[#FFEED9] py-[90px] laptopHorizontal:py-[60px]  laptop:py-[20px] relative mt-[-20px]">
+        <div className="custom_container flex justify-between overflow-hidden tablet h-[500px]  tablet:flex-col laptop:h-auto">
           <div className="absolute left-0  flex items-center justify-center top-20 overflow-hidden bottom-20 h-full w-[47%] tablet:relative tablet:w-full tablet:h-[300px]">
             <Image
               src={home1}
@@ -36,7 +36,7 @@ export default function Home() {
               }}
             />
           </div>
-          <div className="py-[60px] ml-auto max-w-[650px] laptopHorizontal:max-w-[50%] laptop:py-40 tablet:max-w-none tablet:pl-10">
+          <div className="py-[60px]  laptopHorizontal:py-[30px] ml-auto max-w-[650px] laptopHorizontal:max-w-[50%] laptop:py-40 tablet:max-w-none tablet:pl-10">
             <div className=" uppercase text-[32px] laptopHorizontal:text-[20px]  "><span className="text-[#B62025]">SWEET</span> highlighty </div>
             <div className="mt-[30px] text-base laptopHorizontal:mt-20 tracking-[1px]">
               International success has enabled export to more than 40 countries worldwide, while achieving top marks verified by Quality Food Certificates!
@@ -52,10 +52,10 @@ export default function Home() {
         </div>
       </div>
       <ModalVideoWrap />
-      <div className="bg-white !py-[80px]">
+      <div className="bg-white py-[80px] laptopHorizontal:py-[40px] ">
         <div className="custom_container">
-          <div className="text-[32px] text-center uppercase">Best Sellers</div>
-          <div className="grid grid-cols-4 gap-[25px] mt-[80px] pb-[60px]">
+          <div className="text-[32px] text-center laptopHorizontal:text-2xl uppercase">Best Sellers</div>
+          <div className="grid grid-cols-4 gap-[25px] product_slider_list mt-[80px] mobile:grid-cols-1 tablet:grid-cols-2 laptopHorizontal:grid-cols-3  overflow-hidden laptopHorizontal:mt-[40px] pb-[60px]">
             <Product product={bestProducts[0]} />
             <Product product={bestProducts[1]} />
             <Product product={bestProducts[2]} />
@@ -78,7 +78,7 @@ export default function Home() {
               }}
             />
           </div>
-          <div className="py-[20px] ml-auto max-w-[530px] laptopHorizontal:max-w-[50%] laptop:py-40 tablet:max-w-none tablet:pl-10">
+          <div className="py-[20px] ml-auto max-w-[500px] laptopHorizontal:max-w-[40%] laptop:py-40 tablet:max-w-none tablet:pl-10">
             <span className="relative mb-20">
               <Image
                 src={home3}
@@ -119,11 +119,11 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="pt-[90px] pb-[120px] bg-siteCrem">
+      <div className="pt-[90px] pb-[120px] laptopHorizontal:pt-[60px]  mobile:pb-[60px] bg-siteCrem">
         <div className="custom_container">
           <div className="text-[32px] text-center uppercase">INGREDIENTS</div>
-          <div className="flex gap-20 items-end justify-between">
-            <div className="flex flex-col items-center max-w-[200px] text-center">
+          <div className="flex gap-20 items-end justify-between laptopHorizontal:flex-wrap mobile:mt-[30px] mobile:flex-col mobile:items-center mobile:justify-center mobile:align-center">
+            <div className="flex flex-col items-center justify-center mobile:max-w-none max-w-[200px] text-center">
               <Image
                 src={category1}
                 alt="Ricardo portrait"
@@ -140,7 +140,7 @@ export default function Home() {
                 scrumptious and healthy.
               </div>
             </div>
-            <div className="flex flex-col items-center max-w-[200px] text-center">
+            <div className="flex flex-col items-center justify-center mobile:max-w-none max-w-[200px] text-center">
               <Image
                 src={category2}
                 alt="Ricardo portrait"
@@ -157,7 +157,7 @@ export default function Home() {
                 scrumptious and healthy.
               </div>
             </div>
-            <div className="flex flex-col items-center max-w-[200px] text-center">
+            <div className="flex flex-col items-center justify-center mobile:max-w-none max-w-[200px] text-center">
               <Image
                 src={category3}
                 alt="Ricardo portrait"
@@ -174,7 +174,7 @@ export default function Home() {
                 scrumptious and healthy.
               </div>
             </div>
-            <div className="flex flex-col items-center max-w-[200px] text-center">
+            <div className="flex flex-col items-center justify-center mobile:max-w-none max-w-[200px] text-center">
               <Image
                 src={category4}
                 alt="Ricardo portrait"
@@ -191,7 +191,7 @@ export default function Home() {
                 scrumptious and healthy.
               </div>
             </div>
-            <div className="flex flex-col items-center max-w-[200px] text-center">
+            <div className="flex flex-col items-center justify-center mobile:max-w-none max-w-[200px] text-center">
               <Image
                 src={category5}
                 alt="Ricardo portrait"
@@ -208,7 +208,7 @@ export default function Home() {
                 scrumptious and healthy.
               </div>
             </div>
-            <div className="flex flex-col items-center max-w-[200px] text-center">
+            <div className="flex flex-col items-center justify-center mobile:max-w-none max-w-[200px] text-center">
               <Image
                 src={category6}
                 alt="Ricardo portrait"
@@ -225,7 +225,7 @@ export default function Home() {
                 scrumptious and healthy.
               </div>
             </div>
-            <div className="flex flex-col items-center max-w-[200px] text-center">
+            <div className="flex flex-col items-center justify-center mobile:max-w-none max-w-[200px] text-center">
               <Image
                 src={category7}
                 alt="Ricardo portrait"
@@ -245,7 +245,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="relative duration-300 hover:opacity-90 py-[85px] bg-white">
+      <div className="relative duration-300 hover:opacity-90 py-[85px] laptop:py-[60px] mobile:hidden bg-white">
         <div className="custom_container relative">
           <div className="text-[#B62025] uppercase text-[32px]">Marlenka's Timeline</div>
           <Image
@@ -258,7 +258,7 @@ export default function Home() {
               objectFit: "cover",
             }}
           />
-          <Link href='/' className="text-[#B62025] text-2xl ml-auto block text-right mt-[-30px]">Read our history</Link>
+          <Link href='/' className="text-[#B62025] text-2xl ml-auto block tablet:text-base text-right  mt-[-30px]">Read our history</Link>
         </div>
       </div>
     </div>
