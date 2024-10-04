@@ -15,7 +15,7 @@ const ProductGrid = ({ loading, products }) => {
 	const searchParams = useSearchParams();
 	const category = searchParams.get('category') || '';
 	const router = useRouter();
-	
+
 	const changeFilterType = (filter) => {
 		router.push(`?category=${filter}`, { scroll: false });
 	};
@@ -25,8 +25,8 @@ const ProductGrid = ({ loading, products }) => {
 	}
 	return (
 		<>
-			<div className='bg-[#FFEED9] py-[50px]'>
-				<div className='custom_container !mt-[130px] text-[32px] text-[#B62025] uppercase text-center'>
+			<div className='bg-[#FFEED9] py-[50px] laptopHorizontal:py-[30px] tablet:py-[20px]'>
+				<div className='custom_container !mt-[130px] mobile:!mt-[150px] text-[32px] laptopHorizontal:text-2xl laptop:text-xl tablet:text-base text-[#B62025] uppercase text-center'>
 					Products
 				</div>
 			</div>
@@ -40,30 +40,28 @@ const ProductGrid = ({ loading, products }) => {
 					style={{ objectFit: "cover" }}
 				/>
 			</div>
-
-			<div className='cover_container flex gap-[25px] !mt-[70px]'>
-				<div className='filter_block border border-1 border-[#F8F6F5] p-[25px] max-w-[290px] h-fit w-full'>
+			<div className='cover_container flex laptop:block gap-[25px] !mt-[70px] laptop:!mt-[40px] laptopHorizontal:gap-20'>
+				<div className='filter_block border border-1 border-[#F8F6F5] p-[25px] max-w-[290px] laptop:max-w-none laptopHorizontal:max-w-[230px] laptopHorizontal:p-[15px] h-fit w-full'>
 					<div className='mb-[30px]'>
-						<div className='text-[#B62025] text-[32px] mb-20 border-b-2 max-w-fit'>Categories</div>
-						{filterCategory.map((filter, index) => (
-							<div key={index} className="mb-[10px] filter_line">
-								<label htmlFor={`filter${index}`}>
-									<input type="radio" name='category'
-										onChange={() => changeFilterType(filter)}
-										id={`filter${index}`}
-										defaultChecked={category === filter.toLowerCase() || index === 0}
-									/>
-									<span className="check_label font-medium">{filter}</span>
-								</label>
-							</div>
-						))}
+						<div className='text-[#B62025] text-[32px] laptopHorizontal:text-2xl  mb-20 border-b-2 laptop:mx-auto laptop:mb-[40px]  text-center max-w-fit'>Categories</div>
+						<div className='laptop:flex laptop:items-center tablet:flex-wrap tablet:gap-[20px] laptop:justify-between'>
+							{filterCategory.map((filter, index) => (
+								<div key={index} className="mb-[10px] filter_line">
+									<label htmlFor={`filter${index}`}>
+										<input type="radio" name='category'
+											onChange={() => changeFilterType(filter)}
+											id={`filter${index}`}
+											defaultChecked={category === filter.toLowerCase() || index === 0}
+										/>
+										<span className="check_label font-medium">{filter}</span>
+									</label>
+								</div>
+							))}
+						</div>
 					</div>
 				</div>
-
 				<div className='w-full pb-[60px]'>
-
-
-					<div className='grid grid-cols-3 gap-[20px]'>
+					<div className='grid grid-cols-3 tablet:grid-cols-2 mobile:block gap-[20px]'>
 						{products?.catalog?.map((product, index) => (
 							<Product key={index} product={bestProducts[0]} />
 						))}

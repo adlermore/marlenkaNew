@@ -22,7 +22,7 @@ body {
   height: 100%;
   font-family: "MontserratRegular";
   color: black;
-  background: black;
+  // background: black;
   transition: background 0.3s;
   overflow-x: hidden !important;
 
@@ -39,6 +39,13 @@ body {
       overflow: visible !important;
     }
   }
+}
+
+
+.account_wrapper >div{
+  padding: 20px;
+  border: 1px solid #525252;
+  border-radius: 30px;
 }
 
 @media (max-width: 991px) {

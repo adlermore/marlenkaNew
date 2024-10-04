@@ -47,7 +47,7 @@ export default function Home() {
               <br />
               Full range has been developed with the extremely long ambient shelf-life due to our unique vacuum and O2 absorbent packaging technology. Unique taste and universal appeal of our product line is complemented with rich flavors and soft consistency.
             </div>
-            <a href="/" className="site_btn mt-[25px]">Products</a>
+            <Link href='/productListing' className="site_btn mt-[25px]">Products</Link>
           </div>
         </div>
       </div>
