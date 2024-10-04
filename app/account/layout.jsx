@@ -29,11 +29,11 @@ export default function AccountLayout({ children }) {
     }
   }, [isAuth, activePage]);
 
-  useEffect(() => {
-    if (isAuthChecked && !isAuth) {
-      router.push('/');
-    }
-  }, [isAuthChecked, isAuth, router]);
+  // useEffect(() => {
+  //   if (isAuthChecked && !isAuth) {
+  //     router.push('/');
+  //   }
+  // }, [isAuthChecked, isAuth, router]);
 
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function AccountLayout({ children }) {
               </li>
             </ul>
           </nav>
-          <main className='inner_wrapper w-full pr-[60px]'>{children}</main>
+          <main className='inner_wrapper w-full pr-[60px] account_wrapper'>{children}</main>
         </div>
       </div>
     </div>

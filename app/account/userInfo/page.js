@@ -28,19 +28,6 @@ export default function UserInfoPage() {
 
   return (
     <div className='user_wrapper w-full'>
-      <div className='flex gap-[30px] items-center'>
-        <div className='relative'>
-          {/* <Image
-            src={userImg}
-            alt="User Image"
-            priority={true}
-          /> */}
-        </div>
-        <div>
-          <div className='text-[18px] color-black font-medium'>Name Surname</div>
-          <div className='text-sm font-light mt-[2px] text-[#949494]'>Yerevan, Armenia</div>
-        </div>
-      </div>
       <div className='mt-[30px] text-xl text-black'>
         Personal Information
       </div>
