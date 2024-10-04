@@ -23,7 +23,7 @@ export default async function RootLayout({ children }) {
           <Toaster   containerStyle={{zIndex: 99999}} position="bottom-right" />
           <Providers>
             <Header />
-            <SuccessPopup />
+            {/* <SuccessPopup /> */}
             <div className="flex-1 main-wrapper">{children}</div>
             <LoginPopup />
             <RegisterPopup />
