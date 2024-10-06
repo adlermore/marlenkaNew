@@ -98,7 +98,7 @@ export default function UserInfoPage() {
             autoComplete="on"
             className="form-control"
             value={user?.phone}
-            mask="(999)-999-9999"
+            mask="(999)-999-999"
 
           />
           <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">

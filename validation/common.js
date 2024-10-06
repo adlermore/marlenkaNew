@@ -3,7 +3,6 @@ import { z } from "zod";
 export const name = z
   .string()
   .min(1, { message: "This field is required" })
-  .min(5, { message: "Name must be at least 5 characters long" })
   .max(50, { message: "Field must be at most 50 characters long" })
   .trim()
   .refine((val) => /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/.test(val), {
@@ -16,14 +15,20 @@ export const name = z
 export const namefirst = z
   .string()
   .min(1, { message: "This field is required" })
-  .min(5, { message: "Surname must be at least 5 characters long" })
   .max(50, { message: "Field must be at most 50 characters long" })
   .trim()
+
+
+export const City = z
+  .string()
+  .min(1, { message: "This field is required" })
+  .max(50, { message: "Field must be at most 50 characters long" })
+  .trim()
+
 
 export const address = z
   .string()
   .min(1, { message: "This field is required" })
-  .min(5, { message: "Surname must be at least 5 characters long" })
   .max(50, { message: "Field must be at most 50 characters long" })
   .trim()
 
@@ -38,7 +43,6 @@ export const postalCode = z
 export const surname = z
   .string()
   .min(1, { message: "This field is required" })
-  .min(5, { message: "Surname must be at least 5 characters long" })
   .max(50, { message: "Field must be at most 50 characters long" })
   .trim()
 

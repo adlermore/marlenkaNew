@@ -13,7 +13,10 @@ import IconFb from "@/public/icons/IconFb"
 import IconIn from "@/public/icons/IconIn"
 import IconTwit from "@/public/icons/IconTwit"
 import IconYou from "@/public/icons/IconYou"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import request from "@/utils/hooks/request"
+import { email } from "@/validation/common"
+import toast from "react-hot-toast"
 
 const Footer = () => {
   const [formData, setFormData] = useState({
@@ -25,6 +28,8 @@ const Footer = () => {
     fullName: '',
     email: ''
   });
+
+  const [constacts , setContacts] = useState(null);
 
   const validateField = (name, value) => {
     let error = '';
@@ -82,18 +87,21 @@ const Footer = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        // API call to handle form submission
-        const response = await fetch('/api/subscribe', {
+
+        const response = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/subscribe', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify({
+            name : formData.fullName,
+            email : formData.email
+          })
         });
 
         if (response.ok) {
-          alert('Thank you for subscribing!');
-          setFormData({ fullName: '', email: '' }); // Clear form after submission
+          toast.success("Thank you for subscribing!");
+          setFormData({ fullName: '', email: '' }); 
         } else {
           alert('Something went wrong. Please try again.');
         }
@@ -102,6 +110,20 @@ const Footer = () => {
       }
     }
   };
+
+
+  useEffect(() => {
+    const fetchContacts = async () => {
+      try {
+        const data = await request(process.env.NEXT_PUBLIC_DATA_API +'/getContactUs');
+        setContacts(data.data.contactUs[0]);
+      
+      } catch (error) {
+        console.error('Failed to fetch categories', error);
+      }
+    };
+    fetchContacts();
+  }, []);
   
   return (
     <div className='footer pt-[60px] laptopHorizontal:pt-[30px] pb-[140px] bg-[#520E11] text-white relative laptopHorizontal:py-[80px] mobile:py-[40px]'>
@@ -141,16 +163,16 @@ const Footer = () => {
           </div>
           <div className="menu_block contact-block">
             <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Contact us</h2>
-            <a href="/" className="!flex items-center  gap-20"><IconCall /> 1-(844)-627-5365</a>
-            <a href="/" className="!flex items-center  gap-20"> <IconWhatsap /> Terms & conditions</a>
-            <a href="/" className="!flex items-center  gap-20"><IconMail /> Delivery & returns</a>
+            <a href={`tel:${constacts?.phone_number}`}  className="!flex items-center  gap-20"><IconCall />{constacts?.phone_number}</a>
+            <a href="/" className="!flex items-center  gap-20"> <IconWhatsap /> {constacts?.whatsapp}</a>
+            <a href="/" className="!flex items-center  gap-20"><IconMail /> {constacts?.email}</a>
             <div className="flex gap-[20px] items-center">
-              <a href="/"><IconGoogle /></a>
-              <a href="/"><IconInsta /></a>
-              <a href="/"><IconFb /></a>
-              <a href="/"><IconIn /></a>
-              <a href="/"><IconTwit /></a>
-              <a href="/"><IconYou /></a>
+              <a href={constacts?.gmail_link}><IconGoogle /></a>
+              <a href={constacts?.instagram_link}><IconInsta /></a>
+              <a href={constacts?.facebook_link}><IconFb /></a>
+              <a href={constacts?.linkedin_link}><IconIn /></a>
+              <a href={constacts?.twitter_link}><IconTwit /></a>
+              <a href={constacts?.youtube_link}><IconYou /></a>
             </div>
           </div>
           <div className="menu_block">

@@ -115,7 +115,7 @@ a {
   transition: 0.3s;
   z-index: 99999;
   visibility: hidden;
-  overflow-y: auto;
+  // overflow-y: auto;
   form {
     white-space: nowrap;
   }
@@ -141,6 +141,8 @@ a {
     position: relative;
     transition: 0.5s;
     padding: 30px;
+    overflow-y: auto;
+    // padding-bottom: 50px;
     @media(max-width:575px){
       min-height: 130vh;
       >div{
@@ -187,7 +189,8 @@ a {
 
   .popup_inner {
     width: 100%;
-    height: 100%;
+    // height: 100%;
+    padding-bottom: 40px;
   }
 
   .form_block {
@@ -292,7 +295,7 @@ a {
 }
 
 .register_link {
-  margin-top: 40px;
+  margin-top: 60px;
   width: 100%;
 
   .reg_title {
@@ -303,19 +306,20 @@ a {
   }
 
   button {
-    height: 57px;
-    background: white;
+    // height: 57px;
+    height: 50px;
+    // background: white;
     transition: 0.3s;
-    border: 1px solid black;
+    // border: 1px solid black;
     margin: 0 auto;
     margin-top: 20px;
     max-width: 182px;
     width: 100%;
     display: flex;
     align-items: center;
-    color: black;
+    // color: black;
     justify-content: center;
-
+    border-radius: 30px;
     &:hover {
       background: #B62025;
       color: white;
@@ -374,7 +378,7 @@ a {
 
   @media (max-width:575px) {
     input {
-      width: calc(100vw - 40px);
+      width: calc(100vw - 40px) !important;
       opacity: 1;
       border-radius: 0;
     }
@@ -1536,6 +1540,25 @@ input::-webkit-inner-spin-button {
   }
 }
 
+
+.checkout_form{
+  .userInfo_label{
+    font-size: 12px;
+  }
+  .form_block input {
+    border-radius: 20px;
+    width: 100%;
+    height: 47px;
+    font-size: 14px;
+    padding: 0 15px;
+    outline: none;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}
+
+
+
 @media (max-width: 1199px) {
   .slick_wrapper {
     .slider_title {
@@ -1589,5 +1612,61 @@ input::-webkit-inner-spin-button {
       bottom: 35px;
     }
 
+  }
+}
+
+.cards {
+  display: flex;
+}
+
+.card {
+  margin: 10px;
+  width: 300px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+
+  .image {
+    img {
+      max-width: 100%;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+  }
+
+  .content {
+    padding: 20px 30px;
+  }
+}
+
+.card.is-loading {
+  .image,
+  h2,
+  p {
+    background: #eee;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    border-radius: 5px;
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+  }
+
+  .image {
+    height: 200px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  h2 {
+    height: 30px;
+  }
+
+  p {
+    height: 70px;
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
   }
 }

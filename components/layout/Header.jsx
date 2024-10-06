@@ -16,16 +16,20 @@ import Image from 'next/image'
 import { initializeCart } from '@/redux/cartSlice'
 import { useRouter } from 'next/navigation';
 import { initializeWishlist } from '@/redux/wishlistSlice'
+import request from '@/utils/hooks/request'
 
 function Header() {
 
   const dispatch = useDispatch();
   const pathname = usePathname();
   const router = useRouter();
+
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   const wishListItems = useSelector((state) => state.wishlist.items);
+
   const [isOpen, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [categories, setCategories] = useState(null);
 
   useEffect(() => {
     if (document.body.classList.contains('menu_opened')) {
@@ -39,12 +43,13 @@ function Header() {
       document.body.classList.add('menu_opened');
     } else {
       document.body.classList.remove('menu_opened');
+      document.body.style.overflow = "visible";
     }
 
     dispatch(initializeAuth());
     dispatch(initializeCart());
     dispatch(initializeWishlist());
-
+    
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setIsScrolled(true);
@@ -68,6 +73,19 @@ function Header() {
   }, [isOpen, pathname, dispatch]);
 
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await request('http://165.232.47.193/api/getCategories');
+        setCategories(data.data.categories);
+      } catch (error) {
+        console.error('Failed to fetch categories', error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+
   const detectScrollBarWidth = () => {
     const documentWidth = document.documentElement.clientWidth;
     const windowWidth = window.innerWidth;
@@ -89,7 +107,6 @@ function Header() {
     });
   };
 
-
   const handelFavoriteDirect = () => {
     if (isAuth) {
       router.push('/account/wishList');
@@ -110,10 +127,21 @@ function Header() {
             width={170}
           />
         </Link>
-        <div className={`laptop:fixed  flex gap-[30px] justify-around w-full max-w-[1070px] items-center z-20 ml-auto laptop:z-0 laptop:h-full laptop:bottom-0 laptop:right-0 overflow-hidden duration-[0.7s] mobile:duration-[0.5s] ${isOpen ? 'menu-open laptop:w-full' : 'laptop:w-0'}`}>
+        <div className={`laptop:fixed  flex gap-[30px] justify-around w-full max-w-[1100px] items-center z-20 ml-auto laptop:z-0 laptop:h-full laptop:bottom-0 laptop:right-0 duration-[0.7s] mobile:duration-[0.5s] ${isOpen ? 'menu-open laptop:w-full' : 'laptop:w-0'}`}>
           <div className="ml-auto w-full laptop:w-full laptop:m-0 laptop:flex laptop:justify-end tablet:w-[calc(100vw)] z-20 relative laptop:left-0 laptop:h-full laptop:bg-blueDark1 laptop:bg-opacity-35 laptop:z-[-1] laptop:top-[120px] tablet:bg-white mobile:bg-transparent tablet:text-black mobile:top-[150px]">
-            <div className={`${isScrolled && 'isScrolled'} mobile_container relative flex justify-center mobile:h-[calc(100vh-150px)] items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-32px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[70px] laptop:mr-0  laptop:justify-start laptop:gap-[30px]`}>
-              {HeaderLinks.map((link, i) => (
+            <div className={`${isScrolled && 'isScrolled'} ml-[-40px] noteBook:ml-0 mobile_container relative flex justify-center mobile:h-[calc(100vh-150px)] items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-32px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[70px] laptop:mr-0  laptop:justify-start laptop:gap-[30px]`}>
+              {categories ? 
+              categories.slice(0,7).map((category) => (
+                <Link
+                  key={category.id}
+                  href={`/productListing?category=${category.id}`}
+                  className={`${pathname === `/productListing?category=${category.id}` && ' pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[38px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-white text-[18px] `}
+                >
+                  {category.name}
+                </Link>
+              ))
+             :
+              HeaderLinks.map((link, i) => (
                 <Link
                   key={i}
                   href={link.href}
@@ -121,7 +149,8 @@ function Header() {
                 >
                   {link.title}
                 </Link>
-              ))}
+              ))
+              }
             </div>
           </div>
           <div className='flex items-center ml-auto gap-[30px] laptop:absolute laptop:top-[119px] mobile:top-[148px] laptop:right-0 tablet:w-full laptop:bg-[#520e11] laptop:p-10 laptop:w-[350px] laptop:justify-center laptop:border-t border-siteCrem'>

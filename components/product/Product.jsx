@@ -2,6 +2,7 @@
 
 import IconHeart from "@/public/icons/IconHeart";
 import IconHeartFill from "@/public/icons/IconHeartFill";
+import IconHeartFill2 from "@/public/icons/IconHeartFill2";
 import IconProductCard from "@/public/icons/IconProductCard";
 import IconProductHeart from "@/public/icons/IconProductHeart";
 import IconShop from "@/public/icons/IconShop";
@@ -19,6 +20,7 @@ function Product({ product, onClick }) {
   // Check if the product is in the wishlist
   const isInWishlist = wishlist.some(item => item.id === product.id);
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  const token =useSelector((state) => state.auth.isAuthenticated);
 
 	const handleAddToCart = (e) => {
     e.preventDefault();
@@ -55,8 +57,10 @@ function Product({ product, onClick }) {
     if(isAuth){
       if (isInWishlist) {
         dispatch(removeFromWishlist(product));
+
       } else {
         dispatch(addToWishlist(product));
+        
       }
     }else{
       loginPopupOpen()
@@ -66,37 +70,39 @@ function Product({ product, onClick }) {
   return (
     <div className="slider_block">
       <div className="product_image h-[289px] laptopHorizontal:h-[350px] overflow-hidden laptop:h-[260px] w-full flex justify-center items-center relative">
-        <Link
-          href={`/product/${product.id}`}
-          onClick={onClick}
-          className="w-full h-full flex justify-center items-center relative !opacity-1"
-        >
-          <Image
-            src={product.image}
-            unoptimized
-            alt={product.title} 
-            priority
-            fill
-            className="object-contain"
-          />
-          <span className="product_inner">
+        {product?.images &&
+            <Link
+            href={`/product/${product.id}`}
+            onClick={onClick}
+            className="w-full h-full flex justify-center items-center relative !opacity-1"
+          >
             <Image
-              src={product.innerImage}
+              src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
               unoptimized
-              alt={product.title}
+              alt={product.name || "Ricardo portrait"} 
               priority
               fill
-              className="product_inner_img object-contain"
+              className="object-contain"
             />
-          </span>
-        </Link>
+            <span className="product_inner">
+              <Image
+                src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
+                unoptimized
+                alt={product.name || "Ricardo portrait"} 
+                priority
+                fill
+                className="product_inner_img object-contain"
+              />
+            </span>
+          </Link>
+        }
         <span className="product_links z-[999] flex flex-col items-center absolute top-0 right-0">
           <button
             className={`block`}
             aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
             onClick={handleAddToWishlist}
           >
-            {isInWishlist ? <IconHeartFill className='!w-[22px] h-auto'  />  : <IconProductHeart className='[&>path]:fill-[#C17E2E] w-[22px]' />  }
+            {isInWishlist ? <IconHeartFill2 className='!w-[20px] h-auto'  />  : <IconProductHeart className='[&>path]:fill-[#C17E2E] w-[22px]' />  }
           </button>
           <button
             className="mt-[15px] block"
@@ -108,9 +114,9 @@ function Product({ product, onClick }) {
         </span>
       </div>
       <div className="flex items-center text-[#B62025] font-medium text-xl justify-center gap-[5px]">
-        <span>Classic</span>-<span>Large</span>
+        {product.name}
       </div>
-      <div className="font-medium mt-[5px] flex items-center gap-[5px] justify-center text-[18px] text-black"><span>-</span>{product.price}<span>-</span></div>
+      <div className="font-medium mt-[5px] flex items-center gap-[5px] justify-center text-[18px] text-black"><span>-</span>{product.price}$<span>-</span></div>
     </div>
   );
 }

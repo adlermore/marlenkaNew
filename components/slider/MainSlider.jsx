@@ -26,7 +26,7 @@ function MainSlider({sliderData}) {
           <div key={index} className='slider_container h-[850px] w-full relative laptopHorizontal:h-[500px] mobile:h-[350px]'>
             <div className="slider_background relative h-full w-full ">
               <Image
-                src={slider.image}
+                src={process.env.NEXT_PUBLIC_DATA  + slider.image_path}
                 alt='future_Image'
                 fill
                 unoptimized={true}
@@ -37,14 +37,16 @@ function MainSlider({sliderData}) {
             <div className="cover_container">
             <div className="slider_content">
               <Image
-                src={slider.imageInner}
+                src={process.env.NEXT_PUBLIC_DATA  + slider?.small_image_path}
                 alt='future_Image'
                 unoptimized={true}
                 sizes="100vw"
+                width={150}
+                height={100}
                 className="h-full w-full object-cover mobile:max-w-[300px]"
               />
               <div className="slider_description">{slider.description}</div>
-              <Link href="/" className="slider_btn">Discover more</Link>
+              <Link href="/productListing" className="slider_btn">Discover more</Link>
             </div>
             </div>
           </div>

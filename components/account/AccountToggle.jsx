@@ -62,7 +62,7 @@ function AccountToggle() {
     setTimeout(() => {
       dispatch(setAuthenticated(false));
       dispatch(resetWishlist());
-      localStorage.removeItem("access_token");
+      localStorage.removeItem("token");
       window.location.reload();
     }, 300);
   };
@@ -93,7 +93,7 @@ function AccountToggle() {
           {isAuth ? (
             <div className="drop_ist" onClick={(e) => e.stopPropagation()}>
               <div className="drop_inner">
-                <div className="border-[#b46126] border-b-2 pb-[5px]">{`Hi ${user?.name || "User"
+                <div className="border-[#b46126] border-b-2 pb-[5px]">{`Hi ${user?.name.split(' ')[0] || "User"
                   }`}</div>
                 <Link href='/account/userInfo' className="mt-[10px]"> My Account</Link>
                 <div

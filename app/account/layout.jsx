@@ -59,7 +59,7 @@ export default function AccountLayout({ children }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(setAuthenticated(false));
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("token");
     window.location.reload();
   };
 
@@ -83,16 +83,6 @@ export default function AccountLayout({ children }) {
               <li>
                 <Link href="/account/myCart" className={pathname === '/account/myCart' ? 'active-link' : ''}>
                   <IconProductCard /> My Cart
-                </Link>
-              </li>
-              <li>
-                <Link href="/account/notifications" className={pathname === '/account/notifications' ? 'active-link' : ''}>
-                  <IconNotifi /> Notifications
-                </Link>
-              </li>
-              <li>
-                <Link href="/account/personalList" className={pathname === '/account/personalList' ? 'active-link' : ''}>
-                  <IconGroup />  Personal Occasions
                 </Link>
               </li>
               <li className='log_out'>
