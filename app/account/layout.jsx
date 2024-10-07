@@ -8,8 +8,6 @@ import "@/styles/account.scss";
 import IconUser from '@/public/icons/IconUser';
 import IconHeart from '@/public/icons/IconHeart';
 import IconProductCard from '@/public/icons/IconProductCard';
-import IconNotifi from '@/public/icons/IconNotifi';
-import IconGroup from '@/public/icons/IconGroup';
 import IconLogOut from '@/public/icons/IconLogOut';
 import { setAuthenticated } from '@/redux/authSlice';
 
@@ -29,11 +27,11 @@ export default function AccountLayout({ children }) {
     }
   }, [isAuth, activePage]);
 
-  // useEffect(() => {
-  //   if (isAuthChecked && !isAuth) {
-  //     router.push('/');
-  //   }
-  // }, [isAuthChecked, isAuth, router]);
+  useEffect(() => {
+    if (isAuthChecked && !isAuth) {
+      router.push('/');
+    }
+  }, [isAuthChecked, isAuth, router]);
 
 
   useEffect(() => {
@@ -59,7 +57,7 @@ export default function AccountLayout({ children }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(setAuthenticated(false));
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("token");
     window.location.reload();
   };
 
@@ -83,16 +81,6 @@ export default function AccountLayout({ children }) {
               <li>
                 <Link href="/account/myCart" className={pathname === '/account/myCart' ? 'active-link' : ''}>
                   <IconProductCard /> My Cart
-                </Link>
-              </li>
-              <li>
-                <Link href="/account/notifications" className={pathname === '/account/notifications' ? 'active-link' : ''}>
-                  <IconNotifi /> Notifications
-                </Link>
-              </li>
-              <li>
-                <Link href="/account/personalList" className={pathname === '/account/personalList' ? 'active-link' : ''}>
-                  <IconGroup />  Personal Occasions
                 </Link>
               </li>
               <li className='log_out'>

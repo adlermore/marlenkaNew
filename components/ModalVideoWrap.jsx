@@ -6,10 +6,10 @@ import ModalVideo from 'react-modal-video';
 import 'react-modal-video/scss/modal-video.scss';
 import Image from "next/image";
 
-function ModalVideoWrap() {
-
+function ModalVideoWrap({videoData}) {
+	
 	const [isOpen, setOpen] = useState(false);
-
+	
 	return (
 		<div>
 			<ModalVideo
@@ -17,7 +17,7 @@ function ModalVideoWrap() {
 				youtube={{ mute: 0, autoplay: 1 }}
 				autoplay={1}
 				isOpen={isOpen}
-				videoId="QiwtxINIVn8"
+				videoId={videoData? videoData :  'QiwtxINIVn8'}
 				onClose={() => setOpen(false)}
 			/>
 
@@ -31,7 +31,7 @@ function ModalVideoWrap() {
 					style={{
 						objectFit: "cover",
 					}}
-					className='mobile:object-contain h-[300px]'
+					className='mobile:object-contain mobile:h-[300px]'
 				/>
 			</div>
 		</div>

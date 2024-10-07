@@ -8,7 +8,7 @@ import IconFail from "@/public/icons/IconFail";
 function SuccessPopup() {
 
   const ref = useRef();
-  const [success , setSuccess] = useState(false)
+  const [success , setSuccess] = useState(true)
 
   //Close popup after Outside Click
   useOnClickOutside(ref, () => {

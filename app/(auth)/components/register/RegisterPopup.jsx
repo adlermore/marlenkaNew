@@ -1,29 +1,27 @@
 'use client';
 
-import React, { useContext, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { JsonContext } from '@/context/jsonContext';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "@/validation/registerSchema";
-import { register } from '@/redux/authSlice';
+import { initializeAuth, register } from '@/redux/authSlice';
 import useOnClickOutside from '@/utils/hooks/useOnClickOutside';
 import IconClose from '@/public/icons/IconClose.jsx';
-import InputMask from "react-input-mask";
 import loginLogo from '@/public/images/loginImg.svg'
 import Image from 'next/image';
 import eye from '@/public/images/eye.png'
 
-
 function RegisterPopup() {
   const [showPass, setShowPass] = useState(false);
+  const [initialized, setInitialized] = useState(false);
 
   const ref = useRef();
   const dispatch = useDispatch();
 
   const { status, error } = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth.user);
 
-  //Close Popup after outside click
   useOnClickOutside(ref, () => {
     if (document.body.classList.contains("register_opened")) {
       closeRegister()
@@ -47,15 +45,17 @@ function RegisterPopup() {
 
   //sumbition Data
   const registerSubmit = async (dataForm) => {
-
-    // setDisabledBtn(true);
-    const newData = {
-      ...dataForm,
-      // password_confirmation: dataForm.password,
-    }
-    dispatch(register(newData));
+    dispatch(register(dataForm));
     reset()
   };
+
+  useEffect(() => {
+    if (status === "succeeded" && !initialized && !user) {
+      dispatch(initializeAuth());
+      setInitialized(true);
+    }
+  }, [status, initialized, dispatch]);
+
 
   const passToggle = () => {
     setShowPass(!showPass);
@@ -66,7 +66,7 @@ function RegisterPopup() {
       <div className="popup_container" ref={ref}>
         <div className='popup_inner'>
           <div className="title_line">
-          <span className="logo_block">
+            <span className="logo_block">
               <Image
                 src={loginLogo}
                 alt="Ricardo portrait"
@@ -101,30 +101,30 @@ function RegisterPopup() {
                   autoComplete="on"
                   className="form-control"
                   name="name"
-                  {...registerForm("name", { required: true, minLength: 5 })}
+                  {...registerForm("name", { required: true })}
                 />
                 <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
                   {errorsRegister?.name?.message}
                 </p>
               </div>
               <div className={errorsRegister?.email ? "form_block has_error" : "form_block"}  >
-                  <div className="registerForm_label text-base font-light mb-[5px]">
-                    Email
-                  </div>
-                  <input
-                    placeholder="Enter your email address"
-                    autoComplete="on"
-                    className="form-control"
-                    name="email"
-                    {...registerForm("email", {
-                      required: true,
-                      pattern: /^\S+@\S+$/i,
-                    })}
-                  />
-                  <p className="form_error form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-                    {errorsRegister?.email?.message}
-                  </p>
+                <div className="registerForm_label text-base font-light mb-[5px]">
+                  Email
                 </div>
+                <input
+                  placeholder="Enter your email address"
+                  autoComplete="on"
+                  className="form-control"
+                  name="email"
+                  {...registerForm("email", {
+                    required: true,
+                    pattern: /^\S+@\S+$/i,
+                  })}
+                />
+                <p className="form_error form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+                  {errorsRegister?.email?.message}
+                </p>
+              </div>
               <div className={errorsRegister?.password ? "form_block has_error" : "form_block"}>
                 <div className="registerForm_label text-base font-light mb-[5px]">
                   Password
@@ -135,9 +135,9 @@ function RegisterPopup() {
                   className="form-control"
                   name="password"
                   type={showPass ? "text " : "password"}
-                  {...registerForm("password", { required: true, minLength: 5 })}
+                  {...registerForm("password", { required: true })}
                 />
-                       <button className={`pass_show ${showPass && 'avtive'}`} onClick={passToggle}>
+                <button className={`pass_show ${showPass && 'avtive'}`} onClick={passToggle}>
                   <Image
                     src={eye}
                     alt="Ricardo portrait"
@@ -153,18 +153,34 @@ function RegisterPopup() {
                   {errorsRegister?.password?.message}
                 </p>
               </div>
+              <div className={errorsRegister?.password_confirmation ? "form_block has_error" : "form_block"}>
+                <div className="registerForm_label text-base font-light mb-[5px]">
+                  Confirm Password
+                </div>
+                <input
+                  placeholder="Confirm your password"
+                  autoComplete="on"
+                  className="form-control"
+                  name="password_confirmation"
+                  type="password"
+                  {...registerForm("password_confirmation", { required: true })}
+                />
+                <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+                  {errorsRegister?.password_confirmation?.message}
+                </p>
+              </div>
               <button
                 type="submit"
                 className={
                   status === 'loading'
-                    ? " mt-[35px] !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-[#0071DC] text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
-                    : " mt-[35px] relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
+                    ? " mt-[35px]  z-[999]   !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-[#0071DC] text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
+                    : " mt-[35px]   z-[999]  relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
                 }
               >
                 <svg
                   aria-hidden="true"
                   role="status"
-                  className="absolute left-[calc(50%-60px)] inline mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-gray-600"
+                  className="absolute inline mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-gray-600"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +194,7 @@ function RegisterPopup() {
                     fill="#1C64F2"
                   ></path>
                 </svg>
-                {status === 'loading' ? "Registration ..." : " Registration"}
+                {status !== 'loading' && "Registration"}
               </button>
             </form>
           </div>

@@ -2,7 +2,7 @@ import { setAuthenticated } from "./authSlice";
 
 const authMiddleware = (storeAPI) => (next) => (action) => {
   if (action.type !== setAuthenticated.type) {
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("token");
     if (token) {
       storeAPI.dispatch(setAuthenticated(true));
     } else {

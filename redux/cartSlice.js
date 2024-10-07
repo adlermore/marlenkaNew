@@ -42,15 +42,14 @@ const cartSlice = createSlice({
       const existingItemIndex = state.items.findIndex(item => item.id === product.id);
   
       if (existingItemIndex >= 0) {
-          // Show a toast message if the item is already in the cart
-          toast(`${product.title} is already in your cart`);
+          toast(`${product.name} is already in your cart`);
       } else {
           // If item doesn't exist, add it to the cart
           state.items.push({
               ...product,
               totalPrice: parseFloat(product.price) * product.quantity, // Total price based on initial quantity
           });
-          toast.success(`${product.title} added to your cart`);
+          toast.success(`${product.name} added to your cart`);
       }
   
       // Update total amount
