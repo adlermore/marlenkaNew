@@ -8,8 +8,6 @@ import "@/styles/account.scss";
 import IconUser from '@/public/icons/IconUser';
 import IconHeart from '@/public/icons/IconHeart';
 import IconProductCard from '@/public/icons/IconProductCard';
-import IconNotifi from '@/public/icons/IconNotifi';
-import IconGroup from '@/public/icons/IconGroup';
 import IconLogOut from '@/public/icons/IconLogOut';
 import { setAuthenticated } from '@/redux/authSlice';
 
@@ -29,11 +27,11 @@ export default function AccountLayout({ children }) {
     }
   }, [isAuth, activePage]);
 
-  // useEffect(() => {
-  //   if (isAuthChecked && !isAuth) {
-  //     router.push('/');
-  //   }
-  // }, [isAuthChecked, isAuth, router]);
+  useEffect(() => {
+    if (isAuthChecked && !isAuth) {
+      router.push('/');
+    }
+  }, [isAuthChecked, isAuth, router]);
 
 
   useEffect(() => {
@@ -98,4 +96,3 @@ export default function AccountLayout({ children }) {
     </div>
   );
 }
-

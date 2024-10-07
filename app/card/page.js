@@ -2,17 +2,17 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import "@/styles/product_inner.scss";
-import { bestProducts } from '@/utils/data/homeData';
 import { useDispatch, useSelector } from 'react-redux';
-import Link from 'next/link';
+
 import emptybag from '@/public/images/emptybag.png';
-import Product from '@/components/product/Product';
+
 import { removeFromCart, updateCartQuantity } from '@/redux/cartSlice';
 import IconTrash from '@/public/icons/IconTrash';
+import AlsoLike from '@/components/alsoLikeProducts/AlsoLike';
 
 
 const CardPage = () => {
-  const router = useRouter();
+	const router = useRouter();
 
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
@@ -28,8 +28,10 @@ const CardPage = () => {
 		dispatch(updateCartQuantity({ productId, amount: -1 }));
 	};
 
-	const handleCheckout =() =>{
-		router.push('/checkout');
+	const handleCheckout = () => {
+		if (cart?.totalAmount > 1) {
+			router.push('/checkout');
+		}
 	}
 
 	return (
@@ -56,7 +58,7 @@ const CardPage = () => {
 										<div key={index} className='grid  relative grid-cols-5 mobile mobile:grid-cols-3 mobile:items-center text-center gap-[10px] py-[25px] last:border-none items-center border-b border-[#CCC]'>
 											<div className='relative flex items-center justify-center'>
 												<Image
-													src={process.env.NEXT_PUBLIC_DATA + item.images[0].image_path}
+													src={process.env.NEXT_PUBLIC_DATA + item?.images[0].image_path || ''}
 													unoptimized
 													alt={item.name || "Ricardo portrait"}
 													priority
@@ -100,31 +102,13 @@ const CardPage = () => {
 							<div className='flex items-center justify-between text-[#525252] mb-[40px]'>Delivery<span className='ml-auto text-black  text-xl font-medium'>$5</span></div>
 							<div className='flex items-center justify-between text-[#525252] border-t  border-[#CCC] pt-20 font-bold'>Total<span className='ml-auto text-black  text-xl font-medium'>${cart?.totalAmount.toFixed(1) + 5}</span></div>
 							<div className='flex flex-1 items-end pb-[13px]'>
-							<button onClick={handleCheckout} className='bg-[#CE090F] duration-300 hover:opacity-70 text-white rounded-[30px]  w-full h-[46px] border-none'>Checkout Now</button>
+								<button onClick={handleCheckout} className={`bg-[#CE090F] duration-300 hover:opacity-70 text-white rounded-[30px]  w-full h-[46px] border-none ${cart?.totalAmount < 1 && 'opacity-50 cursor-no-drop pointer-events-none'}`}>Checkout Now</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div className="bg-siteCrem !py-[80px] mt-[30px] laptopHorizontal:!py-[60px]">
-				<div className="custom_container">
-					<div className="text-[32px] text-center uppercase laptop:text-xl">YOU MAY ALSO LIKE</div>
-					<div className="grid grid-cols-3 mobile:grid-cols-1  gap-[25px] mt-[80px] pb-[60px] laptop:my-[40px]">
-						<div>
-							<Product product={bestProducts[0]} />
-							<Link href="/" className='site_btn !mx-auto mt-[30px]'>Buy now</Link>
-						</div>
-						<div>
-							<Product product={bestProducts[1]} />
-							<Link href="/" className='site_btn !mx-auto mt-[30px]'>Buy now</Link>
-						</div>
-						<div>
-							<Product product={bestProducts[2]} />
-							<Link href="/" className='site_btn !mx-auto mt-[30px]'>Buy now</Link>
-						</div>
-					</div>
-				</div>
-			</div>
+			<AlsoLike sectionTitle='YOU MAY ALSO LIKE' start={5} end={8} />
 		</div>
 	);
 };

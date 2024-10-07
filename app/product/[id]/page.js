@@ -4,12 +4,13 @@ import { useState, useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import "@/styles/product_inner.scss";
-import { bestProducts } from '@/utils/data/homeData';
+// import { bestProducts } from '@/utils/data/homeData';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@/redux/cartSlice';
 import Product from '@/components/product/Product';
 import Link from 'next/link';
 import PageLoader from '@/components/PageLoader';
+import AlsoLike from '@/components/alsoLikeProducts/AlsoLike';
 
 const ProductPage = ({ params }) => {
 
@@ -18,7 +19,7 @@ const ProductPage = ({ params }) => {
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(true);
 	const [product, setProduct] = useState(null);
-	const [likeProducts, setLikeProducts] = useState(null);
+
 
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const [productCount, setProductCount] = useState(1);
@@ -72,7 +73,7 @@ const ProductPage = ({ params }) => {
 	const handleAddToCart = (e) => {
 		e.preventDefault();
 		const productToAdd = {
-			...bestProducts[0],
+			...product,
 			quantity: productCount
 		};
 		dispatch(addToCart(productToAdd));
@@ -84,17 +85,7 @@ const ProductPage = ({ params }) => {
 		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getProducts?product_id=${params?.id}`);
 		const data = await response.json();
 		setProduct(data.data.products[0])
-		fetchLikeProduct()
 	};
-
-	const fetchLikeProduct = async () => {
-		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getProducts`);
-		const data = await response.json();
-		setLikeProducts(data.data.products)
-		setLoading(false);
-	};
-
-
 
 	useEffect(() => {
 		fetchProduct();
@@ -206,19 +197,7 @@ const ProductPage = ({ params }) => {
 					</div>
 				</div>
 			</div>
-			<div className="bg-siteCrem !py-[80px] mt-[30px] laptopHorizontal:!py-[50px] laptop:!py-[30px]">
-				<div className="custom_container">
-					<div className="text-[32px] text-center uppercase laptopHorizontal:text-xl">YOU MAY ALSO LIKE</div>
-					<div className="grid grid-cols-3 tablet:gap-[30px] tablet:grid-cols-1 gap-[25px] mt-[80px] pb-[60px] laptopHorizontal:mt-[40px] laptopHorizontal:pb-[30px]">
-						{likeProducts?.slice(2,5).map((product, index) => (
-							<div key={index}>
-								<Product product={product} />
-								<Link href="/" className='site_btn !mx-auto mt-[30px]'>Buy now</Link>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
+			<AlsoLike sectionTitle='Additional flavors' start={2} end={5} />
 		</div>
 	);
 };

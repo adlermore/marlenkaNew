@@ -5,7 +5,6 @@ import authMiddleware from './authMiddleware';
 import cartReducer from './cartSlice';
 import wishlistReducer from './wishlistSlice';
 
-
 export const store = configureStore({
   reducer: {
     auth: authReducer,

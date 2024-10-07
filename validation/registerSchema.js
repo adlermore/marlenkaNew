@@ -1,11 +1,10 @@
 import { z } from "zod";
-import { name, email, phone } from "./common";
+import { name, email } from "./common";
 
 export const registerSchema = z
   .object({
     name,
     email,
-    // phone,
     password: z
       .string()
       .min(1, { message: "This field is required" })

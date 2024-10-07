@@ -1,17 +1,15 @@
 'use client';
 
-import IconHeart from "@/public/icons/IconHeart";
-import IconHeartFill from "@/public/icons/IconHeartFill";
-import IconHeartFill2 from "@/public/icons/IconHeartFill2";
-import IconProductCard from "@/public/icons/IconProductCard";
-import IconProductHeart from "@/public/icons/IconProductHeart";
-import IconShop from "@/public/icons/IconShop";
-import { addToCart } from "@/redux/cartSlice";
-import { addToWishlist, removeFromWishlist } from "@/redux/wishlistSlice";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+
+import { addToCart } from "@/redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { addToWishlist, removeFromWishlist } from "@/redux/wishlistSlice";
+
+import IconHeartFill2 from "@/public/icons/IconHeartFill2";
+import IconProductHeart from "@/public/icons/IconProductHeart";
+import IconShop from "@/public/icons/IconShop";
 
 function Product({ product, onClick }) {
   const dispatch = useDispatch();
@@ -20,17 +18,15 @@ function Product({ product, onClick }) {
   // Check if the product is in the wishlist
   const isInWishlist = wishlist.some(item => item.id === product.id);
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
-  const token =useSelector((state) => state.auth.isAuthenticated);
 
-	const handleAddToCart = (e) => {
+  const handleAddToCart = (e) => {
     e.preventDefault();
     const productToAdd = {
-        ...product,
-        quantity: 1 
+      ...product,
+      quantity: 1
     };
     dispatch(addToCart(productToAdd));
-	};
-  
+  };
 
   const detectScrollBarWidth = () => {
     const documentWidth = document.documentElement.clientWidth;
@@ -54,15 +50,9 @@ function Product({ product, onClick }) {
   };
 
   const handleAddToWishlist = () => {
-    if(isAuth){
-      if (isInWishlist) {
-        dispatch(removeFromWishlist(product));
-
-      } else {
-        dispatch(addToWishlist(product));
-        
-      }
-    }else{
+    if (isAuth) {
+      isInWishlist ? dispatch(removeFromWishlist(product)) : dispatch(addToWishlist(product))
+    } else {
       loginPopupOpen()
     }
   };
@@ -71,7 +61,7 @@ function Product({ product, onClick }) {
     <div className="slider_block">
       <div className="product_image h-[289px] laptopHorizontal:h-[350px] overflow-hidden laptop:h-[260px] w-full flex justify-center items-center relative">
         {product?.images &&
-            <Link
+          <Link
             href={`/product/${product.id}`}
             onClick={onClick}
             className="w-full h-full flex justify-center items-center relative !opacity-1"
@@ -79,7 +69,7 @@ function Product({ product, onClick }) {
             <Image
               src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
               unoptimized
-              alt={product.name || "Ricardo portrait"} 
+              alt={product.name || "Ricardo portrait"}
               priority
               fill
               className="object-contain"
@@ -88,7 +78,7 @@ function Product({ product, onClick }) {
               <Image
                 src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
                 unoptimized
-                alt={product.name || "Ricardo portrait"} 
+                alt={product.name || "Ricardo portrait"}
                 priority
                 fill
                 className="product_inner_img object-contain"
@@ -102,14 +92,14 @@ function Product({ product, onClick }) {
             aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
             onClick={handleAddToWishlist}
           >
-            {isInWishlist ? <IconHeartFill2 className='!w-[20px] h-auto'  />  : <IconProductHeart className='[&>path]:fill-[#C17E2E] w-[22px]' />  }
+            {isInWishlist ? <IconHeartFill2 className='!w-[20px] h-auto' /> : <IconProductHeart className='[&>path]:fill-[#C17E2E] w-[22px]' />}
           </button>
           <button
             className="mt-[15px] block"
             onClick={handleAddToCart}
             aria-label="Add to Cart"
           >
-            <IconShop  className='[&>path]:fill-[#C17E2E]' />
+            <IconShop className='[&>path]:fill-[#C17E2E]' />
           </button>
         </span>
       </div>

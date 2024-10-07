@@ -1,13 +1,13 @@
+import React, { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import IconSearch from "@/public/icons/IconSearch";
 import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
-import { useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
 
 function SearchToggle() {
   const [searchOpened, setsearchOpened] = useState(false);
   const SearchRef = useRef(null);
   const ref = useRef();
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
   useOnClickOutside(ref, () => {
     if (searchOpened) {

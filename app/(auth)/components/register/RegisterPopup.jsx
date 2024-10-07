@@ -2,18 +2,15 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { JsonContext } from '@/context/jsonContext';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "@/validation/registerSchema";
 import { initializeAuth, register } from '@/redux/authSlice';
 import useOnClickOutside from '@/utils/hooks/useOnClickOutside';
 import IconClose from '@/public/icons/IconClose.jsx';
-import InputMask from "react-input-mask";
 import loginLogo from '@/public/images/loginImg.svg'
 import Image from 'next/image';
 import eye from '@/public/images/eye.png'
-
 
 function RegisterPopup() {
   const [showPass, setShowPass] = useState(false);
@@ -25,7 +22,6 @@ function RegisterPopup() {
   const { status, error } = useSelector((state) => state.auth);
   const user = useSelector((state) => state.auth.user);
 
-  //Close Popup after outside click
   useOnClickOutside(ref, () => {
     if (document.body.classList.contains("register_opened")) {
       closeRegister()
