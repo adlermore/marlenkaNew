@@ -28,19 +28,6 @@ export default function UserInfoPage() {
 
   return (
     <div className='user_wrapper w-full'>
-      <div className='flex gap-[30px] items-center'>
-        <div className='relative'>
-          {/* <Image
-            src={userImg}
-            alt="User Image"
-            priority={true}
-          /> */}
-        </div>
-        <div>
-          <div className='text-[18px] color-black font-medium'>Name Surname</div>
-          <div className='text-sm font-light mt-[2px] text-[#949494]'>Yerevan, Armenia</div>
-        </div>
-      </div>
       <div className='mt-[30px] text-xl text-black'>
         Personal Information
       </div>
@@ -111,7 +98,7 @@ export default function UserInfoPage() {
             autoComplete="on"
             className="form-control"
             value={user?.phone}
-            mask="(999)-999-9999"
+            mask="(999)-999-999"
 
           />
           <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">

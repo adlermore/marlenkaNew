@@ -37,11 +37,11 @@ const wishlistSlice = createSlice({
 
       if (existingItemIndex >= 0) {
         // If item exists, show a message that it is already in the wishlist
-        toast(`${product.title} is already in your wishlist`);
+        toast(`${product.name} is already in your wishlist`);
       } else {
         // If item doesn't exist, add it to the wishlist
         state.items.push(product);
-        toast.success(`${product.title} added to your wishlist`);
+        toast.success(`${product.name} added to your wishlist`);
       }
 
       // Save updated wishlist to localStorage

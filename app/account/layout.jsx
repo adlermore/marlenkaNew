@@ -1,15 +1,13 @@
 'use client'
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation'; 
+import { usePathname, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import "@/styles/account.scss";
 import IconUser from '@/public/icons/IconUser';
 import IconHeart from '@/public/icons/IconHeart';
 import IconProductCard from '@/public/icons/IconProductCard';
-import IconNotifi from '@/public/icons/IconNotifi';
-import IconGroup from '@/public/icons/IconGroup';
 import IconLogOut from '@/public/icons/IconLogOut';
 import { setAuthenticated } from '@/redux/authSlice';
 
@@ -17,17 +15,17 @@ export default function AccountLayout({ children }) {
 
   const pathname = usePathname();
   const router = useRouter();
-  const isAuth = useSelector((state) => state.auth.isAuthenticated); 
-  const [isAuthChecked, setIsAuthChecked] = useState(false); 
-  const [activePage, setActivePage] = useState(''); 
-  const [pageName , setPageName] = useState('');
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
+  const [activePage, setActivePage] = useState('');
+  const [pageName, setPageName] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (typeof isAuth !== 'undefined') {
       setIsAuthChecked(true);
     }
-  }, [isAuth , activePage]);
+  }, [isAuth, activePage]);
 
   useEffect(() => {
     if (isAuthChecked && !isAuth) {
@@ -40,7 +38,7 @@ export default function AccountLayout({ children }) {
     const path = router.asPath;
     setActivePage(path);
     setPageName(getPageName(pathname));
-  }, [router.asPath]); 
+  }, [router.asPath]);
 
 
   const getPageName = (path) => {
@@ -51,10 +49,6 @@ export default function AccountLayout({ children }) {
         return 'Liked';
       case '/account/myCart':
         return 'My Cart';
-      case '/account/notifications':
-        return 'Notifications';
-      case '/account/personalList':
-        return 'Personal Occasions';
       default:
         return '';
     }
@@ -63,7 +57,7 @@ export default function AccountLayout({ children }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(setAuthenticated(false));
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("token");
     window.location.reload();
   };
 
@@ -76,12 +70,12 @@ export default function AccountLayout({ children }) {
             <ul>
               <li>
                 <Link href="/account/userInfo" className={pathname === '/account/userInfo' ? 'active-link' : ''}>
-                 <IconUser /> User Info
+                  <IconUser /> User Info
                 </Link>
               </li>
               <li>
                 <Link href="/account/wishList" className={pathname === '/account/wishList' ? 'active-link' : ''}>
-                 <IconHeart /> Liked 
+                  <IconHeart /> Liked
                 </Link>
               </li>
               <li>
@@ -89,27 +83,16 @@ export default function AccountLayout({ children }) {
                   <IconProductCard /> My Cart
                 </Link>
               </li>
-              <li>
-                <Link href="/account/notifications" className={pathname === '/account/notifications' ? 'active-link' : ''}>
-                 <IconNotifi /> Notifications 
-                </Link>
-              </li>
-              <li>
-                <Link href="/account/personalList" className={pathname === '/account/personalList' ? 'active-link' : ''}>
-                 <IconGroup />  Personal Occasions
-                </Link>
-              </li>
               <li className='log_out'>
-                <a  href="/"    onClick={(e) =>handleLogout(e)}>
-                 <IconLogOut /> Log Out
+                <a href="/" onClick={(e) => handleLogout(e)}>
+                  <IconLogOut /> Log Out
                 </a>
               </li>
             </ul>
           </nav>
-          <main className='inner_wrapper w-full pr-[60px]'>{children}</main>
+          <main className='inner_wrapper w-full pr-[60px] account_wrapper'>{children}</main>
         </div>
       </div>
     </div>
   );
 }
-
