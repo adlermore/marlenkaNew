@@ -61,7 +61,7 @@ export default function AccountLayout({ children }) {
                 </Link>
               </li>
               <li>
-                <Link href="/account/myCart" className={pathname === '/account/myCart' ? 'active-link' : ''}>
+                <Link href="/account/orderHistory" className={pathname === '/account/myCart' ? 'active-link' : ''}>
                   <IconProductCard /> My Orders
                 </Link>
               </li>
