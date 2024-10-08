@@ -43,7 +43,7 @@ const ProductGrid = () => {
 	useEffect(() => {
 		fetchCategories();
 		fetchProducts(0, categoryId);
-	}, [categoryId , search]);
+	}, [categoryId , router , search]);
 
 	const loadMore = (category = '') => {
 		if (category) {
@@ -56,11 +56,9 @@ const ProductGrid = () => {
 		}
 	};
 
-
 	const changeFilterType = (filter) => {
 		router.push(`?category=${filter}`, { scroll: false });
 	};
-
 
 	return (
 		<>
@@ -100,7 +98,8 @@ const ProductGrid = () => {
 										<input type="radio" name='category'
 											onChange={() => changeFilterType(filter.id)}
 											id={`filter${filter.id}`}
-											defaultChecked={categoryId === filter.id.toString()}
+											// defaultChecked={categoryId === filter.id.toString()}
+											checked={categoryId === filter.id.toString()} 
 										/>
 										<span className="check_label font-medium">{filter.name}</span>
 									</label>

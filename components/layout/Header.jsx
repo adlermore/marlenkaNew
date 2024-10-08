@@ -76,7 +76,7 @@ function Header() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const data = await request('http://165.232.47.193/api/getCategories');
+        const data = await request(process.env.NEXT_PUBLIC_DATA_API + '/getCategories');
         setCategories(data.data.categories);
       } catch (error) {
         console.error('Failed to fetch categories', error);
@@ -116,7 +116,7 @@ function Header() {
   }
 
   return (
-    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#520e11]'} top-0 h-[120px] left-0 right-0 z-[9999] mobile:h-[150px] laptop:bg-[#520e11]`}>
+    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#520e11]'} laptopHorizontal:bg-[#520e11] top-0 h-[120px] left-0 right-0 z-[9999] mobile:h-[150px] laptop:bg-[#520e11]`}>
       <div className='cover_container h-full justify-between flex items-center  mobile:mt-[-20px] gap-20 '  >
         <Link href='/' className='z-20 relative top-[-7px]'>
           <Image
@@ -127,9 +127,9 @@ function Header() {
             width={170}
           />
         </Link>
-        <div className={`laptop:fixed  flex gap-[30px] justify-around w-full max-w-[1100px] items-center z-20 ml-auto laptop:z-0 laptop:h-full laptop:bottom-0 laptop:right-0 duration-[0.7s] mobile:duration-[0.5s] ${isOpen ? 'menu-open laptop:w-full' : 'laptop:w-0'}`}>
+        <div className={`laptop:fixed  flex gap-[30px] laptop:overflow-hidden justify-around w-full max-w-[1100px] items-center z-20 ml-auto laptop:z-0 laptop:h-full laptop:bottom-0 laptop:right-0 duration-[0.7s] mobile:duration-[0.5s] ${isOpen ? 'menu-open laptop:w-full' : 'laptop:w-0'}`}>
           <div className="ml-auto w-full laptop:w-full laptop:m-0 laptop:flex laptop:justify-end tablet:w-[calc(100vw)] z-20 relative laptop:left-0 laptop:h-full laptop:bg-blueDark1 laptop:bg-opacity-35 laptop:z-[-1] laptop:top-[120px] tablet:bg-white mobile:bg-transparent tablet:text-black mobile:top-[150px]">
-            <div className={`${isScrolled && 'isScrolled'} ml-[-40px] noteBook:ml-0 mobile_container relative flex justify-center mobile:h-[calc(100vh-150px)] items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-32px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[70px] laptop:mr-0  laptop:justify-start laptop:gap-[30px]`}>
+            <div className={`${isScrolled && 'isScrolled'} laptop:!w-0 ml-[-40px] noteBook:ml-0 mobile_container relative flex justify-center mobile:h-[calc(100vh-150px)] items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-0px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[70px] laptop:mr-0  laptop:justify-start laptop:gap-[30px]`}>
               {categories ? 
               categories.slice(0,7).map((category) => (
                 <Link

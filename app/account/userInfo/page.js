@@ -21,10 +21,7 @@ export default function UserInfoPage() {
   //sumbition Data
   const userInfoSubmit = async (dataForm) => {
     console.log('dataForm', dataForm);
-  };
-
-  console.log('user' , user);
-  
+  };  
 
   return (
     <div className='user_wrapper w-full'>
@@ -138,16 +135,13 @@ export default function UserInfoPage() {
         </div>
         <button
           type="submit"
-        className={
-          status === 'loading'
-            ? " mt-[35px] max-w-fit min-w-[160px] px-[30px] !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
-            : " mt-[35px] max-w-fit min-w-[160px] px-[30px] relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
-        }
+        className={`mt-[30px] site_btn duration-300 text-opacity-1 [&>svg]:opacity-0 ${ status === 'loading' && "[&>svg]:opacity-100 pointer-events-none opacity-80 text-opacity-0"}`}
+        
         >
           <svg
             aria-hidden="true"
             role="status"
-            className="absolute left-[-calc(50%-60px)] inline mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-gray-600"
+            className="absolute inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

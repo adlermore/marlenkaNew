@@ -18,7 +18,7 @@ function MainSlider({sliderData}) {
     slidesToScroll: 1,
     pauseOnHover: false
   };
-
+  
   return (
     <div className="w-full relative slick_wrapper laptop:mt-[85px]">
       <Slider {...settings} >
@@ -46,7 +46,7 @@ function MainSlider({sliderData}) {
                 className="h-full w-full object-cover mobile:max-w-[300px]"
               />
               <div className="slider_description">{slider.description}</div>
-              <Link href="/productListing" className="slider_btn">Discover more</Link>
+              <Link href={`/product/${slider.product_id}`} className="slider_btn">Discover more</Link>
             </div>
             </div>
           </div>

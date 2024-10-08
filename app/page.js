@@ -54,7 +54,7 @@ export default async function Home() {
         <div className="custom_container">
           <div className="text-[32px] text-center laptopHorizontal:text-2xl uppercase">Best Sellers</div>
           <div className="grid grid-cols-4 gap-[25px] product_slider_list mt-[80px] mobile:grid-cols-1 tablet:grid-cols-2 laptopHorizontal:grid-cols-3  overflow-hidden laptopHorizontal:mt-[40px] pb-[60px]">
-            {dataProduct?.products.slice(0,4).map((product, index) => (
+            {dataProduct?.products.slice(1,5).map((product, index) => (
               <Product key={index} product={product} />
             ))}
           </div>

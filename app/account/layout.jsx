@@ -17,15 +17,13 @@ export default function AccountLayout({ children }) {
   const router = useRouter();
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
-  const [activePage, setActivePage] = useState('');
-  const [pageName, setPageName] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (typeof isAuth !== 'undefined') {
       setIsAuthChecked(true);
     }
-  }, [isAuth, activePage]);
+  }, [isAuth]);
 
   useEffect(() => {
     if (isAuthChecked && !isAuth) {
@@ -34,53 +32,37 @@ export default function AccountLayout({ children }) {
   }, [isAuthChecked, isAuth, router]);
 
 
-  useEffect(() => {
-    const path = router.asPath;
-    setActivePage(path);
-    setPageName(getPageName(pathname));
-  }, [router.asPath]);
-
-
-  const getPageName = (path) => {
-    switch (path) {
-      case '/account/userInfo':
-        return 'User Info';
-      case '/account/wishList':
-        return 'Liked';
-      case '/account/myCart':
-        return 'My Cart';
-      default:
-        return '';
-    }
-  };
-
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(setAuthenticated(false));
     localStorage.removeItem("token");
-    window.location.reload();
+    router.push('/');
   };
 
   return (
-    <div className='mt-[100px] account_section'>
+    <div className='mt-[120px] account_section mobile:mt-[150px]'>
+      <div className=' text-[24px] uppercase bg-siteCrem '>
+        <div className='custom_container h-[120px]  text-center justify-center flex items-center text-2xl text-[#B62025] font-medium'>
+          My account
+        </div>
+      </div>
       <div className="custom_container !py-[90px]">
-        <div className="active-page text-black text-[25px] uppercase">{pageName}</div>
         <div className='account_line'>
           <nav>
             <ul>
               <li>
                 <Link href="/account/userInfo" className={pathname === '/account/userInfo' ? 'active-link' : ''}>
-                  <IconUser /> User Info
+                  <IconUser /> Profile Info
                 </Link>
               </li>
               <li>
                 <Link href="/account/wishList" className={pathname === '/account/wishList' ? 'active-link' : ''}>
-                  <IconHeart /> Liked
+                  <IconHeart /> Wishlist
                 </Link>
               </li>
               <li>
                 <Link href="/account/myCart" className={pathname === '/account/myCart' ? 'active-link' : ''}>
-                  <IconProductCard /> My Cart
+                  <IconProductCard /> My Orders
                 </Link>
               </li>
               <li className='log_out'>
