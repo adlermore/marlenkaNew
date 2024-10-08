@@ -201,15 +201,15 @@ const ProductPage = ({ params }) => {
 					<div className='text-[#AE8839] text-2xl mobile:text-base font-medium mb-[30px]'>Single box</div>
 						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
 							<div className='font-xl text-black font-medium'>Weight:</div>
-							<div>1 g</div>
+							<div>1g</div>
 						</div>
 						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
 							<div className='font-xl text-black font-medium'>Box dimensions::</div>
-							<div>220 x 225 x 50 mm</div>
+							<div>220 x 22 x 50 mm</div>
 						</div>
 						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
 							<div className='font-xl text-black font-medium'>Package EAN:</div>
-							<div>859407165263</div>
+							<div>8407165263</div>
 						</div>
 					</div>
 					<div className='w-full'>

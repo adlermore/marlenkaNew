@@ -65,6 +65,7 @@ export default function AccountLayout({ children }) {
                   <IconProductCard /> My Orders
                 </Link>
               </li>
+              
               <li className='log_out'>
                 <a href="/" onClick={(e) => handleLogout(e)}>
                   <IconLogOut /> Log Out
