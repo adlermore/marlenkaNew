@@ -213,18 +213,17 @@ const authSlice = createSlice({
         state.status = "failed";
 
         if (typeof action.payload === 'object' && action.payload !== null) {
-
           const errorMessages = Object.entries(action.payload)
-            .map(([key, messages]) => `${key}: ${messages.join(', ')}`)
-            .join(' | ');
-
-          state.error = errorMessages;
-        } else {
+              .map(([key, messages]) => `${key}: ${messages.join(', ')}`)
+              .join(' | ');
+  
+          state.error = errorMessages; // Set error messages
+      } else {
           state.error = action.error.message || "Unknown error occurred";
-        }
-
-        state.error = action.payload || action.error.message;
-        toast.error(`Registration failed: ${state.error}`);
+      }
+  
+      // Ensure only one assignment of state.error
+      toast.error(`Registration failed: ${state.error}`);
 
         document.body.classList.remove("register_opened");
         document.body.style.overflow = "visible";
