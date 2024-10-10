@@ -34,7 +34,7 @@ export const login = createAsyncThunk(
       }
 
       const data = await response.json();
-      if (typeof window !== "undefined") {  
+      if (typeof window !== "undefined") {
         localStorage.setItem("token", data.data.token);
       }
 
@@ -67,7 +67,7 @@ export const register = createAsyncThunk(
 
       const data = await response.json();
       console.log('data', data);
-      
+
       if (typeof window !== "undefined") {
         localStorage.setItem("token", data.data.token);
       }
@@ -175,7 +175,7 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isAuthenticated = true;
         toast.success("Login successful!");
-      
+
 
         document.body.style.overflow = "";
         document.body.style.paddingRight = "";
@@ -211,6 +211,18 @@ const authSlice = createSlice({
       })
       .addCase(register.rejected, (state, action) => {
         state.status = "failed";
+
+        if (typeof action.payload === 'object' && action.payload !== null) {
+
+          const errorMessages = Object.entries(action.payload)
+            .map(([key, messages]) => `${key}: ${messages.join(', ')}`)
+            .join(' | ');
+
+          state.error = errorMessages;
+        } else {
+          state.error = action.error.message || "Unknown error occurred";
+        }
+
         state.error = action.payload || action.error.message;
         toast.error(`Registration failed: ${state.error}`);
 
