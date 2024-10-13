@@ -66,7 +66,7 @@ export const register = createAsyncThunk(
       }
 
       const data = await response.json();
-      console.log('data', data);
+      // console.log('data', data);
 
       if (typeof window !== "undefined") {
         localStorage.setItem("token", data.data.token);
@@ -263,7 +263,7 @@ const authSlice = createSlice({
         state.status = "failed";
         state.error = action.payload || action.error.message;
         state.isAuthenticated = false;
-        toast.error(`Failed to fetch user data: ${state.error}`);
+        // toast.error(`Failed to fetch user data`);
       });
   },
 });

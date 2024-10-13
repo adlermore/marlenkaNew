@@ -40,7 +40,7 @@ function SearchToggle() {
       className={`${searchOpened ? "search_li opened" : "search_li"} laptop:fixed laptop:top-[43px] mobile:top-[95px] laptop:right-[90px] mobile:right-[25px]`}
       ref={ref}
     >
-      <input  onKeyDown={handleKeyDown}  type="text" ref={SearchRef} placeholder="Search ..." />
+      <input  onKeyDown={handleKeyDown}  className="mobile:bg-siteCrem" type="text" ref={SearchRef} placeholder="Search ..." />
       <a href="/#" className="search_btn" onClick={(e) => inputToggleSubmit(e)}>
         <IconSearch
           className={`${

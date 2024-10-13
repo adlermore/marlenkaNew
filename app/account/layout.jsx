@@ -10,6 +10,7 @@ import IconHeart from '@/public/icons/IconHeart';
 import IconProductCard from '@/public/icons/IconProductCard';
 import IconLogOut from '@/public/icons/IconLogOut';
 import { setAuthenticated } from '@/redux/authSlice';
+import IconShop from '@/public/icons/IconShop';
 
 export default function AccountLayout({ children }) {
 
@@ -42,11 +43,11 @@ export default function AccountLayout({ children }) {
   return (
     <div className='mt-[120px] account_section mobile:mt-[150px]'>
       <div className=' text-[24px] uppercase bg-siteCrem '>
-        <div className='custom_container h-[120px]  text-center justify-center flex items-center text-2xl text-[#B62025] font-medium'>
+        <div className='custom_container h-[120px] laptopHorizontal:h-[80ox] mobile:text-xl mobile:h-[80px]  text-center justify-center flex items-center text-2xl text-[#B62025] font-medium'>
           My account
         </div>
       </div>
-      <div className="custom_container !py-[90px]">
+      <div className="custom_container !py-[50px]">
         <div className='account_line'>
           <nav>
             <ul>
@@ -61,19 +62,19 @@ export default function AccountLayout({ children }) {
                 </Link>
               </li>
               <li>
-                <Link href="/account/orderHistory" className={pathname === '/account/myCart' ? 'active-link' : ''}>
-                  <IconProductCard /> My Orders
+                <Link href="/account/orderHistory" className={pathname === '/account/orderHistory' ? 'active-link' : ''}>
+                  <IconShop /> My Orders
                 </Link>
               </li>
               
               <li className='log_out'>
-                <a href="/" onClick={(e) => handleLogout(e)}>
+                <a href="/" className='logout' onClick={(e) => handleLogout(e)}>
                   <IconLogOut /> Log Out
                 </a>
               </li>
             </ul>
           </nav>
-          <main className='inner_wrapper w-full pr-[60px] account_wrapper'>{children}</main>
+          <main className='inner_wrapper w-full pr-[60px] laptopHorizontal:pr-[30px] laptop:pr-0 account_wrapper'>{children}</main>
         </div>
       </div>
     </div>

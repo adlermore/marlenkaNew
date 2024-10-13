@@ -16,9 +16,12 @@ const ProductPage = ({ params }) => {
 
 	const smallSliderRef = useRef(null);
 	const bigSliderRef = useRef(null);
+	const fullDetailsRef = useRef(null);
+
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(true);
 	const [product, setProduct] = useState(null);
+	const [showFullDetails, setShowFullDetails] = useState(false);
 
 
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -30,6 +33,17 @@ const ProductPage = ({ params }) => {
 
 	const decrementCount = () => {
 		setProductCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
+	};
+
+	const handleFullDetailsClick = () => {
+		setShowFullDetails((prev) => !prev);
+		if (!showFullDetails) {
+			setTimeout(() => {
+				if (fullDetailsRef.current) {
+					fullDetailsRef.current.scrollIntoView({ behavior: "smooth" , block: "center" });
+				}
+			}, 0);
+		}
 	};
 
 	const smallImagesOpts = {
@@ -150,83 +164,78 @@ const ProductPage = ({ params }) => {
 							</div>
 						</div>
 					</div>
-					<div className='product_info pl-[40px] w-full'>
+					<div className='product_info pl-[80px] w-full flex flex-col justify-between laptopHorizontal:pl-[30px]'>
 						<div className='text-[#B62025] text-2xl'>{product.name}</div>
 						<div className='mt-[30px] text-xl text-black font-medium max-w-[420px]:'>
 							{product.description}
 						</div>
-
-						<div className='w-full my-[50px]'>
-							<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-								<div className='font-xl text-black font-medium'>Weight:</div>
-								<div>1 g</div>
-							</div>
-							<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-								<div className='font-xl text-black font-medium'>Box dimensions::</div>
-								<div>220 x 225 x 50 mm</div>
-							</div>
-							<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-								<div className='font-xl text-black font-medium'>Package EAN:</div>
-								<div>859407165263</div>
-							</div>
-							<button className='text-[#B62025] duration-300 ml-auto text-xl block uppercase'>Full details</button>
+						<div className='w-full my-[50px] laptopHorizontal:my-[30px]'>
+							{product.technicals.length > 0 &&
+								product.technicals.map((item, index) => (
+									<div key={index} className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
+										<div className='font-xl text-black font-medium'>{item.technical}</div>
+										<div>{item.value}</div>
+									</div>
+								))
+							}
+							<button
+								className='text-[#B62025] duration-300 ml-auto text-xl block uppercase'
+								onClick={handleFullDetailsClick}
+							>
+								{showFullDetails ? 'Hide details' : 'Full details'}
+							</button>
 						</div>
-						<div className='flex  mt-[50px] items-center gap-[20px] justify-between'>
-							<div className='text-black text-2xl  font-bold'>${product.price}</div>
-							<div className='flex items-center mobile:mt-[30px] justify-between h-[35px] bg-[#D9D9D9] bg-opacity-40 rounded-[5px] max-w-[110px]'>
+						<div className='flex  mt-[50px] laptop:mt-[30px] items-center gap-[20px] justify-between laptopHorizontal:justify-center'>
+							<div className='text-black text-[36px] font-bold laptopHorizontal:text-2xl'>${product.price}</div>
+							<div className='flex items-center justify-between h-[35px] bg-[#D9D9D9] bg-opacity-40 rounded-[5px] max-w-[110px]'>
 								<button onClick={decrementCount} className='py-[10px] text-2xl w-[40px] h-full flex items-center justify-center'>-</button>
 								<span>{productCount}</span>
 								<button onClick={incrementCount} className='py-[10px] text-2xl w-[40px] h-full flex items-center justify-center'>+</button>
 							</div>
-							<button className='site_btn !ml-0  mobile:mt-[30px]' onClick={handleAddToCart} >Add to Cart</button>
+							<button className='site_btn !ml-0 px-[15px] ' onClick={handleAddToCart} >Add to Cart</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div className='!mt-[50px] custom_container'>
-				<div className='flex gap-[80px] mobile:gap-[20px] pt-[30px]'>
+				<div className='flex gap-[80px] laptop:gap-[40px] mobile:gap-[20px] pt-[30px]'>
 					<div className='text-[#AE8839] text-2xl mobile:text-base font-medium'>Details</div>
 					<div className='pb-[30px] text-xl mobile:text-base  text-black'>
-						{product.details_one}
+						{product.details_one && product.details_one}
 						<br />
 						<br />
-						{product.details_two}
+						{product.details_two && product.details_two}
 						<br />
 						<br />
-						{product.details_three}
+						{product.details_three && product.details_three}
 					</div>
 				</div>
-				<div className='flex gap-[80px] mobile:gap-[20px] pt-[30px] mb-[40px]'>
+				<div className='flex gap-[80px] tablet:flex-col laptop:gap-[40px] mobile:gap-[20px] pt-[30px] mb-[40px] '
+					ref={fullDetailsRef}
+					style={{ display: showFullDetails ? 'flex' : 'none' }}
+					id="full-details"
+				>
 					<div className='w-full'>
-					<div className='text-[#AE8839] text-2xl mobile:text-base font-medium mb-[30px]'>Single box</div>
-						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-							<div className='font-xl text-black font-medium'>Weight:</div>
-							<div>1g</div>
-						</div>
-						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-							<div className='font-xl text-black font-medium'>Box dimensions::</div>
-							<div>220 x 22 x 50 mm</div>
-						</div>
-						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-							<div className='font-xl text-black font-medium'>Package EAN:</div>
-							<div>8407165263</div>
-						</div>
+						<div className='text-[#AE8839] text-2xl mobile:text-base font-medium mb-[30px] laptop:text-xl'>Single box</div>
+						{product.technicals.length > 0 &&
+							product.technicals.map((item, index) => (
+								<div key={index} className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
+									<div className='font-xl text-black font-medium'>{item.technical}</div>
+									<div>{item.value}</div>
+								</div>
+							))
+						}
 					</div>
 					<div className='w-full'>
-					<div className='text-[#AE8839] text-2xl mobile:text-base font-medium mb-[30px]'>MASS PACKAGING</div>
-
-						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-							<div className='font-xl text-black font-medium'>Weight:</div>
-							<div>1 g</div>
-						</div>
-						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-							<div className='font-xl text-black font-medium'>Box dimensions::</div>
-							<div>220 x 225 x 50 mm</div>
-						</div>
-						<div className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-							<div className='font-xl text-black font-medium'>Package EAN:</div>
-							<div>859407165263</div>
-						</div>
+						<div className='text-[#AE8839] text-2xl mobile:text-base font-medium mb-[30px] laptop:text-xl'>MASS PACKAGING</div>
+						{product.package_technicals.length > 0 &&
+							product.package_technicals.map((item, index) => (
+								<div key={index} className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
+									<div className='font-xl text-black font-medium'>{item.technical}</div>
+									<div>{item.value}</div>
+								</div>
+							))
+						}
 					</div>
 				</div>
 			</div>

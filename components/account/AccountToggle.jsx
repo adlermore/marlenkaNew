@@ -96,7 +96,7 @@ function AccountToggle() {
                 <div className="border-[#b46126] border-b-2 pb-[5px]">{`Hi ${user?.name.split(' ')[0] || "User"}`}</div>
                 <Link href='/account/userInfo' className="mt-[10px]"> My Account</Link>
                 <div
-                  className="p-[10px] mt-[10px]  duration-300 cursor-pointer hover:opacity-50"
+                  className="mt-[12px]  duration-300 cursor-pointer hover:opacity-50"
                   onClick={handleLogout}
                 >
                   Logout

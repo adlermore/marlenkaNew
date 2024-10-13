@@ -4,6 +4,7 @@ import React, {useRef, useState } from "react";
 import IconChack from "@/public/icons/IconChack.jsx";
 import useOnClickOutside from "../../utils/hooks/useOnClickOutside";
 import IconFail from "@/public/icons/IconFail";
+import Link from "next/link";
 
 function SuccessPopup() {
 
@@ -33,19 +34,19 @@ function SuccessPopup() {
           <div className=" mt-[10px] text-2xl mobile:text-base  text-center font-bold">
           {success ?  'Success!' : 'Oops!'}
           </div>
-          <span className="block mt-[6px] text-sm">Order Number:2220307</span>
-          <p className="block mt-[6px] text-sm">  {success ? 'Thank you for shopping.' : 'Payment Failed, Please Try Again.' }</p>
+          {/* <span className="block mt-[6px] text-sm">Order Number:2220307</span> */}
+          <p className="block mt-[6px] text-sm">  {success ? 'Thank you for Registration' : 'Payment Failed, Please Try Again.' }</p>
         </div>
-        <a
-          href="/#"
-          className="duration-300 hover:opacity-50 w-full h-[36px] rounded-20 mx-auto max-w-[110px] flex items-center justify-center bg-[#B62025] text-white mt-[0] font-semibold text-base"
+        <Link
+          href="/account/userInfo"
+          className="duration-300  hover:opacity-50 w-full h-[36px] rounded-20 mx-auto max-w-[130px] flex items-center justify-center bg-[#B62025] text-white mt-[0] font-semibold text-base"
           onClick={(e) => {
             e.preventDefault(); 
             document.body.classList.remove("success_opened");
             document.body.style.overflow = "visible";
           }}
-        >Go Order
-        </a>
+        >My Account
+        </Link>
       </div>
     </div>
   );

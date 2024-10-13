@@ -41,11 +41,11 @@ const CardPage = () => {
 					Menu / Card
 				</div>
 			</div>
-			<div className='pt-[70px] pb-[118px] laptopHorizontal:py-[60px]'>
+			<div className='pt-[70px] pb-[118px] laptopHorizontal:py-[60px] laptop:py-[30px] tablet:px-0'>
 				<div className='custom_container'>
 					<div className='flex justify-between gap-[50px] laptop:flex-col laptopHorizontal:gap-20'>
-						<div className=' flex-1 p-[7px] px-[20px] rounded-[30px] min-h-[400px]'>
-							<div className='grid grid-cols-5  mobile:grid-cols-4 text-center gap-[10px] py-[18px]'>
+						<div className=' flex-1 p-[7px] px-[20px] tablet:px-0 rounded-[30px] min-h-[400px]'>
+							<div className={`${cart?.items.length === 0 && 'opacity-0' } grid grid-cols-5  mobile:grid-cols-4 text-center gap-[10px] py-[18px]`}>
 								<div>Product</div>
 								<div></div>
 								<div className='mobile:opacity-0'>Quantity</div>
@@ -55,7 +55,7 @@ const CardPage = () => {
 							{cart?.items.length > 0 ?
 								<div className='block gap-[15px] grid-cols-4'>
 									{cart.items.map((item, index) => (
-										<div key={index} className='grid  relative grid-cols-5 mobile mobile:grid-cols-3 mobile:items-center text-center gap-[10px] py-[25px] last:border-none items-center border-b border-[#CCC]'>
+										<div key={index} className='grid  relative grid-cols-5 mobile mobile:grid-cols-3 mobile:items-center text-center gap-[10px] py-[25px] laptopHorizontal:py-[10px] last:border-none items-center border-b border-[#CCC]'>
 											<div className='relative flex items-center justify-center'>
 												<Image
 													src={process.env.NEXT_PUBLIC_DATA + item?.images[0].image_path || ''}
@@ -95,12 +95,12 @@ const CardPage = () => {
 							}
 						</div>
 						<div className='w-[360px] laptopHorizontal:w-[320px] laptop:w-full py-[7px] px-[20px] flex flex-col rounded-[30px]  min-h-[400px]'>
-							<div className='grid grid-cols-1 mb-[30px] gap-[10px] py-[18px]'>
+							<div className='grid grid-cols-1 mb-[30px] gap-[10px] py-[18px] mobile:mb-0 text-xl'>
 								Order summary
 							</div>
 							<div className='flex items-center justify-between text-[#525252] mb-20'>Sub total <span className='ml-auto text-black text-xl font-medium'>${cart?.totalAmount.toFixed(1)}</span></div>
 							<div className='flex items-center justify-between text-[#525252] mb-[40px]'>Delivery<span className='ml-auto text-black  text-xl font-medium'>$5</span></div>
-							<div className='flex items-center justify-between text-[#525252] border-t  border-[#CCC] pt-20 font-bold'>Total<span className='ml-auto text-black  text-xl font-medium'>${cart?.totalAmount.toFixed(1) + 5}</span></div>
+							<div className='flex items-center justify-between text-[#525252] border-t  border-[#CCC] pt-20 font-bold'>Total<span className='ml-auto text-black  text-xl font-medium'>${cart?.totalAmount + 5}</span></div>
 							<div className='flex items-end mt-40'>
 								<button onClick={handleCheckout} className={`bg-[#CE090F] duration-300 hover:opacity-70 text-white rounded-[30px]  w-full h-[46px] border-none ${cart?.totalAmount < 1 && 'opacity-50 cursor-no-drop pointer-events-none'}`}>Checkout Now</button>
 							</div>
