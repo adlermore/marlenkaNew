@@ -11,6 +11,7 @@ import IconProductCard from '@/public/icons/IconProductCard';
 import IconLogOut from '@/public/icons/IconLogOut';
 import { setAuthenticated } from '@/redux/authSlice';
 import IconShop from '@/public/icons/IconShop';
+import { resetWishlist } from '@/redux/wishlistSlice';
 
 export default function AccountLayout({ children }) {
 
@@ -36,6 +37,7 @@ export default function AccountLayout({ children }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(setAuthenticated(false));
+    dispatch(resetWishlist());
     localStorage.removeItem("token");
     router.push('/');
   };
