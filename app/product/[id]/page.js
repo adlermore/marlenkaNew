@@ -201,13 +201,13 @@ const ProductPage = ({ params }) => {
 				<div className='flex gap-[80px] laptop:gap-[40px] mobile:gap-[20px] pt-[30px]'>
 					<div className='text-[#AE8839] text-2xl mobile:text-base font-medium'>Details</div>
 					<div className='pb-[30px] text-xl mobile:text-base  text-black'>
-						{product.details_one && product.details_one}
+						{product.details_one !=='null' && product.details_one}
 						<br />
 						<br />
-						{product.details_two && product.details_two}
+						{product.details_two  !=='null' && product.details_two}
 						<br />
 						<br />
-						{product.details_three && product.details_three}
+						{product.details_three !=='null' && product.details_three}
 					</div>
 				</div>
 				<div className='flex gap-[80px] tablet:flex-col laptop:gap-[40px] mobile:gap-[20px] pt-[30px] mb-[40px] '
