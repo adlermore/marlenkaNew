@@ -17,6 +17,8 @@ import { useEffect, useState } from "react"
 import request from "@/utils/hooks/request"
 import { email } from "@/validation/common"
 import toast from "react-hot-toast"
+import IconInstaFill from "@/public/icons/IconInstaFill"
+import IconFbFill from "@/public/icons/IconFbFill"
 
 const Footer = () => {
   const [formData, setFormData] = useState({
@@ -146,7 +148,7 @@ const Footer = () => {
         </div>
         <div className='flex footer_menu  mt-[50px] items-center gap-20 justify-between tablet:grid-cols-2 laptop:grid laptop:grid-cols-3 laptop:gap-40 mobile:grid-cols-1'>
           <div className="menu_block">
-            <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Shortcuts</h2>
+            <h2 className="text-xl  text-siteCrem pb-[2px]">Shortcuts</h2>
             <Link href="/">Home</Link>
             <Link href="/">About us</Link>
             <Link href="/">Awards </Link>
@@ -154,7 +156,7 @@ const Footer = () => {
             <Link href="/">FAQ</Link>
           </div>
           <div className="menu_block">
-            <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Legal</h2>
+            <h2 className="text-xl  text-siteCrem pb-[2px]">Legal</h2>
             <Link href="/">Privacy policy</Link>
             <Link href="/">Terms & conditions</Link>
             <Link href="/">Delivery & returns</Link>
@@ -162,21 +164,27 @@ const Footer = () => {
             <Link href="/">Media library</Link>
           </div>
           <div className="menu_block contact-block">
-            <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Contact us</h2>
+            <h2 className="text-xl text-siteCrem pb-[2px]">Contact us</h2>
             <a href={`tel:${constacts?.phone_number}`}  className="!flex items-center  gap-20"><IconCall />{constacts?.phone_number}</a>
             <a href="/" className="!flex items-center  gap-20"> <IconWhatsap /> {constacts?.whatsapp}</a>
             <a href="/" className="!flex items-center  gap-20"><IconMail /> {constacts?.email}</a>
-            <div className="flex gap-[20px] items-center">
+            <div className="flex gap-[20px] footer_links items-center">
               <a href={constacts?.gmail_link}><IconGoogle /></a>
-              <a href={constacts?.instagram_link}><IconInsta /></a>
-              <a href={constacts?.facebook_link}><IconFb /></a>
+              <a href={constacts?.instagram_link}>
+                <IconInsta />
+                <span className="insta_fill"><IconInstaFill /></span>
+              </a>
+              <a href={constacts?.facebook_link}>
+                <IconFb />
+                <span className="insta_fill"><IconFbFill /></span>
+              </a>
               <a href={constacts?.linkedin_link}><IconIn /></a>
               <a href={constacts?.twitter_link}><IconTwit /></a>
               <a href={constacts?.youtube_link}><IconYou /></a>
             </div>
           </div>
           <div className="menu_block">
-            <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Subscribe for latest</h2>
+            <h2 className="text-xl  text-siteCrem pb-[2px]">Subscribe for latest</h2>
             <div className="footer_form">
               <form onSubmit={handleSubmit} noValidate>
                 <div >

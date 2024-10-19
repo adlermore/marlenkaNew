@@ -3,8 +3,8 @@ import MainSlider from "@/components/slider/MainSlider";
 import timeline from "@/public/images/timeline.png"
 import Image from "next/image";
 import Product from "@/components/product/Product";
-import IconProductHeart from "@/public/icons/IconProductHeart";
 import ModalVideoWrap from "@/components/ModalVideoWrap";
+import GiftSection from "@/components/giftSection/GiftSection";
 
 export default async function Home() {
 
@@ -60,65 +60,15 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <div className="flex bg-[#6D1316] py-[40px] relative mt-[-20px] tablet:pb-[40px]">
-        <div className="custom_container flex justify-between overflow-hidden h-[650px] laptopHorizontal:h-[500px] tablet:flex-col tablet:h-auto">
-          <div className="absolute left-0 top-0  flex items-center justify-center overflow-hidden bottom-20 h-full w-[55%] tablet:relative tablet:w-full tablet:h-[300px]">
-            <Image
-              src={process.env.NEXT_PUBLIC_DATA + data?.romantic?.image_path}
-              unoptimized
-              alt="Ricardo portrait"
-              priority={true}
-              fill
-              sizes="50vw"
-              style={{
-                objectFit: "cover",
-              }}
-            />
-          </div>
-          <div className="py-[20px] ml-auto max-w-[500px] laptopHorizontal:max-w-[40%] laptop:py-40 tablet:max-w-none tablet:pl-10">
-            <span className="relative mb-20 w-full max-w-[520px] block h-[90px]">
-              <Image
-                src={process.env.NEXT_PUBLIC_DATA + data?.romantic?.small_image_path}
-                alt="Ricardo portrait"
-                priority={true}
-                sizes="50vw"
-                fill
-                style={{
-                  objectFit: "contain",
-                }}
-              />
-            </span>
-            <div className="mt-[40px]">
-              <div className="text-[32px] relative font-semibold flex items-center pb-[5px] text-[#E60911] red_heart">
-                <span><IconProductHeart className=' [&>path]:fill-[#E60911] w-[60px] h-[60px]' /></span>
-                {data?.romantic?.title_one}
-              </div>
-              <div className="text-[15px] text-[#FFEED9] mt-[20px] font-regular  leading-6">
-                {data?.romantic?.description_one}
-              </div>
-              <div className="text-[32px] mt-[20px] relative font-semibold flex items-center pb-[5px] text-[#FFEED9]">
-                {data?.romantic?.title_two}
-              </div>
-              <div className="text-[15px] text-[#FFEED9] mt-[20px] font-regular  leading-6">
-                {data?.romantic?.description_two}
-              </div>
-              <div className="text-[32px] mt-[20px] relative font-semibold flex items-center pb-[5px] text-[#FFEED9]">
-                {data?.romantic?.title_three}
-              </div>
-              <div className="text-[15px] text-[#FFEED9] mt-[20px] font-regular  leading-6">
-                {data?.romantic?.description_three}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <GiftSection romantic={data.romantic}/>
       <div className="pt-[90px] pb-[120px] laptopHorizontal:pt-[60px]  mobile:pb-[60px] bg-siteCrem">
         <div className="custom_container">
           <div className="text-[32px] text-center uppercase">INGREDIENTS</div>
-          <div className="flex gap-20 mt-[40px] items-end justify-between laptopHorizontal:flex-wrap mobile:mt-[30px] mobile:flex-col mobile:items-center mobile:justify-center mobile:align-center">
+          <div className="flex gap-20 mt-[40px] ingredients items-end justify-between laptopHorizontal:flex-wrap mobile:mt-[30px] mobile:flex-col mobile:items-center mobile:justify-center mobile:align-center">
             {data?.ingredients.map((item, index) => (
               <div key={index} className="flex flex-col items-center justify-center mobile:max-w-none max-w-[200px] text-center">
-                <div className="w-full relative max-w-[100px] flex items-end h-[160px]">
+                <div className="w-full img_block relative max-w-[100px] flex items-end h-[160px]">
                   <Image
                     src={process.env.NEXT_PUBLIC_DATA + data?.ingredients[index].image_path}
                     alt="Ricardo portrait"
@@ -131,8 +81,8 @@ export default async function Home() {
                     }}
                   />
                 </div>
-                <div className="text-[18px] font-medium text-[#B62025] mt-[12px]">{item.title}</div>
-                <div className="mt-[20px] text-[12px] text-black font-medium">
+                <div className="text-[18px] font-medium text-[#B62025] mt-[-15px] lowercase">{item.title}</div>
+                <div className="mt-[10px] text-[12px] text-black font-medium">
                   {item.description}
                 </div>
               </div>
@@ -153,7 +103,7 @@ export default async function Home() {
               objectFit: "cover",
             }}
           />
-          <Link href='/' className="text-[#B62025] text-2xl ml-auto block tablet:text-base text-right  mt-[-30px]">Read our history</Link>
+          <a href='https://marlenka.cz/en/about#history' target="_blank" className="text-[#B62025] text-2xl ml-auto block tablet:text-base text-right  mt-[-30px]">Read our history</a>
         </div>
       </div>
     </div>

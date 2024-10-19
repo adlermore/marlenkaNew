@@ -48,6 +48,7 @@ module.exports = {
     fontFamily: {
       regular: "MontserratRegular",
       light: "MontserratLight",
+      medium: "MontserratMedium",
       bold: "MontserratBold",
     },
 
