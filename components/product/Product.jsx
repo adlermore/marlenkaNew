@@ -10,6 +10,7 @@ import { addToWishlist, removeFromWishlist } from "@/redux/wishlistSlice";
 import IconHeartFill2 from "@/public/icons/IconHeartFill2";
 import IconProductHeart from "@/public/icons/IconProductHeart";
 import IconShop from "@/public/icons/IconShop";
+import newLook from "@/public/images/newLook.png";
 
 function Product({ product, onClick }) {
   const dispatch = useDispatch();
@@ -59,6 +60,19 @@ function Product({ product, onClick }) {
 
   return (
     <div className="slider_block">
+      {product.id === 5 && 
+        <span className="new_look">
+            <Image
+              src={newLook}
+              unoptimized
+              alt={product.name || "Ricardo portrait"}
+              priority
+              width={107}
+              height={107}
+              className="object-contain"
+            />
+        </span>
+      }
       <div className="product_image h-[289px] laptopHorizontal:h-[350px] overflow-hidden laptop:h-[260px] w-full flex justify-center items-center relative">
         {product?.images &&
           <Link
@@ -92,14 +106,14 @@ function Product({ product, onClick }) {
             aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
             onClick={handleAddToWishlist}
           >
-            {isInWishlist ? <IconHeartFill2 className='!w-[20px] h-auto' /> : <IconProductHeart className='[&>path]:fill-[#C17E2E] w-[22px]' />}
+            {isInWishlist ? <IconHeartFill2 className='!w-[20px] h-auto' /> : <IconProductHeart className='[&>path]:fill-[#e0be96] w-[22px]' />}
           </button>
           <button
             className="mt-[15px] block"
             onClick={handleAddToCart}
             aria-label="Add to Cart"
           >
-            <IconShop className='[&>path]:fill-[#C17E2E]' />
+            <IconShop className='[&>path]:fill-[#e0be96]' />
           </button>
         </span>
       </div>

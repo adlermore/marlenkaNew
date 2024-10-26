@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { email, phone, namefirst, surname, City, address, street, postalCode } from "./common";
+import { email, phone, namefirst, surname, city, address, street, postalCode } from "./common";
 
 export const userScheme = z
   .object({
@@ -8,7 +8,7 @@ export const userScheme = z
     email,
     phone,
     address,
-    City,
-    street,
+    city,
+    // street,
     postalCode
   })

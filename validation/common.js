@@ -19,7 +19,7 @@ export const namefirst = z
   .trim()
 
 
-export const City = z
+export const city = z
   .string()
   .min(1, { message: "This field is required" })
   .max(50, { message: "Field must be at most 50 characters long" })

@@ -11,22 +11,96 @@ import arca from "@/public/images/icons/arca.png";
 import discover from "@/public/images/icons/discover.png";
 import amex from "@/public/images/icons/amex.png";
 import paypal from "@/public/images/icons/paypal.png";
+import { useEffect, useState } from 'react';
+import { toast } from "react-hot-toast";
 
 export default function UserInfoPage() {
 
-
-  const { status } = useSelector((state) => state.auth);
   const user = useSelector((state) => state.auth.user);
 
+  const [profileData, setProfileData] = useState(null);
+	const [loading, setLoading] = useState(true);
+
   //validation init
-  const { register: userInfo, handleSubmit: handleSubmitForm, formState: { errors: errorUser } } = useForm({
+  const { register: userInfo, handleSubmit: handleSubmitForm, reset, watch, formState: { errors: errorUser } } = useForm({
     resolver: zodResolver(userScheme)
   });
 
+  const fetchProfileData = async () => {
+		setLoading(true)
+		try {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getProfile`, {
+				method: 'GET',
+				headers: {
+					'Authorization': `Bearer ${localStorage.getItem("token")}`,
+				},
+			});
+			if (!response.ok) throw new Error('Failed to fetch profile data');
+			const data = await response.json();
+			setProfileData(data.data.profile);
+
+			reset({
+        namefirst: data.data.profile.name || '',
+        surname: data.data.profile.surname || ''
+      });
+
+		} catch (error) {
+			console.error('Error fetching profile:', error);
+		} finally {
+			setLoading(false)
+		}
+	};
+
   //sumbition Data
-  const userInfoSubmit = async (dataForm) => {
-    // console.log('dataForm', dataForm);
+  const userInfoSubmit = async () => {    
+    await saveInfo()
   };
+
+  const saveInfo = async () => {
+		setLoading(true)
+		const formData = {
+			name: `${watch("namefirst")}` || profileData.name,
+			surname: `${watch("surname")}` || profileData.surname,
+			email: watch("email") || profileData.email,
+			phone_number: watch("phone") || profileData.phone_number,
+			company_name: watch("company") || profileData.company_name,
+			country: watch("region") || profileData.country,
+			city: watch("city") || profileData.city,
+			address: watch("address") || profileData.address,
+			created_at: new Date().toISOString(),
+			updated_at: new Date().toISOString(),
+			apartment: watch("apartament") || profileData.apartment,
+			state: watch("treet") || profileData.state,
+			zip_code: watch("postalCode") || profileData.zip_code,
+			notes: watch("notes") || profileData.notes,
+			type: "car" || profileData.type,
+		};
+
+		try {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/storeProfile`, {
+				method: 'POST',
+				headers: {
+					'Authorization': `Bearer ${localStorage.getItem("token")}`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			});
+
+			if (!response.ok) throw new Error('Failed to save profile data');
+			toast.success("Profile Information Edited");
+		} catch (error) {
+			console.error('Error saving profile:', error);
+		} finally {
+			setLoading(false)
+		}
+	};
+
+  useEffect(() => {
+    fetchProfileData();
+	}, []);
+
+  console.log('errors', errorUser);
+  
 
   return (
     <div className='user_wrapper w-full'>
@@ -37,7 +111,7 @@ export default function UserInfoPage() {
         <div className='mt-[30px] text-2xl flex items-center  justify-between gap-20'>User Details
           <button
             type="submit"
-            className={`w-[100px] h-[40px] !duration-0 !bg-siteCrem !max-w-[100px] !text-black border site_btn mb-[10px] text-opacity-1 [&>svg]:opacity-0 ${status === 'loading' && "[&>svg]:opacity-100 pointer-events-none opacity-80 !text-opacity-0"}`}
+            className={`w-[100px] h-[40px] !duration-0 !bg-siteCrem !max-w-[100px] !text-black border site_btn mb-[10px] text-opacity-1 [&>svg]:opacity-0 ${loading && "[&>svg]:opacity-100 pointer-events-none opacity-80 !text-opacity-0"}`}
 
           >
             <svg
@@ -57,7 +131,7 @@ export default function UserInfoPage() {
                 fill="#1C64F2"
               ></path>
             </svg>
-            {status === 'Edit' ? " " : " Edit"}
+            {loading ? " " : " Edit"}
           </button>
 
         </div>
@@ -70,7 +144,7 @@ export default function UserInfoPage() {
             <input
               placeholder="Enter name"
               autoComplete="on"
-              defaultValue={user?.name.split(' ')[0]}
+              defaultValue={profileData?.name || ''}
               className="form-control"
               name="name"
               {...userInfo("namefirst", { required: true })}
@@ -86,7 +160,7 @@ export default function UserInfoPage() {
             <input
               placeholder="Enter surname"
               autoComplete="on"
-              defaultValue={user?.name.split(' ')[1]}
+              defaultValue={profileData?.surname || ''}
               className="form-control"
               name="name"
               {...userInfo("surname", { required: true })}
@@ -103,7 +177,7 @@ export default function UserInfoPage() {
               placeholder="Enter your email address"
               autoComplete="on"
               className="form-control"
-              defaultValue={user?.email}
+              defaultValue={profileData?.email || ''}
               name="email"
               {...userInfo("email", {
                 required: true,
@@ -122,13 +196,12 @@ export default function UserInfoPage() {
             </div>
             <InputMask
               {...userInfo("phone", { required: true })}
-              placeholder="Enter your password"
+              placeholder="Enter Phone Number"
               type="tel"
               autoComplete="on"
               className="form-control"
-              value={user?.phone}
               mask="(999)-999-999"
-
+              value={profileData?.phone_number || ''}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
               {errorUser?.phone?.message}
@@ -147,6 +220,7 @@ export default function UserInfoPage() {
               className="form-control"
               name="name"
               {...userInfo("address", { required: true })}
+              defaultValue={profileData?.address || ''}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
               {errorUser?.address?.message}
@@ -162,24 +236,26 @@ export default function UserInfoPage() {
               className="form-control"
               name="name"
               {...userInfo("postalCode", { required: true })}
+              defaultValue={profileData?.zip_code}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
               {errorUser?.postalCode?.message}
             </p>
           </div>
-          <div className={errorUser?.street ? "form_block has_error" : "form_block"}>
+          <div className={errorUser?.city ? "form_block has_error" : "form_block"}>
             <div className="userInfo_label text-sm font-light mb-[10px]">
-              Street
+              city
             </div>
             <input
-              placeholder="Enter street"
+              placeholder="Enter city"
               autoComplete="on"
               className="form-control"
               name="name"
-              {...userInfo("street", { required: true })}
+              {...userInfo("city", { required: true })}
+              defaultValue={profileData?.city || ''}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-              {errorUser?.street?.message}
+              {errorUser?.city?.message}
             </p>
           </div>
         </div>

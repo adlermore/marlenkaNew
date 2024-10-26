@@ -8,7 +8,7 @@ import { loginSchema } from "@/validation/loginSchema";
 import { initializeAuth, login } from "@/redux/authSlice";
 import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 import IconClose from "@/public/icons/IconClose.jsx";
-import loginLogo from '@/public/images/loginImg.svg'
+import loginLogo from '@/public/images/reverseLogo.svg'
 import eye from '@/public/images/eye.png'
 
 import Image from "next/image";
@@ -188,10 +188,10 @@ function LoginPopup() {
                   {errorsLogin?.password?.message}
                 </p>
               </div>
-              <a href="/" className="mt-[-30px] text-[12px] text-right block">
+              <a href="/" className="mt-[-20px] text-[12px] text-right block">
                 Forgot password?
               </a>
-              <div className="checkbox_line mt-[10px] mb-[20px]">
+              <div className="checkbox_line mt-[30px] mb-[30px]">
                 <label htmlFor="checkbox2">
                   <input type="checkbox" id="checkbox2" />
                   <span className="square_block"><IconChecked className='[&>path]:fill-black' /></span>
@@ -202,8 +202,8 @@ function LoginPopup() {
                 type="submit"
                 className={
                   status === "loading"
-                    ? " !opacity-50 submit_btn font-bold flex items-center justify-center"
-                    : " [&>svg]:opacity-0 submit_btn font-bold flex items-center justify-center"
+                    ? " !opacity-50 submit_btn  flex items-center justify-center"
+                    : " [&>svg]:opacity-0 submit_btn  flex items-center justify-center"
                 }
               >
                 <svg
@@ -223,13 +223,13 @@ function LoginPopup() {
                     fill="#1C64F2"
                   ></path>
                 </svg>
-                {status !== "loading" && " SIGN IN"}
+                {status !== "loading" && " Sign in"}
               </button>
             </form>
           </div>
           <div className="register_link">
             <div className="reg_title">NO ACCOUNT YET ?</div>
-            <button className="site_btn" onClick={registerSwitch}>REGISTER</button>
+            <button className="site_btn" onClick={registerSwitch}>Register</button>
           </div>
         </div>
       </div>

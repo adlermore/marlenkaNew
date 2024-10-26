@@ -51,7 +51,7 @@ export default async function Home() {
       </div>
       <ModalVideoWrap videoData={data?.video.youtube_code} />
       <div className="bg-white py-[80px] laptopHorizontal:py-[40px] ">
-        <div className="custom_container">
+        <div className="custom_container also_like">
           <div className="text-[32px] text-center laptopHorizontal:text-2xl uppercase">Best Sellers</div>
           <div className="grid grid-cols-4 gap-[25px] product_slider_list mt-[80px] mobile:grid-cols-1 tablet:grid-cols-2 laptopHorizontal:grid-cols-3  overflow-hidden laptopHorizontal:mt-[40px] pb-[60px]">
             {dataProduct?.products.slice(1,5).map((product, index) => (

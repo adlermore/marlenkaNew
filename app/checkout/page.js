@@ -4,7 +4,7 @@ import "@/styles/product_inner.scss";
 import { useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 import visa from "@/public/images/icons/visa.png";
 import arca from "@/public/images/icons/arca.png";
@@ -15,18 +15,68 @@ import IconChecked from "@/public/icons/IconChecked";
 import IconTruch from "@/public/icons/IconTruch";
 import IconAir from "@/public/icons/IconAir";
 import Image from "next/image";
+import { toast } from "react-hot-toast";
 
 const Checkout = () => {
 	const cart = useSelector((state) => state.cart);
-	const user = useSelector((state) => state.auth.user);
 	const router = useRouter();
+
+	const isAuth = useSelector((state) => state.auth.isAuthenticated);
+	const [isAuthChecked, setIsAuthChecked] = useState(false);
+	const [profileData, setProfileData] = useState(null);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (typeof isAuth !== 'undefined') {
+			setIsAuthChecked(true);
+		}
+	}, [isAuth]);
+
+	useEffect(() => {
+		if (isAuthChecked && !isAuth) {
+			router.push('/');
+		} else if (isAuthChecked && isAuth) {
+			fetchProfileData();
+		}
+	}, [isAuthChecked, isAuth, router]);
+
+
+	const fetchProfileData = async () => {
+		setLoading(true)
+		try {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getProfile`, {
+				method: 'GET',
+				headers: {
+					'Authorization': `Bearer ${localStorage.getItem("token")}`,
+				},
+			});
+			if (!response.ok) throw new Error('Failed to fetch profile data');
+			const data = await response.json();
+			setProfileData(data.data.profile);
+
+			reset({
+        namefirst: data.data.profile.name || '',
+        surname: data.data.profile.surname || '',
+        company: data.data.profile.company_name || '',
+        region: data.data.profile.country || '',
+      });
+
+		} catch (error) {
+			console.error('Error fetching profile:', error);
+		} finally {
+			setLoading(false)
+		}
+	};
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		watch,
-	} = useForm();
+		reset
+	} = useForm(
+		{ mode: "blur" }
+	);
 
 	const validateEmail = (value) => {
 		const regex = /^\S+@\S+$/i;
@@ -47,24 +97,46 @@ const Checkout = () => {
 	};
 
 	const userInfoSubmit = async (dataForm) => {
-		// console.log('Submitted form data:', dataForm);
+		console.log('Submitted form data:', dataForm);
 	};
 
-	const saveInfo = () => {
+	const saveInfo = async () => {
+		setLoading(true)
 		const formData = {
-			name: `${watch("namefirst")} ${watch("surname")}`,
-			company: watch("company"),
-			region: watch("region"),
-			street: watch("street"),
-			apartment: watch("apartament"),
-			city: watch("city"),
-			state: watch("state"),
-			zip: watch("zip"),
-			phone: watch("phone"),
-			email: watch("email"),
-			notes: watch("notes"),
+			name: `${watch("namefirst")}` || profileData.name,
+			surname: `${watch("surname")}` || profileData.surname,
+			email: watch("email") || profileData.email,
+			phone_number: watch("phone") || profileData.phone_number,
+			company_name: watch("company") || profileData.company_name,
+			country: watch("region") || profileData.country,
+			city: watch("city") || profileData.city,
+			address: watch("street") || profileData.address,
+			created_at: new Date().toISOString(),
+			updated_at: new Date().toISOString(),
+			apartment: watch("apartament") || profileData.apartment,
+			state: watch("state") || profileData.state,
+			zip_code: watch("zip") || profileData.zip_code,
+			notes: watch("notes") || profileData.notes,
+			type: "car" || profileData.type,
 		};
-		// console.log('Saved Info:', formData);
+
+		try {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/storeProfile`, {
+				method: 'POST',
+				headers: {
+					'Authorization': `Bearer ${localStorage.getItem("token")}`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			});
+
+			if (!response.ok) throw new Error('Failed to save profile data');
+			toast.success("Profile Information saved");
+		} catch (error) {
+			console.error('Error saving profile:', error);
+		} finally {
+			setLoading(false)
+		}
 	};
 
 	const validateCardNumber = (value) => {
@@ -84,7 +156,7 @@ const Checkout = () => {
 	};
 
 	const validateCVV = (value) => {
-		const regex = /^[0-9]{3,4}$/; // CVV can be 3 or 4 digits
+		const regex = /^[0-9]{3,4}$/;
 		if (!regex.test(value)) {
 			return "Invalid CVV";
 		}
@@ -105,7 +177,28 @@ const Checkout = () => {
 							<div className='flex-1 py-[20px] min-h-[400px] pr-[60px] laptopHorizontal:pr-[0px]'>
 								<div className="flex items-center justify-between">
 									<div className="form_title text-2xl text-black laptop:text-base">Checkout for items and shipping</div>
-									<button type="button" onClick={saveInfo} className="site_btn !text-[12px] !max-w-[100px]">Save Info</button>
+									<button type="button" onClick={saveInfo}
+										className={`w-[100px] h-[40px] !duration-0  !max-w-[100px] border site_btn mb-[10px] text-opacity-1 [&>svg]:opacity-0 ${loading && "[&>svg]:opacity-100 pointer-events-none opacity-80 !text-[#B62025] !text-opacity-0"}`}
+									>
+										<svg
+											aria-hidden="true"
+											role="status"
+											className="absolute inline w-4 h-4 text-gray-200 animate-spin [&>path]:fill-white"
+											viewBox="0 0 100 101"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+												fill="currentColor"
+											></path>
+											<path
+												d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+												fill="#1C64F2"
+											></path>
+										</svg>
+										{loading ? " " : " Save Info"}
+									</button>
 								</div>
 								<div className="checkout_form mt-[30px]">
 									<div className="inline">
@@ -114,13 +207,15 @@ const Checkout = () => {
 											<input
 												placeholder="Enter name"
 												autoComplete="on"
-												defaultValue={user?.name.split(' ')[0]}
+												// defaultValue={profileData?.name || ''}
 												className="form-control"
 												{...register("namefirst", { required: "Name is required" })}
 											/>
-											<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-												{errors.namefirst?.message}
-											</p>
+											{errors.namefirst && 
+												<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+													{errors.namefirst?.message}
+												</p>
+											}
 										</div>
 
 										<div className={errors.surname ? "form_block has_error" : "form_block"}>
@@ -128,13 +223,15 @@ const Checkout = () => {
 											<input
 												placeholder="Enter surname"
 												autoComplete="on"
-												defaultValue={user?.name.split(' ')[1]}
+												// defaultValue={profileData?.surname || ''}
 												className="form-control"
 												{...register("surname", { required: "Surname is required" })}
 											/>
-											<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-												{errors.surname?.message}
-											</p>
+											{errors.surname && 
+												<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+													{errors.surname?.message}
+												</p>
+											}
 										</div>
 									</div>
 									<div className={errors.company ? "form_block has_error" : "form_block"}>
@@ -143,6 +240,7 @@ const Checkout = () => {
 											placeholder="Type here..."
 											autoComplete="on"
 											className="form-control"
+											// defaultValue={profileData?.company_name || ''}
 											{...register("company")}
 										/>
 										<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -156,6 +254,7 @@ const Checkout = () => {
 											placeholder="United States (US)"
 											autoComplete="on"
 											className="form-control"
+											defaultValue={profileData?.country || ''}
 											{...register("region", { required: "Country/Region is required" })}
 										/>
 										<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -169,6 +268,7 @@ const Checkout = () => {
 											placeholder="House number and street name"
 											autoComplete="on"
 											className="form-control"
+											defaultValue={profileData?.address || ''}
 											{...register("street", { required: "Street address is required" })}
 										/>
 										<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -181,6 +281,7 @@ const Checkout = () => {
 											placeholder="Apartment, suite, unit, etc. (optional)"
 											autoComplete="on"
 											className="form-control"
+											defaultValue={profileData?.apartment || ''}
 											{...register("apartament")}
 										/>
 										<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -195,6 +296,7 @@ const Checkout = () => {
 												placeholder="Type here..."
 												autoComplete="on"
 												className="form-control"
+												defaultValue={profileData?.city || ''}
 												{...register("city", { required: "City is required" })}
 											/>
 											<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -208,6 +310,7 @@ const Checkout = () => {
 												placeholder="Type here..."
 												autoComplete="on"
 												className="form-control"
+												defaultValue={profileData?.state || ''}
 												{...register("state", { required: "State is required" })}
 											/>
 											<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -223,6 +326,7 @@ const Checkout = () => {
 												placeholder="Type here..."
 												autoComplete="on"
 												className="form-control"
+												defaultValue={profileData?.zip_code || ''}
 												{...register("zip", { required: "ZIP Code is required" })}
 											/>
 											<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -238,8 +342,8 @@ const Checkout = () => {
 												type="tel"
 												autoComplete="on"
 												className="form-control"
-												defaultValue={user?.phone}
 												mask="(999) 999-999"
+												value={profileData?.phone_number || ''}
 											/>
 											<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
 												{errors.phone?.message}
@@ -253,7 +357,7 @@ const Checkout = () => {
 											placeholder="Enter your email address"
 											autoComplete="on"
 											className="form-control"
-											defaultValue={user?.email}
+											defaultValue={profileData?.email || ''}
 											{...register("email", { required: "Email is required", validate: validateEmail })}
 										/>
 										<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -267,6 +371,7 @@ const Checkout = () => {
 											placeholder="Notes about your order, e.g. special notes for delivery."
 											autoComplete="on"
 											className="form-control"
+											defaultValue={profileData?.notes || ''}
 											{...register("notes")}
 										/>
 										<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">

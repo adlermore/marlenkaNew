@@ -12,7 +12,7 @@ function CardCanvas() {
 
   return (
     <>
-      <Link href="/card" className="duration-300 cursor-pointer hover:opacity-70 relative">
+      <Link href="/card" className="duration-300 card_button cursor-pointer hover:opacity-70 relative">
         <IconShop className="text-white" />
         {cartItems.length > 0 && 
            <span className="red_count">{cartItems.length}</span>

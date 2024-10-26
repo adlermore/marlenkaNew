@@ -11,7 +11,7 @@ function ModalVideoWrap({videoData}) {
 	const [isOpen, setOpen] = useState(false);
 	
 	return (
-		<div>
+		<div className="video_wrapper">
 			<ModalVideo
 				channel="youtube"
 				youtube={{ mute: 0, autoplay: 1 }}

@@ -145,7 +145,7 @@ a {
   }
 
   .popup_title {
-    margin-top: 60px;
+    margin-top: 40px;
     font-size: 38px;
     line-height: 1.6;
     color: black;
@@ -171,12 +171,16 @@ a {
   .popup_inner {
     width: 100%;
     padding-bottom: 40px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .form_block {
     position: relative;
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 
     input {
       max-width: 411px;
@@ -248,7 +252,7 @@ a {
       padding: 0 2px;
       font-weight: 700;
       color: black;
-
+      font-family: 'MontserratMedium';
       span {
         color: red;
       }
@@ -256,7 +260,8 @@ a {
   }
 
   .submit_btn {
-    height: 51px;
+    margin: 0 auto;
+    height: 40px;
     padding: 0 30px;
     font-size: 14px;
     line-height: 1.6;
@@ -265,8 +270,8 @@ a {
     width: 100%;
     color: white;
     background: #CE090F;
-    margin-top: 20px;
-
+    margin-top: 50px;
+    max-width: 80%;
     &:hover {
       opacity: 0.7;
     }
@@ -282,6 +287,14 @@ a {
     font-size: 15px;
     line-height: 1.6;
     color: black;
+    font-family: 'MontserratMedium';
+  }
+
+  .site_btn{
+    height: 40px;
+    text-transform: none;
+    background: #CE090F;
+    font-family: 'MontserratRegular';
   }
 
   button {
@@ -320,12 +333,73 @@ a {
   }
 }
 
+.header_links a{
+  &:hover{
+    color: #AE8839;
+    opacity: 1;
+  }
+}
+
+.search_btn{
+  &:hover{
+    color: #AE8839;
+    opacity: 1;
+    svg path{
+      fill: #AE8839;
+    }
+  }
+}
+
+.acc_btn{
+  span{
+    transition: 0.3s;
+  }
+  svg path{
+    transition: 0.3s;
+  }
+  &:hover{
+    span{
+      color: #AE8839;
+    }
+    svg path{
+      stroke: #AE8839;
+    }
+  }
+}
+
+.product_links button{
+  svg path{
+    transition: 0.3s;
+  }
+  &:hover{
+    svg path {
+      fill : #AE8839;
+    }
+  }
+}
+.video_wrapper .modal-video-body {
+    max-width: 1240px;
+}
+
+.favorite_btn , .card_button {
+  transition: 0.3s;
+  &:hover{
+    color: #AE8839;
+    opacity: 1;
+    svg path{
+      transition: 0.3s;
+    }
+    svg path{
+      fill: #AE8839;
+    }
+  }
+}
 .search_li {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
-  height: 34px;
+  height: 40px;
   z-index: 55;
 
   a {
@@ -347,7 +421,7 @@ a {
 
   &.opened {
     input {
-      width: 280px;
+      width: 360px;
       opacity: 1;
     }
   }
@@ -502,7 +576,7 @@ a {
 
 .red_count {
   position: absolute;
-  background: #b46126;
+  background: #ce080e;
   color: white;
   border-radius: 50%;
   font-size: 10px;
@@ -698,27 +772,54 @@ a {
   }
 }
 
+.also_like .new_look{
+  display: none;
+}
+
+.account_section .new_look{
+  display: none;
+}
+.product_info {
+  position: relative;
+  .new_look{
+    position: absolute;
+    right: 0;
+    top: -80px;
+    z-index: 9;
+  }
+}
 .product_page {
+  .new_look{
+    position: absolute;
+    top: -27px;
+    left: -12px;
+    z-index: 9;
+    opacity: 0;
+    transition: 0.3s;
+  }
   .slider_block {
     position: relative;
-
     &:before {
       content: "";
+      z-index: 1;
       position: absolute;
-      border: 1px solid #B62025;
+      border: 1px solid #FFEED9;
       opacity: 0;
-      top: -10px;
+      top: -15px;
       transition: 0.3s;
-      left: -5px;
-      right: -10px;
-      bottom: -10px;
+      left: 0px;
+      right: -11px;
+      bottom: -6px;
       z-index: 6;
       border-radius: 20px;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+      box-shadow: rgb(224 190 150 / 57%) 0px 0px 7px 3px;
     }
 
     &:hover {
       &::before {
+        opacity: 1;
+      }
+      .new_look{
         opacity: 1;
       }
     }

@@ -11,6 +11,7 @@ import Product from '@/components/product/Product';
 import Link from 'next/link';
 import PageLoader from '@/components/PageLoader';
 import AlsoLike from '@/components/alsoLikeProducts/AlsoLike';
+import newLook from "@/public/images/newLookInner.png";
 
 const ProductPage = ({ params }) => {
 
@@ -40,7 +41,7 @@ const ProductPage = ({ params }) => {
 		if (!showFullDetails) {
 			setTimeout(() => {
 				if (fullDetailsRef.current) {
-					fullDetailsRef.current.scrollIntoView({ behavior: "smooth" , block: "center" });
+					fullDetailsRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
 				}
 			}, 0);
 		}
@@ -165,6 +166,19 @@ const ProductPage = ({ params }) => {
 						</div>
 					</div>
 					<div className='product_info pl-[80px] w-full flex flex-col justify-between laptopHorizontal:pl-[30px]'>
+						{product.id === 5 &&
+							<span className="new_look">
+								<Image
+									src={newLook}
+									unoptimized
+									alt={product.name || "Ricardo portrait"}
+									priority
+									width={184}
+									height={184}
+									className="object-contain"
+								/>
+							</span>
+						}
 						<div className='text-[#B62025] text-2xl'>{product.name}</div>
 						<div className='mt-[30px] text-xl text-black font-medium max-w-[420px]:'>
 							{product.description}
@@ -201,13 +215,13 @@ const ProductPage = ({ params }) => {
 				<div className='flex gap-[80px] laptop:gap-[40px] mobile:gap-[20px] pt-[30px]'>
 					<div className='text-[#AE8839] text-2xl mobile:text-base font-medium'>Details</div>
 					<div className='pb-[30px] text-xl mobile:text-base  text-black'>
-						{product.details_one !=='null' && product.details_one}
+						{product.details_one !== 'null' && product.details_one}
 						<br />
 						<br />
-						{product.details_two  !=='null' && product.details_two}
+						{product.details_two !== 'null' && product.details_two}
 						<br />
 						<br />
-						{product.details_three !=='null' && product.details_three}
+						{product.details_three !== 'null' && product.details_three}
 					</div>
 				</div>
 				<div className='flex gap-[80px] tablet:flex-col laptop:gap-[40px] mobile:gap-[20px] pt-[30px] mb-[40px] '

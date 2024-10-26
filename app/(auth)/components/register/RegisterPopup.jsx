@@ -8,12 +8,13 @@ import { registerSchema } from "@/validation/registerSchema";
 import { initializeAuth, register } from '@/redux/authSlice';
 import useOnClickOutside from '@/utils/hooks/useOnClickOutside';
 import IconClose from '@/public/icons/IconClose.jsx';
-import loginLogo from '@/public/images/loginImg.svg'
+import loginLogo from '@/public/images/reverseLogo.svg';
 import Image from 'next/image';
 import eye from '@/public/images/eye.png'
 
 function RegisterPopup() {
   const [showPass, setShowPass] = useState(false);
+  const [showPass2, setShowPass2] = useState(false);
   const [initialized, setInitialized] = useState(false);
 
   const ref = useRef();
@@ -60,6 +61,9 @@ function RegisterPopup() {
   const passToggle = () => {
     setShowPass(!showPass);
   };
+  const passToggle2 = () => {
+    setShowPass2(!showPass2);
+  };
 
   return (
     <div className="register_popup">
@@ -72,7 +76,7 @@ function RegisterPopup() {
                 alt="Ricardo portrait"
                 priority={true}
                 unoptimized={true}
-                sizes="80vw"
+                sizes="90vw"
                 style={{
                   objectFit: "contain",
                 }}
@@ -162,9 +166,21 @@ function RegisterPopup() {
                   autoComplete="on"
                   className="form-control"
                   name="password_confirmation"
-                  type="password"
+                  type={showPass2 ? "text " : "password"}
                   {...registerForm("password_confirmation", { required: true })}
                 />
+                <button className={`pass_show ${showPass2 && 'avtive'}`} onClick={passToggle2}>
+                  <Image
+                    src={eye}
+                    alt="Ricardo portrait"
+                    priority={true}
+                    unoptimized={true}
+                    sizes="80vw"
+                    style={{
+                      objectFit: "contain",
+                    }}
+                  />
+                </button>
                 <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
                   {errorsRegister?.password_confirmation?.message}
                 </p>

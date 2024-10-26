@@ -19,7 +19,7 @@ function AlsoLike({ sectionTitle, start, end }) {
 	}, [sectionTitle, start, end]);
 
 	return (
-		<div className="bg-siteCrem !py-[50px] mt-[30px] laptopHorizontal:!py-[30px]">
+		<div className="bg-siteCrem !py-[50px] mt-[30px] laptopHorizontal:!py-[30px] also_like">
 			<div className="custom_container">
 				<div className="text-[24px] text-center uppercase laptopHorizontal:text-xl">{sectionTitle}</div>
 				<div className="grid grid-cols-3 tablet:gap-[30px] tablet:grid-cols-1 gap-[25px] mt-[50px] pb-[40px] laptopHorizontal:mt-[40px] laptopHorizontal:pb-[30px]">

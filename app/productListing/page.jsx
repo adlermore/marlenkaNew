@@ -89,7 +89,7 @@ const ProductGrid = () => {
 										id='filter'
 										defaultChecked={categoryId === ''}
 									/>
-									<span className="check_label font-medium">All Categories</span>
+									<span className="check_label font-medium">All Products</span>
 								</label>
 							</div>
 							{categories?.map((filter) => (
@@ -98,7 +98,6 @@ const ProductGrid = () => {
 										<input type="radio" name='category'
 											onChange={() => changeFilterType(filter.id)}
 											id={`filter${filter.id}`}
-											// defaultChecked={categoryId === filter.id.toString()}
 											checked={categoryId === filter.id.toString()} 
 										/>
 										<span className="check_label font-medium">{filter.name}</span>

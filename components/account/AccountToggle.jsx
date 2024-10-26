@@ -84,9 +84,9 @@ function AccountToggle() {
         ref={accountRef}
       >
         <div className="drop_btn cursor-pointer" onClick={dropToggle}>
-          <div className="flex relative text-white items-center gap-20">
+          <div className="flex relative text-white acc_btn items-center gap-10">
             <IconUser className="text" />
-            <span className='whitespace-nowrap'>Sign in</span>
+            <span className='whitespace-nowrap'> {isAuth ? 'Profile' : 'Sign in' }</span>
           </div>
         </div>
         <div className="account_drop">

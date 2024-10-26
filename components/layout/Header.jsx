@@ -124,18 +124,18 @@ function Header() {
             alt="Ricardo portrait"
             priority={true}
             unoptimized={true}
-            width={170}
+            width={180}
           />
         </Link>
         <div className={`laptop:fixed  flex gap-[30px] laptop:overflow-hidden justify-around w-full max-w-[1100px] items-center z-20 ml-auto laptop:z-0 laptop:h-full laptop:bottom-0 laptop:right-0 duration-[0.7s] mobile:duration-[0.5s] ${isOpen ? 'menu-open laptop:w-full' : 'laptop:w-0'}`}>
           <div className="ml-auto w-full laptop:w-full laptop:m-0 laptop:flex laptop:justify-end tablet:w-[calc(100vw)] z-20 relative laptop:left-0 laptop:h-full laptop:bg-blueDark1 laptop:bg-opacity-35 laptop:z-[-1] laptop:top-[120px] tablet:bg-white mobile:bg-transparent tablet:text-black mobile:top-[150px]">
-            <div className={`${isScrolled && 'isScrolled'} laptop:!w-0 ml-[-40px] noteBook:ml-0 mobile_container relative flex justify-center mobile:h-[calc(100vh-150px)] items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-0px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[70px] laptop:mr-0  laptop:justify-start laptop:gap-[30px]`}>
+            <div className={`${isScrolled && 'isScrolled'} header_links laptop:!w-0 ml-[-40px] noteBook:ml-0 mobile_container relative flex justify-center mobile:h-[calc(100vh-150px)] items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-0px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[70px] laptop:mr-0  laptop:justify-start laptop:gap-[30px]`}>
               {categories ? 
               categories.slice(0,7).map((category) => (
                 <Link
                   key={category.id}
                   href={`/productListing?category=${category.id}`}
-                  className={`${pathname === `/productListing?category=${category.id}` && ' pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[38px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-white text-[18px] `}
+                  className={`${pathname === `/productListing?category=${category.id}` && ' pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[38px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-siteCrem text-[18px] `}
                 >
                   {category.name}
                 </Link>
@@ -145,7 +145,7 @@ function Header() {
                 <Link
                   key={i}
                   href={link.href}
-                  className={`${pathname === link.href && ' pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[38px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-white text-[18px] `}
+                  className={`${pathname === link.href && ' pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[38px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-siteCrem text-[18px] `}
                 >
                   {link.title}
                 </Link>
@@ -153,7 +153,7 @@ function Header() {
               }
             </div>
           </div>
-          <div className='flex items-center ml-auto gap-[30px] laptop:absolute laptop:top-[119px] mobile:top-[148px] laptop:right-0 tablet:w-full laptop:bg-[#520e11] laptop:p-10 laptop:w-[350px] laptop:justify-center laptop:border-t border-siteCrem'>
+          <div className='flex items-center ml-auto gap-[15px] laptop:absolute laptop:top-[119px] mobile:top-[148px] laptop:right-0 tablet:w-full laptop:bg-[#520e11] laptop:p-10 laptop:w-[350px] laptop:justify-center laptop:border-t border-siteCrem'>
             <div><SearchToggle /> </div>
             <div onClick={handelFavoriteDirect} className='favorite_btn duration-300 relative cursor-pointer hover:opacity-70'>
               <IconHeart className='text-white' />
