@@ -28,8 +28,6 @@ const CardPage = () => {
 		dispatch(updateCartQuantity({ productId, amount: -1 }));
 	};
 
-
-
 	const detectScrollBarWidth = () => {
     const documentWidth = document.documentElement.clientWidth;
     const windowWidth = window.innerWidth;

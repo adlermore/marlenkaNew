@@ -18,6 +18,17 @@ export const namefirst = z
   .max(50, { message: "Field must be at most 50 characters long" })
   .trim()
 
+export const detalis = z
+  .string()
+  .min(1, { message: "This field is required" })
+  .max(50, { message: "Field must be at most 50 characters long" })
+  .trim()
+export const business = z
+  .string()
+  .min(1, { message: "This field is required" })
+  .max(50, { message: "Field must be at most 50 characters long" })
+  .trim()
+
 
 export const city = z
   .string()
@@ -46,14 +57,14 @@ export const surname = z
   .max(50, { message: "Field must be at most 50 characters long" })
   .trim()
 
-  export const street = z
+export const street = z
   .string()
   .min(1, { message: "This field is required" })
   .max(50, { message: "Field must be at most 50 characters long" })
   .trim()
 
 
-  
+
 export const email = z
   .string()
   .min(1, { message: "This field is required" })

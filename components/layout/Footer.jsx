@@ -150,18 +150,18 @@ const Footer = () => {
           <div className="menu_block">
             <h2 className="text-xl  text-siteCrem pb-[2px]">Shortcuts</h2>
             <Link href="/">Home</Link>
-            <Link href="/">About us</Link>
-            <Link href="/">Awards </Link>
-            <Link href="/">Latest News</Link>
-            <Link href="/">FAQ</Link>
+            {/* <Link href="/">About us</Link> */}
+            <Link href="/awards">Awards </Link>
+            <Link href="/news">Latest News</Link>
+            <Link href="/faq">FAQ</Link>
           </div>
           <div className="menu_block">
             <h2 className="text-xl  text-siteCrem pb-[2px]">Legal</h2>
-            <Link href="/">Privacy policy</Link>
-            <Link href="/">Terms & conditions</Link>
-            <Link href="/">Delivery & returns</Link>
-            <Link href="/">Wholesale</Link>
-            <Link href="/">Media library</Link>
+            <Link href="/policy">Privacy policy</Link>
+            <Link href="/terms">Terms & conditions</Link>
+            <Link href="/contacts">Contact Us</Link>
+            <Link href="/wholeSale">Wholesale</Link>
+            {/* <Link href="/">Media library</Link> */}
           </div>
           <div className="menu_block contact-block">
             <h2 className="text-xl text-siteCrem pb-[2px]">Contact us</h2>

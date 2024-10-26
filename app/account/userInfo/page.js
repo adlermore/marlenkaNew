@@ -99,9 +99,6 @@ export default function UserInfoPage() {
     fetchProfileData();
 	}, []);
 
-  console.log('errors', errorUser);
-  
-
   return (
     <div className='user_wrapper w-full'>
       <div className='text-2xl text-black'>
@@ -112,7 +109,6 @@ export default function UserInfoPage() {
           <button
             type="submit"
             className={`w-[100px] h-[40px] !duration-0 !bg-siteCrem !max-w-[100px] !text-black border site_btn mb-[10px] text-opacity-1 [&>svg]:opacity-0 ${loading && "[&>svg]:opacity-100 pointer-events-none opacity-80 !text-opacity-0"}`}
-
           >
             <svg
               aria-hidden="true"
