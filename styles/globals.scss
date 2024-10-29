@@ -1135,44 +1135,44 @@ a {
   }
 }
 
-.footer_links {
-  .insta_fill{
-    display: none;
-  }
-  a {
-    &:nth-child(2){
-      &:hover{
-        >svg{
-          display: none;
-        }
-        .insta_fill{
-          display: block;
-        }
-      }
-    }
-    &:nth-child(3){
-      &:hover{
-        >svg{
-          display: none;
-        }
-        .insta_fill{
-          display: block;
-        }
-      }
-    }
-    svg path{
-      transition: 0s;
-    }
-    &:hover{
-      opacity: 1;
-      color: #AE8839;
-      svg path{
-        fill: #AE8839 !important; 
-        stroke: #AE8839 !important;
-      }
-    }
-  }
-}
+// .footer_links {
+//   // .insta_fill{
+//   //   display: none;
+//   // }
+//   a {
+//     &:nth-child(2){
+//       &:hover{
+//         >svg{
+//           display: none;
+//         }
+//         .insta_fill{
+//           display: block;
+//         }
+//       }
+//     }
+//     &:nth-child(3){
+//       &:hover{
+//         >svg{
+//           display: none;
+//         }
+//         .insta_fill{
+//           display: block;
+//         }
+//       }
+//     }
+//     svg path{
+//       transition: 0s;
+//     }
+//     &:hover{
+//       opacity: 1;
+//       color: #AE8839;
+//       svg path{
+//         fill: #AE8839 !important; 
+//         stroke: #AE8839 !important;
+//       }
+//     }
+//   }
+// }
 
 .slick_wrapper {
   position: relative;

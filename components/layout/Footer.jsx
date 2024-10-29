@@ -19,6 +19,7 @@ import { email } from "@/validation/common"
 import toast from "react-hot-toast"
 import IconInstaFill from "@/public/icons/IconInstaFill"
 import IconFbFill from "@/public/icons/IconFbFill"
+import IconAmazon from "@/public/icons/IconAmazon"
 
 const Footer = () => {
   const [formData, setFormData] = useState({
@@ -31,7 +32,8 @@ const Footer = () => {
     email: ''
   });
 
-  const [constacts , setContacts] = useState(null);
+  const [constacts, setContacts] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const validateField = (name, value) => {
     let error = '';
@@ -89,26 +91,28 @@ const Footer = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-
+        setLoading(true)
         const response = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/subscribe', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            name : formData.fullName,
-            email : formData.email
+            name: formData.fullName,
+            email: formData.email
           })
         });
 
         if (response.ok) {
           toast.success("Thank you for subscribing!");
-          setFormData({ fullName: '', email: '' }); 
+          setFormData({ fullName: '', email: '' });
         } else {
           alert('Something went wrong. Please try again.');
         }
       } catch (error) {
         console.error('Error submitting form:', error);
+      } finally {
+        setLoading(false)
       }
     }
   };
@@ -117,16 +121,16 @@ const Footer = () => {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const data = await request(process.env.NEXT_PUBLIC_DATA_API +'/getContactUs');
+        const data = await request(process.env.NEXT_PUBLIC_DATA_API + '/getContactUs');
         setContacts(data.data.contactUs[0]);
-      
+
       } catch (error) {
         console.error('Failed to fetch categories', error);
       }
     };
     fetchContacts();
   }, []);
-  
+
   return (
     <div className='footer pt-[60px] laptopHorizontal:pt-[30px] pb-[140px] bg-[#520E11] text-white relative laptopHorizontal:py-[80px] mobile:py-[40px]'>
       <div className='custom_container '>
@@ -150,7 +154,7 @@ const Footer = () => {
           <div className="menu_block">
             <h2 className="text-xl  text-siteCrem pb-[2px]">Shortcuts</h2>
             <Link href="/">Home</Link>
-            {/* <Link href="/">About us</Link> */}
+            <Link href="/about">About us</Link>
             <Link href="/awards">Awards </Link>
             <Link href="/news">Latest News</Link>
             <Link href="/faq">FAQ</Link>
@@ -161,26 +165,25 @@ const Footer = () => {
             <Link href="/terms">Terms & conditions</Link>
             <Link href="/contacts">Contact Us</Link>
             <Link href="/wholeSale">Wholesale</Link>
-            {/* <Link href="/">Media library</Link> */}
+            <Link href="/">Media library</Link>
           </div>
           <div className="menu_block contact-block">
             <h2 className="text-xl text-siteCrem pb-[2px]">Contact us</h2>
-            <a href={`tel:${constacts?.phone_number}`}  className="!flex items-center  gap-20"><IconCall />{constacts?.phone_number}</a>
-            <a href="/" className="!flex items-center  gap-20"> <IconWhatsap /> {constacts?.whatsapp}</a>
-            <a href="/" className="!flex items-center  gap-20"><IconMail /> {constacts?.email}</a>
+            <a href={`tel:${constacts?.phone_number}`} className="!flex items-center  gap-20"><IconCall />{constacts ? constacts?.phone_number : '1-(844)-627-5365'}</a>
+            <a href="/" className="!flex items-center  gap-20"> <IconWhatsap /> {constacts ? constacts?.whatsapp : '1-(844)-627-5365'}</a>
+            <a href="/" className="!flex items-center  gap-20"><IconMail /> {constacts ? constacts?.email : 'email@gmail.com'}</a>
             <div className="flex gap-[20px] footer_links items-center">
-              <a href={constacts?.gmail_link}><IconGoogle /></a>
+              {/* <a href={constacts?.gmail_link}><IconGoogle /></a> */}
               <a href={constacts?.instagram_link}>
                 <IconInsta />
-                <span className="insta_fill"><IconInstaFill /></span>
               </a>
               <a href={constacts?.facebook_link}>
                 <IconFb />
-                <span className="insta_fill"><IconFbFill /></span>
               </a>
-              <a href={constacts?.linkedin_link}><IconIn /></a>
-              <a href={constacts?.twitter_link}><IconTwit /></a>
               <a href={constacts?.youtube_link}><IconYou /></a>
+              <a href={constacts?.linkedin_link}><IconIn /></a>
+              <a href={constacts?.linkedin_link}><IconAmazon /></a>
+              {/* <a href={constacts?.twitter_link}><IconTwit /></a> */}
             </div>
           </div>
           <div className="menu_block">
@@ -213,7 +216,30 @@ const Footer = () => {
                   {errors.email && <span className="error">{errors.email}</span>}
                 </div>
 
-                <button type="submit">Subscribe</button>
+                <button type="submit" className="flex items-center justify-center" disabled={loading}>
+
+                  {loading ?
+                    <svg
+                      aria-hidden="true"
+                      role="status"
+                      className="absolute inline   h-4 animate-spin dark:text-gray-600"
+                      viewBox="0 0 100 101"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="currentColor"
+                      ></path>
+                      <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="#1C64F2"
+                      ></path>
+                    </svg>
+                   :
+                  'Subscribe'
+                  }
+                </button>
               </form>
             </div>
           </div>
