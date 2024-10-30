@@ -36,6 +36,7 @@ const ProductGrid = () => {
 		} else {
 			setProducts(prev => [...prev, ...data.data.products]);
 		}
+		
 		setLoading(false);
 		setHasMore(data.data.products.length === 10);
 	};

@@ -22,6 +22,34 @@ import IconFbFill from "@/public/icons/IconFbFill"
 import IconAmazon from "@/public/icons/IconAmazon"
 
 const Footer = () => {
+
+  const [isOverlayVisible, setOverlayVisible] = useState(true);
+
+  const toggleBodyStyles = () => {
+    const body = document.body;
+    if (isOverlayVisible) {
+      body.classList.remove('overlay'); 
+    } else {
+      body.classList.add('overlay'); 
+    }
+    setOverlayVisible(!isOverlayVisible);
+  };
+
+  const handleKeyUp = (event) => {
+    if (event.ctrlKey && event.key === 'o') {
+      toggleBodyStyles();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [isOverlayVisible]);
+
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: ''
@@ -179,7 +207,7 @@ const Footer = () => {
               </a>
               <a href={constacts?.facebook_link}>
                 <IconFb />
-              </a>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
+              </a>
               <a href={constacts?.youtube_link}><IconYou /></a>
               <a href={constacts?.linkedin_link}><IconIn /></a>
               <a href={constacts?.linkedin_link}><IconAmazon /></a>

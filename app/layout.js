@@ -17,7 +17,7 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="flex flex-col siteBody bg-black">
+      <body className="flex flex-col siteBody overlay">
         <Toaster 
           containerStyle={{ zIndex: 99999 }} 
           position="bottom-right" 

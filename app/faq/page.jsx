@@ -1,10 +1,26 @@
 'use client'
-import React , { useState } from 'react';
+import React , { useEffect, useState } from 'react';
 
 function Faq() {
 
   const [activeIndex, setActiveIndex] = useState(null);
+  const [faqData, setFaqData] = useState([]); 
 
+  const getFaqData = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getFAQ`);
+    const data = await response.json();
+    return data;
+  };
+
+  useEffect(()=>{
+      const fetchData = async () => {
+      const data = await getFaqData();
+      console.log('Fetched FAQ Data:', data.data);
+      setFaqData(data.data); 
+    };
+    
+    fetchData();
+  },[])
 
   const faqs = [
     {

@@ -90,7 +90,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <div className="relative duration-300 hover:opacity-90 py-[85px] laptop:py-[60px] mobile:hidden bg-white">
+      <div className="relative duration-300  py-[85px] laptop:py-[60px] mobile:hidden bg-white">
         <div className="custom_container relative">
           <div className="text-[#B62025] uppercase text-[32px]">Marlenka's Timeline</div>
           <Image
