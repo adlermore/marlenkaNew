@@ -26,12 +26,12 @@ body {
   overflow-x: hidden !important;
 
   // hiddenn
-  &.overlay {
-    overflow: hidden !important;
-    opacity: 0 !important;
-    background-color: black !important;
-    transition: opacity 0.3s ease !important; 
-  }
+  // &.overlay {
+  //   overflow: hidden !important;
+  //   opacity: 0 !important;
+  //   background-color: black !important;
+  //   transition: opacity 0.3s ease !important; 
+  // }
 
   //  hidden
 
@@ -77,6 +77,44 @@ a {
 
   &:hover {
     opacity: 0.7;
+  }
+}
+
+.blog_list{
+  margin: 80px 0;
+  .blog_block{
+    margin-bottom: 70px;
+    &:nth-child(even){
+      .blog_line{
+        flex-direction: row-reverse;
+      }
+    }
+  }
+  .blog_line{
+    display: flex;
+    gap: 100px;
+  }
+  .blog_title{
+    font-size: 32px;
+    line-height: 1.6;
+  }
+  .blog_desc{
+    font-size: 16px;
+    margin-top: 30px; 
+  }
+  .blog_info{
+    max-width: 450px;
+  }
+  .blog_image{
+    flex: 1;
+    >div{
+      margin-left: auto;
+      width: 100%;
+      // max-width: 642px;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 360px;
+    }
   }
 }
 
