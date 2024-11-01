@@ -1,22 +1,20 @@
-// app/news/[id]/page.js
+
 import React from 'react';
 
-const API_TOKEN = '5kQJ8Mfppj1YLWIPbFGBM6yXKfroJebHPJZh1k1l'; // Your API token
-
-async function fetchSingleNews(id) {
-  const res = await fetch(`https://api.thenewsapi.com/v1/news/uuid/${id}?api_token=${API_TOKEN}`);
-  if (!res.ok) {
-    throw new Error('Failed to fetch news');
-  }
-  return res.json();
-}
+// async function fetchSingleNews(id) {
+//   const res = await fetch(`https://api.thenewsapi.com/v1/news/uuid/${id}?api_token=${API_TOKEN}`);
+//   if (!res.ok) {
+//     throw new Error('Failed to fetch news');
+//   }
+//   return res.json();
+// }
 
 const SingleNews = async ({ params }) => {
-  const newsArticle = await fetchSingleNews(params.id);
+  // const newsArticle = await fetchSingleNews(params.id);
 
   return (
     <div className='mt-[120px] news_page'>
-      <div className=' text-2xl uppercase bg-siteCrem '>
+      {/* <div className=' text-2xl uppercase bg-siteCrem '>
         <div className='custom_container text-center mx-auto justify-center h-[120px] laptopHorizontal:h-[80px] laptopHorizontal:text-base  flex items-center  text-[#B62025] font-medium'>
           Latest News
         </div>
@@ -31,19 +29,19 @@ const SingleNews = async ({ params }) => {
           </h1>
           <div className="flex items-center space-x-11">
             <div className="h-96 w-[562px] shrink-0 bg-center bg-cover" >
-            <iframe
-        src={`https://www.youtube.com/embed/${videoId}`}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title="YouTube Video"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-        }}
-      />
+              <iframe
+                src={`https://www.youtube.com/embed/${videoId}`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="YouTube Video"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
             </div>
             <div className="h-96 w-[561px] shrink-0 bg-center bg-cover" />
           </div>
@@ -126,9 +124,7 @@ const SingleNews = async ({ params }) => {
             company and will lead it in the same spirit.
           </p>
         </div>
-
-
-      </div>
+      </div> */}
     </div>
   );
 };

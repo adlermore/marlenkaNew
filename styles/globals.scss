@@ -26,12 +26,12 @@ body {
   overflow-x: hidden !important;
 
   // hiddenn
-  // &.overlay {
-  //   overflow: hidden !important;
-  //   opacity: 0 !important;
-  //   background-color: black !important;
-  //   transition: opacity 0.3s ease !important; 
-  // }
+  &.overlay {
+    overflow: hidden !important;
+    opacity: 0 !important;
+    background-color: black !important;
+    transition: opacity 0.3s ease !important; 
+  }
 
   //  hidden
 
@@ -115,6 +115,22 @@ a {
       overflow: hidden;
       height: 360px;
     }
+  }
+}
+
+.awards_secton{
+  strong{
+    font-family: 'MontserratMedium';
+  }
+  .awards_title{
+     ul{
+      margin-top: 15px;
+      padding-left: 20px;
+    list-style: unset;
+    li{
+      margin-bottom: 10px;
+    }
+     }
   }
 }
 

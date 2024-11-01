@@ -103,7 +103,7 @@ export default async function Home() {
               objectFit: "cover",
             }}
           />
-          <a href='https://marlenka.cz/en/about#history' target="_blank" className="text-[#B62025] text-2xl ml-auto block tablet:text-base text-right  mt-[-30px]">Read our history</a>
+          <Link href='/about' className="text-[#B62025] text-2xl ml-auto block tablet:text-base text-right  mt-[-30px]">Read our history</Link>
         </div>
       </div>
     </div>
