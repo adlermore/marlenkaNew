@@ -26,12 +26,12 @@ body {
   overflow-x: hidden !important;
 
   // hiddenn
-  &.overlay {
-    overflow: hidden !important;
-    opacity: 0 !important;
-    background-color: black !important;
-    transition: opacity 0.3s ease !important; 
-  }
+  // &.overlay {
+  //   overflow: hidden !important;
+  //   opacity: 0 !important;
+  //   background-color: black !important;
+  //   transition: opacity 0.3s ease !important; 
+  // }
 
   //  hidden
 
@@ -87,6 +87,14 @@ a {
     &:nth-child(even){
       .blog_line{
         flex-direction: row-reverse;
+        justify-content: space-between;
+        .blog_image{
+          flex: 1;
+          >div{
+            margin-left: 0;
+            margin-right: auto;
+          }
+        }
       }
     }
   }
@@ -110,7 +118,7 @@ a {
     >div{
       margin-left: auto;
       width: 100%;
-      // max-width: 642px;
+      max-width: 642px;
       border-radius: 10px;
       overflow: hidden;
       height: 360px;
@@ -832,6 +840,7 @@ a {
       opacity: 1;
     }
   }
+
 }
 
 .more_btn {
@@ -863,11 +872,11 @@ a {
     border-radius: 30px;
     border: 1px solid #D9D9D9;
     margin-bottom: 20px;
-    padding: 11px 15px;
+    padding: 15px;
     color: #363C24;
     transition: 0.3s;
     user-select: none;
-    height: 58px;
+    // height: 58px;
     &.active{
       height: 100%;
     }
@@ -887,8 +896,8 @@ a {
     cursor: pointer;
   }
   .faq_btn span{
-    width: 35px;
-    height: 35px;
+    min-width: 35px !important;
+    height: 35px !important;
     background: #AE8839;
     border-radius: 50%;
     color: white;
@@ -1029,8 +1038,76 @@ a {
 
 .filter_line input[type=radio]:checked+.check_label {
   opacity: 1;
-  border-bottom: 1px solid;
   color: #AE883D;
+  &::after{
+    opacity: 1;
+  }
+}
+.filter_line{
+  .check_label{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    &::after{
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #AE883D;
+      position: absolute;
+      left: 5px;
+      transition: 0.3s;
+      opacity: 0;
+    }
+    &::before{
+      content: "";
+      width: 20px;
+      display: block;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #AE883D;
+    }
+  }
+}
+
+.filter_line.checkbox{
+  .check_label{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    svg{
+      position: absolute;
+      left: 4px;
+      width: 12px;
+      height: 12px;
+      transition: 0.3s;
+      opacity: 0;
+    }
+    &::after{
+      display: none;
+    }
+    svg path{
+      fill: #AE883D;
+    }
+    &::before{
+      content: "";
+      width: 20px;
+      display: block;
+      height: 20px;
+      border: 1px solid #AE883D;
+      border-radius: 0;
+    }
+  }
+}
+
+.filter_line input[type=checkbox]:checked+.check_label {
+  opacity: 1;
+  color: #AE883D;
+  svg{
+    opacity: 1;
+  }
 }
 
 .login_form {

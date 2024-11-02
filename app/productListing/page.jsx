@@ -5,6 +5,7 @@ import cover1 from "@/public/images/cover1.png";
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PageLoader from '@/components/PageLoader';
+import IconChecked from '@/public/icons/IconChecked';
 
 const Product = lazy(() => import('@/components/product/Product'));
 
@@ -15,10 +16,13 @@ const ProductGrid = () => {
 
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]); 
+	const [flavors, setFlavors] = useState([]); 
 	const [loading, setLoading] = useState(true);
 	const [offset, setOffset] = useState(0);
 	const [hasMore, setHasMore] = useState(true);
 	const search = searchParams.get('filter') || '';
+
+	const [selectedFlavors, setSelectedFlavors] = useState([]);
 
 	const fetchCategories = async () => {
 		const response = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getCategories');
@@ -26,9 +30,17 @@ const ProductGrid = () => {
 		setCategories(data.data.categories);
 	};
 
+	const fetchFlavors = async () => {
+		const response = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getFlavors');
+		const data = await response.json();
+		setFlavors(data.data.flavors);
+	};
+
+	const flavorsParam = selectedFlavors.length > 0 ? `&flavors=${selectedFlavors.join(',')}` : '';
+	
 	const fetchProducts = async (newOffset = 0, selectedCategory = '') => {
 		setLoading(true);
-		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getProducts?offset=${newOffset}&limit=10&filter=${search}&${selectedCategory ? `&category_id=${selectedCategory}` : ''}`);
+		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getProducts?offset=${newOffset}&limit=10&filter=${search}&${selectedCategory ? `&category_id=${selectedCategory}` : ''}${flavorsParam}`);
 		const data = await response.json();
 
 		if (newOffset === 0) {
@@ -43,6 +55,7 @@ const ProductGrid = () => {
 
 	useEffect(() => {
 		fetchCategories();
+		fetchFlavors();
 		fetchProducts(0, categoryId);
 	}, [categoryId , router , search]);
 
@@ -60,6 +73,22 @@ const ProductGrid = () => {
 	const changeFilterType = (filter) => {
 		router.push(`?category=${filter}`, { scroll: false });
 	};
+
+
+	const changeFloversType = (flavorId) => {
+		setSelectedFlavors(prev => {
+				const newSelectedFlavors = prev.includes(flavorId)
+						? prev.filter(id => id !== flavorId)
+						: [...prev, flavorId];
+				
+				const params = new URLSearchParams(searchParams.toString());
+				params.set('flavors', newSelectedFlavors.join(','));
+				router.push(`?${params.toString()}`, { scroll: false });
+				
+				return newSelectedFlavors;
+		});
+};
+
 
 	return (
 		<>
@@ -105,6 +134,23 @@ const ProductGrid = () => {
 									</label>
 								</div>
 							))}
+						</div>
+						<div>
+						<div className='text-[#B62025] text-[32px] laptopHorizontal:text-2xl mb-20 border-b-2 laptop:mx-auto laptop:mb-[40px] text-center max-w-fit'>Flovers</div>
+						{flavors?.map((filter) => (
+					<div key={filter.id} className="mb-[10px] filter_line checkbox">
+						<label htmlFor={`flavors${filter.id}`}>
+							<input type="checkbox" 
+								onChange={() => changeFloversType(filter.id)} 
+								id={`flavors${filter.id}`} 
+								checked={selectedFlavors.includes(filter.id)} 
+							/>
+							<span className="check_label font-medium">
+								<IconChecked />
+								{filter.name}</span>
+						</label>
+					</div>
+				))}
 						</div>
 					</div>
 				</div>
