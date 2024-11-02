@@ -56,6 +56,7 @@ function GiftSection({ romantic }) {
               src={process.env.NEXT_PUBLIC_DATA + romantic?.small_image_path}
               alt="Ricardo portrait"
               priority={true}
+              unoptimized
               sizes="50vw"
               fill
               style={{

@@ -58,6 +58,7 @@ async function About() {
                     src={blog3}
                     alt='blog-3'
                     fill
+                    unoptimized
                     priority
                     className='object-cover'
                   />
@@ -80,6 +81,7 @@ async function About() {
                    src={process.env.NEXT_PUBLIC_DATA + item.image_path}
                    alt='blog-3'
                    fill
+                   unoptimized
                    priority
                    className='object-cover'
                  />

@@ -128,6 +128,7 @@ const ProductPage = ({ params }) => {
 												<Image
 													src={process.env.NEXT_PUBLIC_DATA + image.image_path}
 													alt={`Product ${index}`}
+													unoptimized
 													fill
 													sizes="50vw, 100vw"
 													style={{
@@ -153,6 +154,7 @@ const ProductPage = ({ params }) => {
 													src={process.env.NEXT_PUBLIC_DATA + image.image_path}
 													alt={`Product ${index}`}
 													fill
+													unoptimized
 													sizes="50vw, 100vw"
 													style={{
 														objectFit: 'contain',

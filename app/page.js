@@ -26,6 +26,7 @@ export default async function Home() {
                 src={process.env.NEXT_PUBLIC_DATA + data?.highlighty.image_path}
                 alt="Ricardo portrait"
                 priority={true}
+                unoptimized
                 sizes="50vw"
                 fill
                 style={{

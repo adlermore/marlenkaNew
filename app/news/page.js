@@ -24,6 +24,7 @@ const NewsList = async () => {
                   alt='News_image'
                   width={326}
                   height={229}
+                  unoptimized
                   priority
                   className='object-cover'
                 />
