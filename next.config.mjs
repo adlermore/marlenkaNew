@@ -1,5 +1,8 @@
 const nextConfig = {
     reactStrictMode : false,
+    experimental: {
+      forceSwcTransforms: true,
+    },
     images: {
       remotePatterns: [
         {
