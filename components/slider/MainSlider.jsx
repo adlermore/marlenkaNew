@@ -32,7 +32,8 @@ function MainSlider({sliderData}) {
                 src={process.env.NEXT_PUBLIC_DATA  + slider.image_path}
                 alt='future_Image'
                 fill
-                unoptimized={true}
+                priority
+                // unoptimized={true}
                 sizes="100vw"
                 className="h-full w-full object-cover"
               />
@@ -42,7 +43,8 @@ function MainSlider({sliderData}) {
               <Image
                 src={process.env.NEXT_PUBLIC_DATA  + slider?.small_image_path}
                 alt='future_Image'
-                unoptimized={true}
+                // unoptimized={true}
+                priority
                 sizes="100vw"
                 width={150}
                 height={100}
