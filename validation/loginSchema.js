@@ -4,7 +4,6 @@ import { name, email, phone } from "./common";
 export const loginSchema = z.object({
   // name,
   email,
-
   // phone,
   password: z
     .string()
