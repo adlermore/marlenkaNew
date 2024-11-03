@@ -19,9 +19,6 @@ function MainSlider({sliderData}) {
     pauseOnHover: false
   };
   
-
-  console.log('___' , process.env.NEXT_PUBLIC_DATA  + sliderData[0].image_path);
-  
   return (
     <div className="w-full relative slick_wrapper laptop:mt-[85px]">
       <Slider {...settings} >

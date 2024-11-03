@@ -8,8 +8,6 @@ export default function Page() {
 
   const wishList = useSelector((state) => state.wishlist);
 
-  // console.log('wishList', wishList);
-
   return (
     <div className='favorite_wrapper h-full'>
       {wishList?.items.length > 0 ?

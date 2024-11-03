@@ -22,7 +22,6 @@ function WholeSale() {
 
   //sumbition Data
   const wholeSaleSubmit = async (data) => {
-    // console.log('data', data);
     setLoading(true);
     const response = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/new_partner', {
       method: 'POST',
@@ -57,16 +56,16 @@ function WholeSale() {
         </div>
       </div>
       <div className="custom_container">
-        <div className="pt-[60px]">
+        <div className="pt-[60px] laptop:text-center">
           <div className="text-3xl uppercase"><span className="text-[#B62025]">SWEET</span> Partners</div>
         </div>
-        <div className="flex justify-between gap-[30px] h-full mt-[40px]">
+        <div className="flex laptop:flex-col laptop:items-center laptop:text-center justify-between gap-[30px] h-full mt-[40px]">
           <div className="max-w-[503px] font-medium text-base">
             Whether you own a catering services, a cafe, a restaurant, a hotel and/or a food market/store, this section is dedicated to you! We provide a competitive edge for your business to succeed in ever changing food scene and it would be our pleasure to offer you the following:
             <br />
             <br />
             <br />
-            <ul className="pl-[40px]">
+            <ul className="pl-[40px] laptop:pl-0 laptop:list-none">
               <li>• Top-quality products</li>
               <li> • Extremely long Ambient shelf-life (up to 90 days)</li>
               <li> • International delicacy (40+ countries worldwide)</li>
@@ -83,7 +82,7 @@ function WholeSale() {
             <br />
             MARLENKA.US is growing into a thriving organization; we want you to be a part of our success!
           </div>
-          <div className="flex-1 max-w-[500px] h-full">
+          <div className="flex-1 max-w-[500px] laptop:max-w-none laptop:w-full h-full">
             <div className="relative w-full h-[500px]">
               <Image
                 src={wholesale1}
@@ -94,7 +93,7 @@ function WholeSale() {
                 className="object-contain"
               />
             </div>
-            <div className="relative w-full h-[90px] mt-20">
+            <div className="relative w-full h-[90px] mt-20 laptopHorizontal:h-[60px]">
               <Image
                 src={wholesale2}
                 alt="WhoImg2"
@@ -105,10 +104,10 @@ function WholeSale() {
             </div>
           </div>
         </div>
-        <div className="mt-[120px] flex">
-          <div className="relative w-[50%]">
-            <div className="text-3xl uppercase"><span className="text-[#B62025]">application</span> form</div>
-            <div className="relative w-full h-[288px] mt-[60px] left-[-60px]">
+        <div className="mt-[120px] flex laptop:justify-center laptop:items-center laptop:text-center laptop:flex-col laptop:mt-[70px] mobile:mt-[40px]">
+          <div className="relative w-[50%] mobile:w-[80%]">
+            <div className="text-3xl mobile:text-xl uppercase"><span className="text-[#B62025]">application</span> form</div>
+            <div className="relative w-full h-[288px] mt-[60px] mobile:mt-[10px] left-[-60px] laptop:left-0">
               <Image
                 src={wholesale3}
                 alt="WhoImg3"
@@ -119,7 +118,7 @@ function WholeSale() {
               />
             </div>
           </div>
-          <div className="flex-1 max-w-[460px] font-medium ml-auto">
+          <div className="flex-1 max-w-[460px] laptop:ml-0 font-medium ml-auto">
             MARLENKA.US will not share any information you provide with any third parties and also we will hold the details you have entered on this form for the purposes of processing your request only.
           </div>
         </div>

@@ -894,6 +894,7 @@ a {
     justify-content: space-between;
     gap: 20px;
     cursor: pointer;
+    padding-left: 10px;
   }
   .faq_btn span{
     min-width: 35px !important;
@@ -944,7 +945,7 @@ a {
       padding: 20px;
       outline: none;
       font-size: 11px;
-      border-radius: 10px;
+      border-radius: 20px;
       border: 0.5px solid rgba(0, 0, 0, 0.2) !important;
     }
   }
@@ -1187,7 +1188,7 @@ a {
   width: 240px;
   form>div {
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
   input {
@@ -1773,6 +1774,12 @@ input::-webkit-inner-spin-button {
   /* Change to your desired color */
 }
 
+.youtuble_line{
+  gap: 20px;
+}
+.youtuble_line > div{
+  margin: 0 !important;
+}
 
 
 @media (max-width: 1199px) {
@@ -1792,6 +1799,10 @@ input::-webkit-inner-spin-button {
       bottom: 50px;
     }
   }
+
+  .blog_list .blog_line {
+    gap: 40px;
+  }
 }
 
 @media (max-width: 1199px) {
@@ -1806,15 +1817,65 @@ input::-webkit-inner-spin-button {
   }
 }
 
+@media (max-width: 991px) {
+  .blog_list .blog_block:nth-child(even) .blog_line {
+    flex-direction: column;
+  }
+  .blog_list .blog_line {
+    // gap: 40px;
+    flex-direction: column;
+    >div{
+      max-width: none;
+    }
+    .blog_image > div{
+      max-width: none;
+    }
+  }
+}
+
 @media (max-width: 767px) {
   .product_slider_list {
     >div:last-child {
       display: block !important;
     }
   }
+  .awards_secton .awards_images{
+    span{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
 
 @media (max-width: 575px) {
+  .wholeSaleForm{
+    margin: 20px auto;
+    .form_inline{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0px;
+    }
+  }
+  .blog_list {
+    margin: 35px 0;
+    .blog_title {
+      font-size: 24px;
+    }
+    .blog_desc {
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .blog_block {
+      margin-bottom: 30px;
+    }
+  }
+
+  .blog_list .blog_image > div {
+    height: 220px;
+  }
+
+
   .slick_wrapper {
     margin-top: 150px !important;
 

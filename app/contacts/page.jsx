@@ -49,7 +49,7 @@ function Contacts() {
 
   return (
     <div className='!mt-[120px] !min-h-[100vh] mobile:!mt-[150px]'>
-      <div className=' text-2xl uppercase bg-siteCrem  relative w-fill h-[700px]'>
+      <div className=' text-2xl uppercase bg-siteCrem  relative w-fill h-[700px] laptopHorizontal:h-[500px] laptop:h-[400px]'>
         <Image
           src={contacts}
           alt="WhoImg2"
@@ -70,13 +70,13 @@ function Contacts() {
         />
       </div>
       <div className="custom_container">
-        <div className="text-center pt-[120px] text-base font-medium max-w-[1037px] mx-auto">
+        <div className="text-center pt-[120px] laptop:pt-[60px] text-base font-medium max-w-[1037px] mx-auto">
           Whether you are interested in retail or wholesale simply fill out the form with your questions. We will get right back with you via email. Write today & start profiting from our quality products.
         </div>
-        <div className="text-center mt-[60px] text-sm">
+        <div className="text-center mt-[60px] laptop:mt-[40px] text-sm">
           <span className="font-bold">Address : </span> 400 Renaissance Center Suite 2600 Detroit, MI 48243
         </div>
-        <div className="flex justify-center gap-[30px] items-center mt-10">
+        <div className="flex justify-center gap-[30px] mobile:flex-col items-center mt-10">
           <a href="tel:8446275365" className="text-center text-sm">
             <span className="font-bold">Phone : </span> (844) 627-5365
           </a>
@@ -85,38 +85,38 @@ function Contacts() {
           </a>
         </div>
         <div className="flex justify-center flex-wrap max-w-[810px] mx-auto items-center mt-[50px] gap-[30px]">
-          <a href='/' className="flex items-center gap-20">
+          <a href='/' className="flex items-center gap-20 mobile:flex-col font-medium">
             <span className="flex  bg-[#B62025]  rounded-full w-[50px] h-[50px] items-center justify-center">
               <IconFb />
             </span>
             Follow us on Facebook
           </a>
-          <a href='/' className="flex items-center gap-20">
+          <a href='/' className="flex items-center gap-20 mobile:flex-col font-medium">
             <span className="flex  bg-[#B62025]  rounded-full w-[50px] h-[50px] items-center justify-center">
               <IconInsta />
             </span>
             Follow us on Instagram
           </a>
-          <a href='/' className="flex items-center gap-20">
+          <a href='/' className="flex items-center gap-20 mobile:flex-col font-medium">
             <span className="flex  bg-[#B62025]  rounded-full w-[50px] h-[50px] items-center justify-center">
               <IconAmazon />
             </span>
             Follow us on Amazon
           </a>
-          <a href='/' className="flex items-center gap-20">
+          <a href='/' className="flex items-center gap-20 mobile:flex-col font-medium">
             <span className="flex  bg-[#B62025]  rounded-full w-[50px] h-[50px] items-center justify-center">
               <IconIn />
             </span>
             Follow us on LinkedIn
           </a>
-          <a href='/' className="flex items-center gap-20">
+          <a href='/' className="flex items-center gap-20 mobile:flex-col font-medium">
             <span className="flex  bg-[#B62025]  rounded-full w-[50px] h-[50px] items-center justify-center">
               <IconYou />
             </span>
             Follow us on YouTube
           </a>
         </div>
-        <div className="pt-560px]">
+        <div className="relative">
           <form onSubmit={handleSubmitForm(contactsSubmit)} className="w-full">
             <div className='wholeSaleForm'>
               <div className="form_inlin">

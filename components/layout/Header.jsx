@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { HeaderLinks } from '@/utils/routes'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { Twirl as Hamburger } from "hamburger-react";
 import IconHeart from '@/public/icons/IconHeart'
 import mainLogo from '@/public/images/logoImage.png'
@@ -21,6 +21,7 @@ import request from '@/utils/hooks/request'
 function Header() {
 
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -113,8 +114,9 @@ function Header() {
     } else {
       loginPopupOpen()
     }
-  }
+  }  
 
+  
   return (
     <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#520e11]'} laptopHorizontal:bg-[#520e11] top-0 h-[120px] left-0 right-0 z-[9999] mobile:h-[150px] laptop:bg-[#520e11]`}>
       <div className='cover_container h-full justify-between flex items-center  mobile:mt-[-20px] gap-20 '  >
@@ -135,7 +137,7 @@ function Header() {
                 <Link
                   key={category.id}
                   href={`/productListing?category=${category.id}`}
-                  className={`${pathname === `/productListing?category=${category.id}` && ' pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[38px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-siteCrem text-[18px] `}
+                  className={`${searchParams.get('category') === `${category.id}` && ' !text-[#AE8839] pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[38px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-siteCrem text-[18px] `}
                 >
                   {category.name}
                 </Link>

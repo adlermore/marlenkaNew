@@ -1,6 +1,6 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import cover1 from "@/public/images/cover1.png";
 import IconChecked from '@/public/icons/IconChecked';
@@ -11,89 +11,76 @@ const ListingPage = ({ flavors, categories }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
-    const [selectedFlavors, setSelectedFlavors] = useState([]);
-    const [categoryId, setCategoryId] = useState(searchParams.get('category') || '');
-    const [selectedServings, setSelectedServings] = useState(searchParams.get('servings') || '');
+    const [filters, setFilters] = useState({
+        selectedFlavors: [],
+        categoryId: searchParams.get('category') || '',
+        selectedServings: searchParams.get('servings') || '',
+    });
 
-    // Local state for filters
-    const [tempSelectedFlavors, setTempSelectedFlavors] = useState([]);
-    const [tempCategoryId, setTempCategoryId] = useState(categoryId);
-    const [tempSelectedServings, setTempSelectedServings] = useState(selectedServings);
+    const [tempFilters, setTempFilters] = useState({
+        selectedFlavors: [],
+        categoryId: filters.categoryId,
+        selectedServings: filters.selectedServings,
+    });
 
-    // State for current category to be updated after applying filters
-    const [currentCategory, setCurrentCategory] = useState(categories.find(category => category.id.toString() === categoryId) || {});
+    const currentCategory = useMemo(() => {
+        return categories.find(category => category.id.toString() === filters.categoryId) || {};
+    }, [filters.categoryId, categories]);
 
-    // Default category to "All Products"
-    const defaultCategoryId = '';
-
-    // Handle category change
-    const changeCategoryType = (category) => {
-        setTempCategoryId(category); // Update local state
+    const changeCategoryType = (categoryId) => {
+        setTempFilters(prev => ({ ...prev, categoryId }));
     };
 
-    // Handle flavor selection
     const changeFlavorsType = (flavorId) => {
-        setTempSelectedFlavors(prev => {
-            const newSelectedFlavors = prev.includes(flavorId) 
-                ? prev.filter(id => id !== flavorId) 
-                : [...prev, flavorId];
-            return newSelectedFlavors; 
+        setTempFilters(prev => {
+            const newFlavors = prev.selectedFlavors.includes(flavorId)
+                ? prev.selectedFlavors.filter(id => id !== flavorId)
+                : [...prev.selectedFlavors, flavorId];
+            return { ...prev, selectedFlavors: newFlavors };
         });
     };
 
-    // Handle servings change
     const changeServingsType = (servingId) => {
-        setTempSelectedServings(servingId); // Update local state for servings
+        setTempFilters(prev => ({ ...prev, selectedServings: servingId }));
     };
 
-    // Apply filters and update search params
     const applyFilters = () => {
-        setSelectedFlavors(tempSelectedFlavors);
-        setCategoryId(tempCategoryId);
-        setSelectedServings(tempSelectedServings);
-
-        // Update current category based on applied filters
-        const appliedCategory = categories.find(category => category.id.toString() === tempCategoryId) || {};
-        setCurrentCategory(appliedCategory);
-
-        // Update search params
+        setFilters(tempFilters);
         const params = new URLSearchParams();
-        if (tempCategoryId) params.set('category', tempCategoryId);
-        if (tempSelectedFlavors.length > 0) params.set('flavors', tempSelectedFlavors.join(','));
-        if (tempSelectedServings) params.set('servings', tempSelectedServings);
+        if (tempFilters.categoryId) params.set('category', tempFilters.categoryId);
+        if (tempFilters.selectedFlavors.length > 0) params.set('flavors', tempFilters.selectedFlavors.join(','));
+        if (tempFilters.selectedServings) params.set('servings', tempFilters.selectedServings);
 
         router.push(`?${params.toString()}`, { scroll: false });
     };
 
-    // Reset filters
     const resetFilters = () => {
-        setTempSelectedFlavors([]);
-        setTempCategoryId(defaultCategoryId);
-        setTempSelectedServings('');
-
-        // Reset ProductGrid state
-        setSelectedFlavors([]);
-        setCategoryId(defaultCategoryId);
-        setSelectedServings('');
-
-        setCurrentCategory(categories.find(category => category.id.toString() === defaultCategoryId) || {});
-
-        router.push(`?`, { scroll: false }); 
+        const defaultFilters = {
+            selectedFlavors: [],
+            categoryId: '',
+            selectedServings: '',
+        };
+        setTempFilters(defaultFilters);
+        setFilters(defaultFilters);
+        router.push(`?`, { scroll: false });
     };
 
-    // Update local states based on URL search params
     useEffect(() => {
         const flavorsParam = searchParams.get('flavors') ? searchParams.get('flavors').split(',') : [];
         const categoryParam = searchParams.get('category') || '';
         const servingsParam = searchParams.get('servings') || '';
 
-        setSelectedFlavors(flavorsParam);
-        setCategoryId(categoryParam);
-        setSelectedServings(servingsParam);
+        setFilters({
+            selectedFlavors: flavorsParam,
+            categoryId: categoryParam,
+            selectedServings: servingsParam,
+        });
 
-        // Update current category based on search params
-        const updatedCategory = categories.find(category => category.id.toString() === categoryParam) || {};
-        setCurrentCategory(updatedCategory);
+        setTempFilters(prev => ({
+            ...prev,
+            categoryId: categoryParam,
+            selectedServings: servingsParam,
+        }));
     }, [searchParams]);
 
     return (
@@ -103,11 +90,8 @@ const ListingPage = ({ flavors, categories }) => {
             </div>
             <div className='cover_bg w-full relative h-[660px]'>
                 <Image
-                    src={currentCategory.image_path ?
-                         process.env.NEXT_PUBLIC_DATA + (currentCategory.image_path || '')
-                         :
-                         cover1
-                        }
+                    src={currentCategory.image_path ? 
+                         process.env.NEXT_PUBLIC_DATA + currentCategory.image_path : cover1}
                     fill
                     alt="Cover image" 
                     priority={true} 
@@ -126,14 +110,14 @@ const ListingPage = ({ flavors, categories }) => {
                                     <input 
                                         type="radio" 
                                         name='category' 
-                                        onChange={() => changeCategoryType(defaultCategoryId)} 
+                                        onChange={() => changeCategoryType('')} 
                                         id='filter' 
-                                        checked={tempCategoryId === defaultCategoryId} 
+                                        checked={tempFilters.categoryId === ''} 
                                     />
                                     <span className="check_label font-medium">All Products</span>
                                 </label>
                             </div>
-                            {categories?.map((filter) => (
+                            {categories.map((filter) => (
                                 <div key={filter.id} className="mb-[10px] filter_line">
                                     <label htmlFor={`filter${filter.id}`}>
                                         <input 
@@ -141,7 +125,7 @@ const ListingPage = ({ flavors, categories }) => {
                                             name='category' 
                                             onChange={() => changeCategoryType(filter.id.toString())} 
                                             id={`filter${filter.id}`} 
-                                            checked={tempCategoryId === filter.id.toString()} 
+                                            checked={tempFilters.categoryId === filter.id.toString()} 
                                         />
                                         <span className="check_label font-medium">{filter.name}</span>
                                     </label>
@@ -149,15 +133,16 @@ const ListingPage = ({ flavors, categories }) => {
                             ))}
                         </div>
                         <div>
-                            <div className='text-[#B62025] text-[32px] laptopHorizontal:text-2xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2  laptop:mx-auto laptop:mb-[40px]  max-w-[170px]'>Flavors</div>
-                            {flavors?.map((flavor) => (
+                            <div className='text-[#B62025] text-[32px] laptopHorizontal:text-2xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 laptop:mx-auto laptop:text-center  laptop:mb-[40px] max-w-[170px]'>Flavors</div>
+                            <div className='laptop:flex laptop:gap-20 laptop:justify-between laptop:flex-wrap '>
+                            {flavors.map((flavor) => (
                                 <div key={flavor.id} className="mb-[10px] filter_line checkbox">
                                     <label htmlFor={`flavors${flavor.id}`}>
                                         <input 
                                             type="checkbox" 
                                             onChange={() => changeFlavorsType(flavor.id)} 
                                             id={`flavors${flavor.id}`} 
-                                            checked={tempSelectedFlavors.includes(flavor.id)} 
+                                            checked={tempFilters.selectedFlavors.includes(flavor.id)} 
                                         />
                                         <span className="check_label font-medium">
                                             <IconChecked /> {flavor.name}
@@ -165,11 +150,11 @@ const ListingPage = ({ flavors, categories }) => {
                                     </label>
                                 </div>
                             ))}
+                            </div>
                         </div>
-
-                        <div className='text-[#B62025] text-[32px] laptopHorizontal:text-2xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2  laptop:mb-[40px]  max-w-[170px]'>Servings</div>
-                        <div className='laptop:flex laptop:items-center tablet:flex-wrap tablet:gap-[20px] laptop:justify-between'>
-                            {servings?.map((serving) => (
+                        <div className='text-[#B62025] text-[32px] laptopHorizontal:text-2xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 laptop:mx-auto laptop:text-center laptop:mb-[40px] max-w-[170px]'>Servings</div>
+                        <div className='laptop:flex laptop:items-center tablet:flex-wrap laptop:max-w-[350px] laptop:mx-auto tablet:gap-[20px] laptop:justify-between'>
+                            {servings.map((serving) => (
                                 <div key={serving.id} className="mb-[10px] filter_line">
                                     <label htmlFor={`serving${serving.id}`}>
                                         <input 
@@ -177,7 +162,7 @@ const ListingPage = ({ flavors, categories }) => {
                                             name='servings' 
                                             onChange={() => changeServingsType(serving.id.toString())} 
                                             id={`serving${serving.id}`} 
-                                            checked={tempSelectedServings === serving.id.toString()} 
+                                            checked={tempFilters.selectedServings === serving.id.toString()} 
                                         />
                                         <span className="check_label font-medium">{serving.name}</span>
                                     </label>
@@ -185,7 +170,7 @@ const ListingPage = ({ flavors, categories }) => {
                             ))}
                         </div>
                         <div className='mt-[30px] flex items-center gap-[20px]'>
-                            <button className='site_btn  mx-auto my-[15px]' onClick={applyFilters}>Apply</button>
+                            <button className='site_btn mx-auto my-[15px]' onClick={applyFilters}>Apply</button>
                             <button className='site_btn reset mx-auto' onClick={resetFilters}>Reset</button>
                         </div>
                     </div>
@@ -193,10 +178,10 @@ const ListingPage = ({ flavors, categories }) => {
 
                 <div className='w-full'>
                     <ProductGrid
-                        selectedFlavors={selectedFlavors}
-                        categoryId={categoryId}
+                        selectedFlavors={filters.selectedFlavors}
+                        categoryId={filters.categoryId}
                         searchFilter={searchParams.get('filter') || ''}
-                        selectedServings={selectedServings}
+                        selectedServings={filters.selectedServings}
                     />
                 </div>
             </div>

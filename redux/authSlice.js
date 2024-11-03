@@ -66,7 +66,6 @@ export const register = createAsyncThunk(
       }
 
       const data = await response.json();
-      // console.log('data', data);
 
       if (typeof window !== "undefined") {
         localStorage.setItem("token", data.data.token);

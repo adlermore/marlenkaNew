@@ -1,38 +1,51 @@
 'use client';
-import React, { lazy, useEffect, useState } from 'react';
+import React, { lazy, useEffect, useState, useCallback, useMemo } from 'react';
 
 const Product = lazy(() => import('@/components/product/Product'));
 
-const ProductGrid = ({ newOffset = 0, selectedFlavors, categoryId, searchFilter }) => {
-
+const ProductGrid = ({ selectedServings, selectedFlavors, categoryId, searchFilter }) => {
   const [products, setProducts] = useState([]);
+  const initialOffset = 0;
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(false);
+  const [offset, setOffset] = useState(0);
 
-  const fetchProducts = async () => {
+  const apiUrl = useMemo(() => {
+    return `${process.env.NEXT_PUBLIC_DATA_API}/getProducts?offset=${offset}&limit=10&filter=${searchFilter}&servings=${selectedServings}&category_id=${categoryId}&flavors=${JSON.stringify(selectedFlavors)}`;
+  }, [offset, selectedFlavors, categoryId, selectedServings, searchFilter]);
+
+  const fetchProducts = useCallback(async () => {
     setLoading(true);
-    const url = `${process.env.NEXT_PUBLIC_DATA_API}/getProducts?offset=${newOffset}&limit=10&filter=${searchFilter}&category_id=${categoryId}&flavors=${JSON.stringify(selectedFlavors)}`;
     try {
-      const response = await fetch(url);
+      const response = await fetch(apiUrl);
+      if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      setProducts(prev => newOffset === 0 ? data.data.products : [...prev, ...data.data.products]);
+      setProducts(prev => (offset === 0 ? data.data.products : [...prev, ...data.data.products]));
       setHasMore(data.data.products.length === 10);
     } catch (error) {
       console.error("Failed to fetch products:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [apiUrl, offset]);
 
   useEffect(() => {
-    fetchProducts(0);
-  }, [categoryId, searchFilter, selectedFlavors]);
+    setProducts([]);
+    setOffset(initialOffset);
+    fetchProducts();
+  }, [fetchProducts, initialOffset]);
+
+  const loadMore = useCallback(() => {
+    if (!loading && hasMore) {
+      setOffset(prevOffset => prevOffset + 10);
+    }
+  }, [loading, hasMore]);
 
   return (
     <div className='w-full pb-[60px]'>
       <div className='grid grid-cols-3 tablet:grid-cols-2 mobile:block gap-[20px]'>
         {loading ? (
-          Array.from({ length: 3 }).map((_, index) => (
+          Array.from({ length: 6 }).map((_, index) => (
             <div key={index} className="card is-loading">
               <div className="image"></div>
               <div className="content">
@@ -50,8 +63,8 @@ const ProductGrid = ({ newOffset = 0, selectedFlavors, categoryId, searchFilter 
           </div>
         )}
       </div>
-      {hasMore && (
-        <button className='more_btn' onClick={() => loadMore()}>Load More Products</button>
+      {hasMore && !loading && (
+        <button className='more_btn' onClick={loadMore}>Load More Products</button>
       )}
     </div>
   );

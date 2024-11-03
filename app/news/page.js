@@ -17,7 +17,7 @@ const NewsList = async () => {
       <div className='custom_container'>
         <div className='news_list mt-[100px]'>
           {data.newses && data.newses.slice().reverse().map((news) => (
-            <div key={news.id} className='flex gap-[40px] border-[#CCCCCC] last:border-none border-opacity-50 border-b pb-[50px] mb-[50px]'>
+            <div key={news.id} className='flex gap-[40px] border-[#CCCCCC] last:border-none border-opacity-50 border-b pb-[50px] mb-[50px] laptop:flex-col laptop:gap-20 laptop:pb-[30px] laptop:mb-[30px]'>
               <div className='relative'>
                 <Image
                   src={process.env.NEXT_PUBLIC_DATA + news.images[0].image_path}
@@ -30,14 +30,14 @@ const NewsList = async () => {
                 />
               </div>
               <div className='flex-1 flex flex-col'>
-                <div className='flex items-center justify-between w-full'>
+                <div className='flex items-center justify-between w-full laptop:block'>
                   <div className='text-2xl text-black font-semibold max-w-[640px]'>
                     {news.title}
                   </div>
                   <span className='text-[12px] font-medium text-[#BEBEBE]'>{news.created_at.split('T')[0]}</span>
                 </div>
                 <div className='text-base mt-[20px] max-w-[680px] flex-1'>{news.description}</div>
-                <a className='site_btn mt-[60px]' href={`/news/${news.id}`}>Read More</a>
+                <a className='site_btn mt-[60px] laptop:mt-[30px]' href={`/news/${news.id}`}>Read More</a>
               </div>
             </div>
           ))}

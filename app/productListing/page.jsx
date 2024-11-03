@@ -11,7 +11,7 @@ export default  async function Page() {
 
   const resProduct = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getFlavors', { cache: 'no-cache' })
   const { data: flavors  } = await resProduct.json()
-		
+	
 	return (
 		<div className='product_page bg-white'>
 			<Suspense fallback={<PageLoader />}>

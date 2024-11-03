@@ -21,7 +21,7 @@ async function Awards() {
       </div>
       <div className="custom_container awards_secton">
         <div className="py-[40px]">
-          <div className="mt-[20px] flex items-cente justify-between gap-[30px]">
+          <div className="mt-[20px] awards_images flex tablet:grid tablet:grid-cols-3 mobile:grid-cols-2 tablet:items-center items-cente justify-between gap-[30px]">
             <span>
               <Image
                 src={awards1}
