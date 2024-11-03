@@ -8,6 +8,8 @@ import { Providers } from "../redux/providers";
 import { Toaster } from "react-hot-toast";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Suspense } from "react";
+import PageLoader from "@/components/PageLoader";
 
 export const metadata = {
   title: "Marlenka",
@@ -30,7 +32,9 @@ export default async function RootLayout({ children }) {
           }}
         />
         <Providers>
+        <Suspense fallback={<PageLoader />}>
           <Header />
+        </Suspense>
           <SuccessPopup />
           <div className="flex-1 main-wrapper">{children}</div>
           <LoginPopup />
