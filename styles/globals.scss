@@ -1199,7 +1199,10 @@ a {
     outline: none;
     padding: 10px 0;
     user-select: none;
-
+    &::placeholder{
+      color: #FFEED9;
+      opacity: 0.7;
+    }
     &:focus,
     &:active,
     &::selection {
@@ -1248,9 +1251,18 @@ a {
   justify-content: center;
   transition: 0.3s;
   width: 100%;
-
+  &.reset{
+    background: white;
+    border: 1px solid #B62025;
+    color: #B62025;
+  }
   &:hover {
     opacity: 0.7;
+    color: white;
+    background: #B62025;
+    &.reset{
+      opacity: 1;
+    }
   }
 }
 
@@ -1266,6 +1278,7 @@ a {
     font-size: 17px;
     line-height: 1.6;
     margin-top: 20px;
+    color: #ffeeda;
     svg path{
       transition: 0.3s;
     }
