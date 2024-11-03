@@ -168,7 +168,7 @@ const ProductPage = ({ params }) => {
 						</div>
 					</div>
 					<div className='product_info pl-[80px] w-full flex flex-col justify-between laptopHorizontal:pl-[30px]'>
-						{product.id === 5 &&
+						{product.isNew === 1 && 
 							<span className="new_look">
 								<Image
 									src={newLook}

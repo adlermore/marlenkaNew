@@ -120,7 +120,7 @@ const Footer = () => {
     if (validateForm()) {
       try {
         setLoading(true)
-        const response = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/subscribe', {
+        const response = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/new_message', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -128,6 +128,7 @@ const Footer = () => {
           body: JSON.stringify({
             name: formData.fullName,
             email: formData.email
+            
           })
         });
 
@@ -245,7 +246,6 @@ const Footer = () => {
                 </div>
 
                 <button type="submit" className="flex items-center justify-center" disabled={loading}>
-
                   {loading ?
                     <svg
                       aria-hidden="true"

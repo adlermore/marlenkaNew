@@ -60,7 +60,7 @@ function Product({ product, onClick }) {
 
   return (
     <div className="slider_block">
-      {product.id === 5 && 
+      {product.isNew === 1 && 
         <span className="new_look">
             <Image
               src={newLook}
