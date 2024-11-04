@@ -851,10 +851,15 @@ a {
   background: #B62025;
   color: white;
   height: 40px;
+  min-width: 270px;
   border-radius: 20px;
+  min-height: 45px;
   padding: 0 50px;
   transition: 0.3s;
-
+  margin-top: 90px;
+  svg path{
+    fill: white;
+  }
   &:hover {
     opacity: 0.7;
   }
