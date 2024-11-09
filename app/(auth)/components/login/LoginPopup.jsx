@@ -202,8 +202,8 @@ function LoginPopup() {
                 type="submit"
                 className={
                   status === "loading"
-                    ? " !opacity-50 submit_btn  flex items-center justify-center"
-                    : " [&>svg]:opacity-0 submit_btn  flex items-center justify-center"
+                    ? " !opacity-50 submit_btn  normal_btn flex items-center justify-center"
+                    : " [&>svg]:opacity-0 submit_btn normal_btn  flex items-center justify-center"
                 }
               >
                 <svg
@@ -229,7 +229,7 @@ function LoginPopup() {
           </div>
           <div className="register_link">
             <div className="reg_title">NO ACCOUNT YET ?</div>
-            <button className="site_btn" onClick={registerSwitch}>Register</button>
+            <button className="site_btn normal_btn" onClick={registerSwitch}>Register</button>
           </div>
         </div>
       </div>

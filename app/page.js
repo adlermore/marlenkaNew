@@ -56,9 +56,6 @@ export default async function Home() {
         <div className="custom_container also_like">
           <div className="text-[32px] text-center laptopHorizontal:text-2xl uppercase">Best Sellers</div>
           <div className="product_slider_list mt-[80px]  laptopHorizontal:mt-[40px] pb-[60px]">
-            {/* {dataProduct?.products.slice(0,4).map((product, index) => (
-              <Product key={index} product={product} />
-            ))} */}
             <BestSlider sliderContent={dataProduct?.products.slice(0,7)} />
           </div>
         </div>

@@ -27,7 +27,7 @@ function AlsoLike({ sectionTitle, start, end }) {
 						likeProducts?.slice(start, end).map((product, index) => (
 							<div key={index}>
 								<Product product={product} />
-								<Link href={`/product/${product.id}`} className='site_btn !mx-auto mt-[30px]'>Buy now</Link>
+								<Link href={`/product/${product.id}`} className='site_btn normal_btn !mx-auto mt-[30px]'>Buy now</Link>
 							</div>
 						))
 					) :

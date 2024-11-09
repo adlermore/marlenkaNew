@@ -37,17 +37,7 @@ function MainSlider({ sliderData }) {
             </div>
             <div className="cover_container">
               <div className="slider_content">
-                {/* <Image
-                src={process.env.NEXT_PUBLIC_DATA  + slider?.small_image_path}
-                alt='future_Image'
-                unoptimized={true}
-                priority
-                sizes="100vw"
-                width={150}
-                height={100}
-                className="h-full w-full object-cover mobile:max-w-[300px]"
-              /> */}
-                <div className=" text-[#E6C384] relative slider_main_title font-qwigley text-[135px]">Honey Snacks</div>
+                <div className=" text-[#E6C384] relative slider_main_title whitespace-nowrap font-qwigley text-[135px]">{slider.title}</div>
                 <div className="slider_description">{slider.description}</div>
                 <Link href={`/product/${slider.product_id}`} className="slider_btn normal_btn">Discover more</Link>
               </div>

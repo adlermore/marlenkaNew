@@ -422,7 +422,7 @@ a {
   .site_btn {
     height: 40px;
     text-transform: none;
-    background: #CE090F;
+    // background: #CE090F;
     font-family: 'MontserratRegular';
   }
 
@@ -438,11 +438,11 @@ a {
     justify-content: center;
     border-radius: 30px;
 
-    &:hover {
-      background: #B62025;
-      color: white;
-      border: 1px solid #B62025;
-    }
+    // &:hover {
+    //   // background: #B62025;
+    //   color: white;
+    //   border: 1px solid #B62025;
+    // }
   }
 }
 

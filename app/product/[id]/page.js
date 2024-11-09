@@ -12,6 +12,7 @@ import Link from 'next/link';
 import PageLoader from '@/components/PageLoader';
 import AlsoLike from '@/components/alsoLikeProducts/AlsoLike';
 import newLook from "@/public/images/newLookInner.png";
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 const ProductPage = ({ params }) => {
 
@@ -24,7 +25,7 @@ const ProductPage = ({ params }) => {
 	const [product, setProduct] = useState(null);
 	const [showFullDetails, setShowFullDetails] = useState(false);
 
-
+	const [hovered, setHovered] = useState(false); 
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const [productCount, setProductCount] = useState(1);
 
@@ -125,17 +126,35 @@ const ProductPage = ({ params }) => {
 									{product.images.map((image, index) => (
 										<div className="slide_block" key={index}>
 											<div className="img_block">
-												<Image
-													src={process.env.NEXT_PUBLIC_DATA + image.image_path}
-													alt={`Product ${index}`}
-													unoptimized
-													fill
-													sizes="50vw, 100vw"
-													style={{
-														objectFit: 'contain',
-													}}
-												/>
+												<div className='absolute inner_div'>
+										
+												<TransformWrapper
+														initialScale={.7}
+														minScale={.7}
+														centerZoomedOut={true}
+														centerOnInit
+														centerPadding
+														maxScale={3}
+													>
+														<TransformComponent>
+															<img
+																src={process.env.NEXT_PUBLIC_DATA + image.image_path}
+																alt={`Product ${index}`}
+																className="object-contain"
+																style={{
+																	width: '100%',
+																	height: 'auto',
+																	cursor: 'zoom-in',
+																	transition: 'transform 0.3s ease', // Smooth transition for zoom
+																}}
+															/>
+														</TransformComponent>
+													</TransformWrapper>
+
+												</div>
+							
 											</div>
+
 										</div>
 									))}
 								</Slider>
@@ -210,7 +229,7 @@ const ProductPage = ({ params }) => {
 								<span>{productCount}</span>
 								<button onClick={incrementCount} className='py-[10px] text-2xl w-[40px] h-full flex items-center justify-center'>+</button>
 							</div>
-							<button className='site_btn !ml-0 px-[15px] ' onClick={handleAddToCart} >Add to Cart</button>
+							<button className='site_btn normal_btn !ml-0 px-[15px] ' onClick={handleAddToCart} >Add to Cart</button>
 						</div>
 					</div>
 				</div>
