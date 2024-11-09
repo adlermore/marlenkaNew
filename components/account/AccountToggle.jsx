@@ -23,8 +23,8 @@ function AccountToggle() {
   };
 
   //Login Popup Open
-  const loginPopupOpen = (e) => {
-    e.preventDefault();
+  const loginPopupOpen = () => {
+    // e.preventDefault();
     const scrollBarWidth = detectScrollBarWidth();
     document.body.style.overflow = "hidden";
     if (scrollBarWidth > 0) {
@@ -68,7 +68,11 @@ function AccountToggle() {
   };
 
   const dropToggle = () => {
-    setDropActive(!dropActive);
+    if (isAuth) {
+      setDropActive(!dropActive);
+    } else {
+      loginPopupOpen()
+    }
   };
 
   useOnClickOutside(accountRef, () => {
@@ -86,7 +90,7 @@ function AccountToggle() {
         <div className="drop_btn cursor-pointer" onClick={dropToggle}>
           <div className="flex relative text-white acc_btn items-center gap-10">
             <IconUser className="text" />
-            <span className='whitespace-nowrap'> {isAuth ? 'Profile' : 'Sign in' }</span>
+            <span className='whitespace-nowrap'> {isAuth ? 'Profile' : 'Sign in'}</span>
           </div>
         </div>
         <div className="account_drop">
@@ -105,7 +109,7 @@ function AccountToggle() {
             </div>
           ) : (
             <div className="drop_ist">
-              <div className="drop_inner">
+              {/* <div className="drop_inner">
                 <div className="border-[#b46126] border-b-2 pb-[5px]">
                   My Account
                 </div>
@@ -123,7 +127,7 @@ function AccountToggle() {
                 >
                   Sign In
                 </a>
-              </div>
+              </div> */}
             </div>
           )}
         </div>

@@ -2,8 +2,8 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import footerImg1 from '@/public/images/footerImg1.png'
-import footerImg2 from '@/public/images/footerImg2.png'
+import footerImg1 from '@/public/images/footerImg1.svg'
+import footerImg2 from '@/public/images/footerImg2.svg'
 import IconCall from "@/public/icons/IconCall"
 import IconWhatsap from "@/public/icons/IconWhatsap"
 import IconMail from "@/public/icons/IconMail"
@@ -179,7 +179,7 @@ const Footer = () => {
             className="laptopHorizontal:max-w-[160px]"
           />
         </div>
-        <div className='flex footer_menu  mt-[50px] items-center gap-20 justify-between tablet:grid-cols-2 laptop:grid laptop:grid-cols-3 laptop:gap-40 mobile:grid-cols-1'>
+        <div className='flex footer_menu  mt-[70px] items-center gap-20 justify-between tablet:grid-cols-2 laptop:grid laptop:grid-cols-3 laptop:gap-40 mobile:grid-cols-1'>
           <div className="menu_block">
             <h2 className="text-xl  text-siteCrem pb-[2px]">Shortcuts</h2>
             <Link href="/">Home</Link>

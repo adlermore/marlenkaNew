@@ -116,9 +116,8 @@ function Header() {
     }
   }  
 
-  
   return (
-    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#520e11]'} laptopHorizontal:bg-[#520e11] top-0 h-[120px] left-0 right-0 z-[9999] mobile:h-[150px] laptop:bg-[#520e11]`}>
+    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#520e11]'} laptopHorizontal:bg-[#520e11] top-0 h-[120px] left-0 right-0 z-[99999] mobile:h-[150px] laptop:bg-[#520e11]`}>
       <div className='cover_container h-full justify-between flex items-center  mobile:mt-[-20px] gap-20 '  >
         <Link href='/' className='z-20 relative top-[-7px]'>
           <Image
@@ -155,7 +154,7 @@ function Header() {
               }
             </div>
           </div>
-          <div className='flex items-center ml-auto gap-[15px] laptop:absolute laptop:top-[119px] mobile:top-[148px] laptop:right-0 tablet:w-full laptop:bg-[#520e11] laptop:p-10 laptop:w-[350px] laptop:justify-center laptop:border-t border-siteCrem'>
+          <div className='flex items-center  header_icons ml-auto gap-[15px] laptop:absolute laptop:top-[119px] mobile:top-[148px] laptop:right-0 tablet:w-full laptop:bg-[#520e11] laptop:p-10 laptop:w-[350px] laptop:justify-center laptop:border-t border-siteCrem'>
             <div><SearchToggle /> </div>
             <div onClick={handelFavoriteDirect} className='favorite_btn duration-300 relative cursor-pointer hover:opacity-70'>
               <IconHeart className='text-white' />

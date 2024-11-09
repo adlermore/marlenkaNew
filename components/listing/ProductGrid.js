@@ -1,50 +1,75 @@
 'use client';
-import React, { lazy, useEffect, useState, useCallback, useMemo } from 'react';
+import request from '@/utils/hooks/request';
+import { useSearchParams } from 'next/navigation';
+import React, { lazy, useEffect, useState, useMemo } from 'react';
 
 const Product = lazy(() => import('@/components/product/Product'));
 
-const ProductGrid = ({ selectedServings, selectedFlavors, categoryId, searchFilter }) => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(false);
+const ProductGrid = ({ filters }) => {
+
+  const [listingData, setListingData] = useState([]);
   const [offset, setOffset] = useState(0);
+  const [limit] = useState(9);
+  const [hasMore, setHasMore] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
+  const searchParams = useSearchParams();
+  const subcategoryFromParams = filters.subcategory || searchParams.get('category');
+  const searchFilter = searchParams.get('filter') || '';
+
+  // Destructure filters
+  const { finenessIds: selectedFlavors, subcategoryId: categoryId, typeId: selectedServings } = filters;
+
+  const subcategory = categoryId || subcategoryFromParams;
+
+  // Construct API URL
   const apiUrl = useMemo(() => {
-    return `${process.env.NEXT_PUBLIC_DATA_API}/getProducts?offset=${offset}&limit=9&filter=${searchFilter}&servings=${selectedServings}&category_id=${categoryId}&flavors=${JSON.stringify(selectedFlavors)}`;
-  }, [offset, selectedFlavors, categoryId, selectedServings, searchFilter]);
+    return `${process.env.NEXT_PUBLIC_DATA_API}/getProducts?offset=${offset}&limit=${limit}&filter=${searchFilter}&servings=${selectedServings}&category_id=${subcategory || ''}&flavors=[${selectedFlavors}]`;
+  }, [offset, searchFilter, selectedServings, subcategory, selectedFlavors]);
 
-  const fetchProducts = useCallback(async () => {
+  // Fetch products
+  const fetchProducts = async () => {
     setLoading(true);
     try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) throw new Error('Network response was not ok');
-      const data = await response.json();
-      setProducts(prev => (offset === 0 ? data.data.products : [...prev, ...data.data.products]));
-      setHasMore(data.data.products.length === 9);
+      const data = await request(apiUrl);
+      if (offset === 0) {
+        // If offset is zero (first fetch), reset listingData
+        setListingData(data?.data?.products || []);
+      } else {
+        // Otherwise append new products
+        setListingData(prevData => [...prevData, ...(data?.data?.products || [])]);
+      }
+      setHasMore(data?.data?.products.length === limit);
     } catch (error) {
-      console.error("Failed to fetch products:", error);
+      console.error(error);
+      setError('Failed to load products. Please try again later.');
     } finally {
       setLoading(false);
     }
-  }, [apiUrl, offset]);
+  };
 
-  // Fetch products when offset changes
+  // Effect to fetch products based on offset and filters
   useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]);
+  }, [offset, searchFilter, selectedServings, searchParams, subcategory, selectedFlavors]); 
 
-  // Load more products
-  const loadMore = useCallback(() => {
-    if (!loading && hasMore) {
-      setOffset(prevOffset => prevOffset + 9); // Increment offset by 9
-    }
-  }, [loading, hasMore]);
+  useEffect(() => {
+    setOffset(0); // Reset offset
+    setListingData([]); // Clear existing data
+    fetchProducts(); // Fetch new products based on new filters
+  }, [filters]); // Only depend on filters
+
+  const loadMoreProducts = () => {
+    setOffset(prevOffset => prevOffset + limit);
+  };
+
 
   return (
     <div className='w-full pb-[60px]'>
-      <div className='grid grid-cols-3 tablet:grid-cols-2 mobile:block gap-[20px]'>
-        {loading && products.length === 0 ? (
-          Array.from({ length: 6 }).map((_, index) => (
+      <div className='grid grid-cols-3 tablet:grid-cols-2 mobile:block gap-x-[30px] gap-y-[40px]'>
+        {loading && listingData.length === 0 ? (
+          Array.from({ length: 9 }).map((_, index) => (
             <div key={index} className="card is-loading">
               <div className="image"></div>
               <div className="content">
@@ -52,9 +77,13 @@ const ProductGrid = ({ selectedServings, selectedFlavors, categoryId, searchFilt
               </div>
             </div>
           ))
-        ) : products.length > 0 ? (
-          products.map((product) => (
-            <Product key={product.id} product={product} />
+        ) : error ? (
+          <div className="error-message">
+            <h2 className='mt-[40px]'>{error}</h2>
+          </div>
+        ) : listingData.length > 0 ? (
+          listingData.map((product, index) => (
+            <Product key={`${product.id}-${index}`} product={product} />
           ))
         ) : (
           <div className="no-results">
@@ -62,9 +91,13 @@ const ProductGrid = ({ selectedServings, selectedFlavors, categoryId, searchFilt
           </div>
         )}
       </div>
-      {hasMore  && (
-        <button className='more_btn' onClick={loadMore}>
-          {loading ?
+      {hasMore && (
+        <button
+          className='more_btn'
+          onClick={loadMoreProducts}
+          disabled={loading}
+        >
+          {loading ? (
             <svg
               aria-hidden="true"
               role="status"
@@ -82,9 +115,7 @@ const ProductGrid = ({ selectedServings, selectedFlavors, categoryId, searchFilt
                 fill="#1C64F2"
               ></path>
             </svg>
-            : 'Load More Products'
-          }
-
+          ) : 'Load More Products'}
         </button>
       )}
     </div>

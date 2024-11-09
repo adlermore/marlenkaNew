@@ -10,7 +10,7 @@ import { addToWishlist, removeFromWishlist } from "@/redux/wishlistSlice";
 import IconHeartFill2 from "@/public/icons/IconHeartFill2";
 import IconProductHeart from "@/public/icons/IconProductHeart";
 import IconShop from "@/public/icons/IconShop";
-import newLook from "@/public/images/newLook.png";
+import newLook from "@/public/images/newLook.svg";
 
 function Product({ product, onClick }) {
   const dispatch = useDispatch();
@@ -60,8 +60,14 @@ function Product({ product, onClick }) {
 
   return (
     <div className="slider_block">
-      {product.isNew === 1 && 
-        <span className="new_look">
+      <Link
+
+        href={`/product/${product.id}`}
+        onClick={onClick}
+        className="relative product_wrapp_link z-[999] cursor-pointer !opacity-1"
+      >
+        {product.isNew === 1 &&
+          <span className="new_look">
             <Image
               src={newLook}
               unoptimized
@@ -71,56 +77,60 @@ function Product({ product, onClick }) {
               height={107}
               className="object-contain"
             />
-        </span>
-      }
-      <div className="product_image h-[289px] laptopHorizontal:h-[350px] overflow-hidden laptop:h-[260px] w-full flex justify-center items-center relative">
-        {product?.images &&
-          <Link
-            href={`/product/${product.id}`}
-            onClick={onClick}
-            className="w-full h-full flex justify-center items-center relative !opacity-1"
-          >
-            <Image
+          </span>
+        }
+        <div className="product_image z-0 h-[289px] laptopHorizontal:h-[350px] overflow-hidden laptop:h-[260px] w-full flex justify-center items-center relative">
+          {product?.images &&
+            <span
+
+              className="w-full h-full flex justify-center items-center relative !opacity-1"
+            >
+              {/* <Image
               src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
               unoptimized
               alt={product.name || "Ricardo portrait"}
               priority
               fill
               className="object-contain"
-            />
-            <span className="product_inner">
-              <Image
-                src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
-                unoptimized
-                alt={product.name || "Ricardo portrait"}
-                priority
-                fill
-                className="product_inner_img object-contain"
-              />
+            /> */}
+              <span className="product_inner">
+                <Image
+                  src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
+                  unoptimized
+                  alt={product.name || "Ricardo portrait"}
+                  priority
+                  fill
+                  className="product_inner_img object-contain"
+                />
+              </span>
             </span>
-          </Link>
-        }
-        <span className="product_links z-[999] flex flex-col items-center absolute top-0 right-0">
-          <button
-            className={`block`}
-            aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
-            onClick={handleAddToWishlist}
-          >
-            {isInWishlist ? <IconHeartFill2 className='!w-[20px] h-auto' /> : <IconProductHeart className='[&>path]:fill-[#e0be96] w-[22px]' />}
-          </button>
-          <button
-            className="mt-[15px] block"
-            onClick={handleAddToCart}
-            aria-label="Add to Cart"
-          >
-            <IconShop className='[&>path]:fill-[#e0be96]' />
-          </button>
-        </span>
-      </div>
-      <div className="flex items-center text-[#B62025] font-medium text-xl justify-center gap-[5px]">
-        {product.name}
-      </div>
-      <div className="font-medium mt-[5px] flex items-center gap-[5px] justify-center text-[18px] text-black"><span>-</span>{product.price}$<span>-</span></div>
+          }
+          <span className="product_links z-[999] flex flex-col items-center absolute top-0 right-0">
+            <button
+              className={`block`}
+              aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+              onClick={handleAddToWishlist}
+            >
+              {isInWishlist ? <IconHeartFill2 className='!w-[20px] h-auto' /> : <IconProductHeart className='[&>path]:fill-[#e0be96] w-[22px]' />}
+            </button>
+            <button
+              className="mt-[15px] block"
+              onClick={handleAddToCart}
+              aria-label="Add to Cart"
+            >
+              <IconShop className='[&>path]:fill-[#e0be96]' />
+            </button>
+          </span>
+        </div>
+        <div className="flex items-center text-center text-[#B62025] font-medium text-xl justify-center gap-[5px]">
+          {product.name}
+        </div>
+        <div className="font-medium product_price mt-[5px] flex items-center gap-[5px] justify-center text-[18px] text-black">
+          <span></span>
+          ${product.price}
+          <span></span>
+        </div>
+      </Link>
     </div>
   );
 }

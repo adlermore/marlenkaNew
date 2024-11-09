@@ -113,7 +113,7 @@ const ProductPage = ({ params }) => {
 		<div className='product_inner_page !mt-[120px] mobile:!mt-[150px] !min-h-[100vh]'>
 			<div className=' text-[24px] uppercase bg-siteCrem '>
 				<div className='custom_container h-[120px] laptopHorizontal:h-[80px] laptopHorizontal:text-base flex items-center text-xl text-[#B62025] font-medium'>
-					Menue/{product?.category?.name}/{product?.name}
+					<Link className='pr-[5px]' href='/productListing'>Menue</Link>/ <Link className='pl-[5px] pr-[5px]' href={`/productListing?category=${product?.category_id}`}> {product?.category?.name}</Link> / {product?.name}
 				</div>
 			</div>
 			<div className="product_section">
@@ -167,8 +167,8 @@ const ProductPage = ({ params }) => {
 							</div>
 						</div>
 					</div>
-					<div className='product_info pl-[80px] w-full flex flex-col justify-between laptopHorizontal:pl-[30px]'>
-						{product.isNew === 1 && 
+					<div className='product_info relative z-0 pl-[80px] w-full flex flex-col justify-between laptopHorizontal:pl-[30px]'>
+						{product.isNew === 1 &&
 							<span className="new_look">
 								<Image
 									src={newLook}
@@ -195,14 +195,16 @@ const ProductPage = ({ params }) => {
 								))
 							}
 							<button
-								className='text-[#B62025] duration-300 ml-auto text-xl block uppercase'
+								className='text-[#B62025] duration-300 ml-auto text-[20px] block uppercase'
 								onClick={handleFullDetailsClick}
 							>
 								{showFullDetails ? 'Hide details' : 'Full details'}
 							</button>
 						</div>
 						<div className='flex  mt-[50px] laptop:mt-[30px] items-center gap-[20px] justify-between laptopHorizontal:justify-center'>
-							<div className='text-black text-[36px] font-bold laptopHorizontal:text-2xl'>${product.price}</div>
+							<div className='text-black text-[36px] font-medium laptopHorizontal:text-2xl'>
+								<span className='font-regular'>$</span>{product.price}
+							</div>
 							<div className='flex items-center justify-between h-[35px] bg-[#D9D9D9] bg-opacity-40 rounded-[5px] max-w-[110px]'>
 								<button onClick={decrementCount} className='py-[10px] text-2xl w-[40px] h-full flex items-center justify-center'>-</button>
 								<span>{productCount}</span>

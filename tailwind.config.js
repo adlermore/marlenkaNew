@@ -46,6 +46,7 @@ module.exports = {
     },
 
     fontFamily: {
+      qwigley: "QwigleyRegular",
       regular: "MontserratRegular",
       light: "MontserratLight",
       medium: "MontserratMedium",

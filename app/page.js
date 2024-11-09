@@ -5,6 +5,7 @@ import Image from "next/image";
 import Product from "@/components/product/Product";
 import ModalVideoWrap from "@/components/ModalVideoWrap";
 import GiftSection from "@/components/giftSection/GiftSection";
+import BestSlider from "@/components/slider/BestSlider";
 
 export default async function Home() {
 
@@ -18,10 +19,10 @@ export default async function Home() {
   return (
     <div className="home_page">
       <MainSlider sliderData={data?.sliders} />
-      <div className="flex bg-[#FFEED9] py-[90px] laptopHorizontal:py-[60px]  laptop:py-[20px] relative mt-[-20px]">
+      <div className="flex bg-[#FFF6E6] py-[90px] laptopHorizontal:py-[60px]  laptop:py-[20px] relative mt-[-20px]">
         <div className="custom_container flex justify-between overflow-hidden tablet h-[500px]  tablet:flex-col laptop:h-auto">
-          <div className="absolute left-0  flex items-center justify-center top-20 overflow-hidden bottom-20 h-full w-[47%] tablet:relative tablet:w-full tablet:h-[300px]">
-            <div className="relative w-full h-full max-w-[80%]">
+          <div className="absolute left-0  flex items-center justify-center top-0 overflow-hidden bottom-20 h-full w-[47%] tablet:relative tablet:w-full tablet:h-[300px]">
+            <div className="relative w-full h-full max-w-[75%]">
               <Image
                 src={process.env.NEXT_PUBLIC_DATA + data?.highlighty.image_path}
                 alt="Ricardo portrait"
@@ -46,7 +47,7 @@ export default async function Home() {
               <br />
               {data?.highlighty.description_three}
             </div>
-            <Link href='/productListing' className="site_btn mt-[25px]">Products</Link>
+            <Link href='/productListing' className="ml-auto normal_btn mt-[25px]">Products</Link>
           </div>
         </div>
       </div>
@@ -54,16 +55,16 @@ export default async function Home() {
       <div className="bg-white py-[80px] laptopHorizontal:py-[40px] ">
         <div className="custom_container also_like">
           <div className="text-[32px] text-center laptopHorizontal:text-2xl uppercase">Best Sellers</div>
-          <div className="grid grid-cols-4 gap-[25px] product_slider_list mt-[80px] mobile:grid-cols-1 tablet:grid-cols-2 laptopHorizontal:grid-cols-3  overflow-hidden laptopHorizontal:mt-[40px] pb-[60px]">
-            {dataProduct?.products.slice(1,5).map((product, index) => (
+          <div className="product_slider_list mt-[80px]  laptopHorizontal:mt-[40px] pb-[60px]">
+            {/* {dataProduct?.products.slice(0,4).map((product, index) => (
               <Product key={index} product={product} />
-            ))}
+            ))} */}
+            <BestSlider sliderContent={dataProduct?.products.slice(0,7)} />
           </div>
         </div>
       </div>
-
       <GiftSection romantic={data.romantic}/>
-      <div className="pt-[90px] pb-[120px] laptopHorizontal:pt-[60px]  mobile:pb-[60px] bg-siteCrem">
+      <div className="pt-[90px] pb-[120px] laptopHorizontal:pt-[60px]  mobile:pb-[60px] bg-[#FFF6E6]">
         <div className="custom_container">
           <div className="text-[32px] text-center uppercase">INGREDIENTS</div>
           <div className="flex gap-20 mt-[40px] ingredients items-end justify-between laptopHorizontal:flex-wrap mobile:mt-[30px] mobile:flex-col mobile:items-center mobile:justify-center mobile:align-center">

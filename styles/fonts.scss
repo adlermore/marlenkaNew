@@ -6,6 +6,13 @@
 }
 
 @font-face {
+  font-family: "QwigleyRegular";
+  src: local("QwigleyRegular"),
+    url("/fonts/Qwigley/Qwigley-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
   font-family: "MontserratLight";
   src: local("MontserratLight"),
     url("/fonts/Montserrat/Montserrat-Light.ttf") format("truetype");
