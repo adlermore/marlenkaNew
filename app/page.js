@@ -37,7 +37,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="py-[60px]  laptopHorizontal:py-[30px] ml-auto max-w-[650px] laptopHorizontal:max-w-[50%] laptop:py-40 tablet:max-w-none tablet:pl-10">
-            <div className=" uppercase text-[32px] laptopHorizontal:text-[20px]  "><span className="text-[#B62025]">SWEET</span> highlighty </div>
+            <div className=" uppercase text-[32px] laptopHorizontal:text-[20px]  "><span className="text-[#B62025]">SWEET</span> HIGHLIGHTS </div>
             <div className="mt-[30px] text-base laptopHorizontal:mt-20 tracking-[1px]">
               {data?.highlighty.description_one}
               <br />
