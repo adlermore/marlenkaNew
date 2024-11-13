@@ -348,7 +348,7 @@ const ProductPage = ({ params }) => {
 					</div>
 				</div>
 			</div>
-			<AlsoLike sectionTitle='Additional flavors' start={2} end={5} />
+			<AlsoLike sectionTitle='Additional flavors' parentProductId={product?.id} category_id={product?.category_id} />
 		</div>
 	);
 };
