@@ -17,11 +17,12 @@ export default function Page() {
           ))}
         </div>
         :
-        <div className='relative w-full h-full flex items-center justify-center'>
+        <div className='relative w-full h-full  flex items-center justify-center'>
           <Image
             src={emptybag}
             alt="Empty Image"
             priority={true}
+            className='max-w-[150px] relative left-[-100px] top-[-50px]'
           />
         </div>
       }

@@ -13,8 +13,70 @@ import PageLoader from '@/components/PageLoader';
 import AlsoLike from '@/components/alsoLikeProducts/AlsoLike';
 import newLook from "@/public/images/newLookInner.png";
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import Select from 'react-select';
+
 
 const ProductPage = ({ params }) => {
+
+	const options = [
+		{ value: 'Honey', label: 'Honey' },
+		{ value: 'Walnut', label: 'Walnut' },
+		{ value: 'Cocoa', label: 'Cocoa' },
+		{ value: 'Cinnamon', label: 'Cinnamon' },
+		{ value: 'Lemon', label: 'Lemon' },
+		{ value: 'Apricot', label: 'Apricot' },
+		{ value: 'Gluten Free', label: 'Gluten Free' }
+	];
+
+	const customStyles = {
+		control: (provided, state) => ({
+			...provided,
+			backgroundColor: '#fff', // Background color of the dropdown
+			borderRadius: '30px', // Round corners
+			padding: '5px 20px', // Padding
+			borderColor: '#A8894A', // Border color
+			boxShadow: state.isFocused ? null : null,
+		}),
+		menu: (provided) => ({
+			...provided,
+			backgroundColor: '#fff',
+			borderRadius: '10px',
+			padding: '5px 10px',
+		}),
+
+		option: (provided, state) => ({
+			...provided,
+			backgroundColor: state.isSelected ? '#1a73e8' : '#fff', // Selected option background
+			color: state.isSelected ? '#fff' : '#000', // Text color
+			padding: 10,
+			boxShadow: state.isFocused ? null : null,
+			borderRadius: '5px',
+			':hover': {
+				backgroundColor: '#eeeeee', // Hover effect for options
+				color: '#000',
+			},
+		}),
+		multiValue: (provided) => ({
+			...provided,
+			backgroundColor: '#B62025', // Background of selected items
+			color: '#fff',
+			borderRadius: '10px',
+			padding: '2px',
+		}),
+		multiValueLabel: (provided) => ({
+			...provided,
+			color: '#fff', // Text color of selected items
+		}),
+		multiValueRemove: (provided) => ({
+			...provided,
+			color: '#fff', // Color of remove icon
+			':hover': {
+				backgroundColor: '#d32f2f', // Hover effect on remove
+				color: '#fff',
+			},
+		}),
+	};
+
 
 	const smallSliderRef = useRef(null);
 	const bigSliderRef = useRef(null);
@@ -25,7 +87,7 @@ const ProductPage = ({ params }) => {
 	const [product, setProduct] = useState(null);
 	const [showFullDetails, setShowFullDetails] = useState(false);
 
-	const [hovered, setHovered] = useState(false); 
+	const [hovered, setHovered] = useState(false);
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const [productCount, setProductCount] = useState(1);
 
@@ -52,7 +114,7 @@ const ProductPage = ({ params }) => {
 		centerPadding: 0,
 		infinite: false,
 		slidesToShow: 3,
-		arrows: false,
+		arrows: true,
 		focusOnSelect: true,
 		responsive: [
 			{
@@ -114,7 +176,7 @@ const ProductPage = ({ params }) => {
 		<div className='product_inner_page !mt-[120px] mobile:!mt-[150px] !min-h-[100vh]'>
 			<div className=' text-[24px] uppercase bg-siteCrem '>
 				<div className='custom_container h-[120px] laptopHorizontal:h-[80px] laptopHorizontal:text-base flex items-center text-xl text-[#B62025] font-medium'>
-					<Link className='pr-[5px]' href='/productListing'>Menue</Link>/ <Link className='pl-[5px] pr-[5px]' href={`/productListing?category=${product?.category_id}`}> {product?.category?.name}</Link> / {product?.name}
+					<Link className='pr-[5px]' href='/productListing'>All Products</Link>/ <Link className='pl-[5px] pr-[5px]' href={`/productListing?category=${product?.category_id}`}> {product?.category?.name}</Link> / {product?.name}
 				</div>
 			</div>
 			<div className="product_section">
@@ -127,8 +189,8 @@ const ProductPage = ({ params }) => {
 										<div className="slide_block" key={index}>
 											<div className="img_block">
 												<div className='absolute inner_div'>
-										
-												<TransformWrapper
+
+													<TransformWrapper
 														initialScale={.7}
 														minScale={.7}
 														centerZoomedOut={true}
@@ -152,7 +214,7 @@ const ProductPage = ({ params }) => {
 													</TransformWrapper>
 
 												</div>
-							
+
 											</div>
 
 										</div>
@@ -201,15 +263,15 @@ const ProductPage = ({ params }) => {
 							</span>
 						}
 						<div className='text-[#B62025] text-2xl'>{product.name}</div>
-						<div className='mt-[30px] text-xl text-black font-medium max-w-[420px]:'>
+						<div className='mt-[30px] text-base text-black font-medium max-w-[500px]'>
 							{product.description}
 						</div>
-						<div className='w-full my-[50px] laptopHorizontal:my-[30px]'>
+						<div className='w-full my-[40px] laptopHorizontal:my-[30px]'>
 							{product.technicals.length > 0 &&
 								product.technicals.map((item, index) => (
 									<div key={index} className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-										<div className='font-xl text-black font-medium'>{item.technical}</div>
-										<div>{item.value}</div>
+										<div className='font-xl text-black font-bold'>{item.technical}</div>
+										<div className='font-medium'>{item.value}</div>
 									</div>
 								))
 							}
@@ -220,6 +282,16 @@ const ProductPage = ({ params }) => {
 								{showFullDetails ? 'Hide details' : 'Full details'}
 							</button>
 						</div>
+						<Select
+							isMulti
+							name="options"
+							options={options}
+							styles={customStyles}
+							placeholder="Select options..."
+							className="basic-multi-select"
+							classNamePrefix="select"
+						/>
+
 						<div className='flex  mt-[50px] laptop:mt-[30px] items-center gap-[20px] justify-between laptopHorizontal:justify-center'>
 							<div className='text-black text-[36px] font-medium laptopHorizontal:text-2xl'>
 								<span className='font-regular'>$</span>{product.price}
@@ -257,19 +329,19 @@ const ProductPage = ({ params }) => {
 						{product.technicals.length > 0 &&
 							product.technicals.map((item, index) => (
 								<div key={index} className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-									<div className='font-xl text-black font-medium'>{item.technical}</div>
-									<div>{item.value}</div>
+									<div className='font-xl text-black font-bold'>{item.technical}</div>
+									<div className='font-medium'>{item.value}</div>
 								</div>
 							))
 						}
 					</div>
 					<div className='w-full'>
-						<div className='text-[#AE8839] text-2xl mobile:text-base font-medium mb-[30px] laptop:text-xl'>MASS PACKAGING</div>
+						<div className='text-[#AE8839] text-2xl mobile:text-base font-medium mb-[30px] laptop:text-xl'>Mass Packaging</div>
 						{product.package_technicals.length > 0 &&
 							product.package_technicals.map((item, index) => (
 								<div key={index} className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-									<div className='font-xl text-black font-medium'>{item.technical}</div>
-									<div>{item.value}</div>
+												<div className='font-xl text-black font-bold'>{item.technical}</div>
+												<div className='font-medium'>{item.value}</div>
 								</div>
 							))
 						}

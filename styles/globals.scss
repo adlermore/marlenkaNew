@@ -25,16 +25,6 @@ body {
   transition: background 0.3s;
   overflow-x: hidden !important;
 
-  // hiddenn
-  // &.overlay {
-  //   overflow: hidden !important;
-  //   opacity: 0 !important;
-  //   background-color: black !important;
-  //   transition: opacity 0.3s ease !important; 
-  // }
-
-  //  hidden
-
   &.menu_opened {
     overflow: hidden !important;
   }
@@ -43,6 +33,23 @@ body {
     &.menu_opened {
       overflow: visible !important;
     }
+  }
+}
+
+.header_logo{
+  position: relative;
+  transition: 0.3s;
+  &:hover{
+    opacity: 1 !important;
+    .logo_hover{
+      opacity: 1;
+    }
+  }
+  .logo_hover{
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    transition: 0.3s;
   }
 }
 
@@ -749,6 +756,7 @@ a {
     transition: 0.3s;
     height: 0;
     font-size: 14px;
+    left: -15px;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
@@ -1342,6 +1350,12 @@ a {
 //   }
 // }
 
+.check_label {
+  &.active{
+    color: #A8894A;      
+  }
+}
+
 .login_form {
   width: 100%;
 
@@ -1379,10 +1393,10 @@ a {
 
     input[type="checkbox"]:checked+.square_block {
       background: #D3BA87;
-
       svg {
         opacity: 1;
       }
+
     }
   }
 
@@ -1390,6 +1404,9 @@ a {
     font-size: 14px;
     color: black;
     line-height: 1.6;
+    &.active{
+      color: #A8894A;      
+    }
   }
 
   .square_block {
@@ -2008,7 +2025,7 @@ input::-webkit-inner-spin-button {
   left: 0;
   height: 20px;
   width: 20px;
-  background-color: #FFEED9;
+  background-color: #FFF6E6;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   display: flex;

@@ -50,7 +50,8 @@ function Product({ product, onClick }) {
     });
   };
 
-  const handleAddToWishlist = () => {
+  const handleAddToWishlist = (e) => {
+    e.preventDefault();
     if (isAuth) {
       isInWishlist ? dispatch(removeFromWishlist(product)) : dispatch(addToWishlist(product))
     } else {
@@ -109,7 +110,7 @@ function Product({ product, onClick }) {
             <button
               className={`block`}
               aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
-              onClick={handleAddToWishlist}
+              onClick={(e)=>handleAddToWishlist(e)}
             >
               {isInWishlist ? <IconHeartFill2 className='!w-[20px] h-auto' /> : <IconProductHeart className='[&>path]:fill-[#e0be96] w-[22px]' />}
             </button>

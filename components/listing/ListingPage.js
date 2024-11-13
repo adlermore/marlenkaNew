@@ -8,6 +8,7 @@ import PageLoader from '../PageLoader';
 import { useSearchParams } from 'next/navigation';
 
 export const filterSubCategory = [
+	{ name: 'All Products', id: '0' },
 	{ name: 'Cakes', id: '1' },
 	{ name: 'Rolls', id: '2' },
 	{ name: 'Eclairs', id: '3' },
@@ -18,7 +19,7 @@ export const filterSubCategory = [
 ];
 
 export const filterFineness = [
-	{ name: 'Classic', id: '1' },
+	{ name: 'Honey', id: '1' },
 	{ name: 'Walnut', id: '2' },
 	{ name: 'Cocoa', id: '3' },
 	{ name: 'Cinnamon', id: '4' },
@@ -38,7 +39,7 @@ const ListingPage = ({ categories }) => {
 
 	const searchParams = useSearchParams();
 	const [filters, setFilters] = useState({
-		subcategoryId: searchParams.get('category') || '',
+		subcategoryId: searchParams.get('category') || '0',
 		typeId: '',
 		finenessIds: [],
 	});
@@ -91,7 +92,7 @@ const ListingPage = ({ categories }) => {
 	};
 
 	const clearAllFilters = () => {
-		const clearedFilters = { subcategoryId: '', typeId: '', finenessIds: [] };
+		const clearedFilters = { subcategoryId: '0', typeId: '', finenessIds: [] };
 		setFilters(clearedFilters);
 		updateSearchParams(clearedFilters); // Clear search params
 	};
@@ -103,9 +104,9 @@ const ListingPage = ({ categories }) => {
 				<Image src={currentCategory.image_path ? process.env.NEXT_PUBLIC_DATA + currentCategory.image_path : cover1} fill alt="Cover image" priority={true} unoptimized={true} sizes="90vw" style={{ objectFit: "cover" }} />
 			</div>
 			<div className='cover_container flex laptop:block gap-[25px] !mt-[70px] laptop:!mt-[40px] laptopHorizontal:gap-20'>
-				<div className='filter_block border border-1 border-[#F8F6F5] p-[25px] max-w-[290px] laptop:max-w-none laptopHorizontal:max-w-[230px] laptopHorizontal:p-[15px] h-fit w-full'>
+				<div className='filter_block p-[25px] max-w-[290px] laptop:max-w-none laptopHorizontal:max-w-[230px] laptopHorizontal:p-[15px] h-fit w-full'>
 					<div className='mb-[30px]'>
-						<div className='text-[#B62025] uppercase text-[32px] laptopHorizontal:text-2xl mb-20 laptop:mx-auto laptop:mb-[40px] text-center max-w-fit'>Categories</div>
+						<div className='text-[#B62025]  text-[27px] laptopHorizontal:text-2xl mb-20 laptop:mx-auto laptop:mb-[40px] text-center max-w-fit'>Categories</div>
 						<div className='laptop:flex laptop:flex-wrap tablet:flex-wrap tablet:gap-[20px] laptop:justify-between'>
 							{filterSubCategory.map((filter) => (
 								<div key={filter.id} className="mb-[10px] filter_line radio_line">
@@ -120,13 +121,18 @@ const ListingPage = ({ categories }) => {
 										<span className="square_block">
 											<span className='opacity-0 duration-300'><IconChecked /></span>
 										</span>
-										<span className="check_label ">{filter.name.charAt(0).toUpperCase() + filter.name.slice(1)}</span>
+										<span 
+											// className="check_label font-medium"
+											className={`check_label font-medium ${filters.subcategoryId === filter.id ? 'active' : ''}`}
+										>
+											{filter.name.charAt(0).toUpperCase() + filter.name.slice(1)}
+										</span>
 									</label>
 								</div>
 							))}
 						</div>
 						<div>
-							<div className='text-[#B62025] text-[32px] laptopHorizontal:text-2xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 laptop:text-center max-w-[170px]'>Flavors</div>
+							<div className='text-[#B62025]  text-[27px] laptopHorizontal:text-xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 laptop:text-center max-w-[170px]'>Flavors</div>
 							<div className='laptop:flex laptop:max-w-[350px] laptop:flex-wrap'>
 								{filterFineness.map((filter , index) => (
 									<div key={`${filter.id}-${index}`} className="mb-[10px] filter_line">
@@ -140,13 +146,18 @@ const ListingPage = ({ categories }) => {
 											<span className="square_block">
 												<span className='opacity-0 duration-300'><IconChecked /></span>
 											</span>
-											<span className="check_label ">{filter.name.charAt(0).toUpperCase() + filter.name.slice(1)}</span>
+											<span 
+												// className="check_label font-medium"
+												className={`check_label font-medium ${filters.finenessIds.includes(filter.id) ? 'active' : ''}`}
+											>
+												{filter.name.charAt(0).toUpperCase() + filter.name.slice(1)}
+											</span>
 										</label>
 									</div>
 								))}
 							</div>
 						</div>
-						<div className='text-[#B62025] text-[32px] laptopHorizontal:text-2xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 laptop:text-center max-w-[170px]'>Servings</div>
+						<div className='text-[#B62025] text-[27px] laptopHorizontal:text-2xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 laptop:text-center max-w-[170px]'>Servings</div>
 						<div className='laptop:flex laptop:max-w-[350px] laptop:flex-wrap'>
 							{filterType.map((filter , index) => (
 								<div key={`${filter.id}-${index}`} className="mb-[10px] filter_line radio_line">
@@ -161,7 +172,12 @@ const ListingPage = ({ categories }) => {
 										<span className="square_block">
 											<span className='opacity-0 duration-300'><IconChecked /></span>
 										</span>
-										<span className="check_label ">{filter.name.charAt(0).toUpperCase() + filter.name.slice(1)}</span>
+										<span 
+											// className="check_label font-medium"
+											className={`check_label font-medium ${filters.typeId === filter.id ? 'active' : ''}`}
+										>
+											{filter.name.charAt(0).toUpperCase() + filter.name.slice(1)}
+										</span>
 									</label>
 								</div>
 							))}
@@ -172,8 +188,8 @@ const ListingPage = ({ categories }) => {
 					</div>
 				</div>
 				<div className='w-full'>
-				<div className='text-[#B62025] text-[32px] whitespace-nowrap uppercase mt-[15px] laptopHorizontal:text-2xl pt-[10px] mb-[40px]  laptop:text-center max-w-[170px]'>
-					{filterSubCategory[filters.subcategoryId - 1]?.name || `All Products`}
+				<div className='text-[#B62025] text-[27px] whitespace-nowrap uppercase mt-[15px] laptopHorizontal:text-2xl pt-[10px] mb-[40px]  laptop:text-center max-w-[170px]'>
+					{filterSubCategory[filters.subcategoryId]?.name || `All Products`}
 				</div>
 					<Suspense fallback={<PageLoader />}>
 						<ProductGrid filters={filters} />

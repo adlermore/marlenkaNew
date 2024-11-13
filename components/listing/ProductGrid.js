@@ -1,5 +1,6 @@
 'use client';
 import request from '@/utils/hooks/request';
+import useDebounce from '@/utils/hooks/useDebounce';
 import { useSearchParams } from 'next/navigation';
 import React, { lazy, useEffect, useState, useMemo } from 'react';
 
@@ -20,20 +21,23 @@ const ProductGrid = ({ filters }) => {
 
   // Destructure filters
   const { finenessIds: selectedFlavors, subcategoryId: categoryId, typeId: selectedServings } = filters;
-
+  
   const subcategory = categoryId || subcategoryFromParams;
+
+  // Debounce filter changes
+  const debouncedFilters = useDebounce({ offset, searchFilter, selectedServings, subcategory, selectedFlavors }, 300);
 
   // Construct API URL
   const apiUrl = useMemo(() => {
-    return `${process.env.NEXT_PUBLIC_DATA_API}/getProducts?offset=${offset}&limit=${limit}&filter=${searchFilter}&servings=${selectedServings}&category_id=${subcategory || ''}&flavors=[${selectedFlavors}]`;
-  }, [offset, searchFilter, selectedServings, subcategory, selectedFlavors]);
+    return `${process.env.NEXT_PUBLIC_DATA_API}/getProducts?offset=${debouncedFilters.offset}&limit=${limit}&filter=${debouncedFilters.searchFilter}&servings=${debouncedFilters.selectedServings}&category_id=${debouncedFilters.subcategory || ''}&flavors=[${debouncedFilters.selectedFlavors}]`;
+  }, [debouncedFilters]);
 
   // Fetch products
   const fetchProducts = async () => {
     setLoading(true);
     try {
       const data = await request(apiUrl);
-      if (offset === 0) {
+      if (debouncedFilters.offset === 0) {
         // If offset is zero (first fetch), reset listingData
         setListingData(data?.data?.products || []);
       } else {
@@ -49,15 +53,17 @@ const ProductGrid = ({ filters }) => {
     }
   };
 
-  // Effect to fetch products based on offset and filters
+  // Effect to fetch products based on debounced filters
   useEffect(() => {
     fetchProducts();
-  }, [offset, searchFilter, selectedServings, searchParams, subcategory, selectedFlavors]); 
+  }, [apiUrl]); // Only depend on apiUrl
 
+  // Reset offset and listingData when filters change
   useEffect(() => {
-    setOffset(0); // Reset offset
-    setListingData([]); // Clear existing data
-    fetchProducts(); // Fetch new products based on new filters
+    if (filters) {
+      setOffset(0); // Reset offset
+      setListingData([]); // Clear existing data
+    }
   }, [filters]); // Only depend on filters
 
   const loadMoreProducts = () => {
@@ -66,7 +72,7 @@ const ProductGrid = ({ filters }) => {
 
 
   return (
-    <div className='w-full pb-[60px]'>
+    <div className='w-full pl-[30px] laptopHorizontal:pl-0 pb-[60px]'>
       <div className='grid grid-cols-3 tablet:grid-cols-2 mobile:block gap-x-[30px] gap-y-[40px]'>
         {loading && listingData.length === 0 ? (
           Array.from({ length: 9 }).map((_, index) => (

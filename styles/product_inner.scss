@@ -23,6 +23,31 @@
 			height: 100%;
 		}
 
+		.images_slider {
+			height: 100%;
+			.slick-arrow {
+				&:before {
+					content: "\e902";
+					@extend %iconElement;
+					font-size: 1rem;
+					color: #AE8839;
+				}
+				&.slick-next {
+					position: absolute;
+					top: 45% !important;
+					right: -20px;
+					left: auto;
+				}
+
+				&.slick-prev {
+					top: 45%;
+					right: auto;
+					left: -20px;
+					transform: translate(-50% , -50%);
+					transform: rotate(-180deg);
+				}
+			}
+		}
 		.slick-slide.slick-current{
 			.img_block{
 				padding: 10px;
@@ -80,6 +105,9 @@
 			}
 			.inner_div{
 				// background: red;
+				// : zoom-in;
+
+				cursor : url('/images/cursorZoom.svg') , auto;
 				z-index: 99999;
 				width: 100%;
 				height: 100%;

@@ -56,7 +56,7 @@ module.exports = {
     colors: {
       transparent: "transparent",
       white: "#ffffff",
-      siteCrem : '#FFEED9',
+      siteCrem : '#FFF6E6',
       blueDark1: "#191A2A",
       blueDark2: "#021C41",
       siteBlue: "#0071DC",

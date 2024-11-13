@@ -10,10 +10,10 @@ import BestSlider from "@/components/slider/BestSlider";
 export default async function Home() {
 
   // HomePage Data Fetching
-  const res = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getHomeData', { cache: 'no-cache' })
+  const res = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getHomeData')
   const { data } = await res.json()
 
-  const resProduct = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getProducts', { cache: 'no-cache' })
+  const resProduct = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getProducts')
   const { data: dataProduct  } = await resProduct.json()
 
   return (

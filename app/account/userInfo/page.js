@@ -20,7 +20,9 @@ export default function UserInfoPage() {
 
   const [profileData, setProfileData] = useState(null);
 	const [loading, setLoading] = useState(true);
+  const [phone, setPhone] = useState(profileData?.phone_number || '');
 
+  
   //validation init
   const { register: userInfo, handleSubmit: handleSubmitForm, reset, watch, formState: { errors: errorUser } } = useForm({
     resolver: zodResolver(userScheme)
@@ -97,6 +99,7 @@ export default function UserInfoPage() {
 
   useEffect(() => {
     fetchProfileData();
+    setPhone(profileData?.phone_number)
 	}, []);
 
   return (
@@ -127,7 +130,7 @@ export default function UserInfoPage() {
                 fill="#1C64F2"
               ></path>
             </svg>
-            {loading ? " " : " Edit"}
+            {loading ? " " : " Update"}
           </button>
 
         </div>
@@ -197,7 +200,12 @@ export default function UserInfoPage() {
               autoComplete="on"
               className="form-control"
               mask="(999)-999-999"
-              value={profileData?.phone_number || ''}
+              value={phone || ''}
+              // value={profileData?.phone_number || ''}
+              onChange={(e) => {
+                setPhone(e.target.value);
+                userInfo("phone").onChange(e); // Call react-hook-form's onChange
+            }} 
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
               {errorUser?.phone?.message}

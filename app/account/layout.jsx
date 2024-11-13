@@ -49,7 +49,7 @@ export default function AccountLayout({ children }) {
           My account
         </div>
       </div>
-      <div className="custom_container !py-[50px]">
+      <div className="custom_container !bg-white !py-[50px]">
         <div className='account_line'>
           <nav>
             <ul>

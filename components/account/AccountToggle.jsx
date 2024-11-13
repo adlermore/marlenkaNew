@@ -90,7 +90,7 @@ function AccountToggle() {
         <div className="drop_btn cursor-pointer" onClick={dropToggle}>
           <div className="flex relative text-white acc_btn items-center gap-10">
             <IconUser className="text" />
-            <span className='whitespace-nowrap'> {isAuth ? 'Profile' : 'Sign in'}</span>
+            <span className='whitespace-nowrap'> {isAuth ? `${user?.name.split(' ')[0] || 'Profile' }` : 'Sign in'}</span>
           </div>
         </div>
         <div className="account_drop">
@@ -109,25 +109,6 @@ function AccountToggle() {
             </div>
           ) : (
             <div className="drop_ist">
-              {/* <div className="drop_inner">
-                <div className="border-[#b46126] border-b-2 pb-[5px]">
-                  My Account
-                </div>
-                <a
-                  href="/"
-                  className=" mt-[10px] whitespace-nowrap"
-                  onClick={(e) => registerPopupOpen(e)}
-                >
-                  Create Account
-                </a>
-                <a
-                  href="/"
-                  className="mt-[10px]"
-                  onClick={(e) => loginPopupOpen(e)}
-                >
-                  Sign In
-                </a>
-              </div> */}
             </div>
           )}
         </div>
