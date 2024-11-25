@@ -21,7 +21,7 @@ function ModalVideoWrap({videoData}) {
 				onClose={() => setOpen(false)}
 			/>
 
-			<div className="relative mobile:min-h-[300px] cursor-pointer duration-300 hover:opacity-90" onClick={() => setOpen(true)}>
+			<div className="relative mobile:min-h-[280px] cursor-pointer duration-300 hover:opacity-90" onClick={() => setOpen(true)}>
 				<Image
 					src={videoSection}
 					alt="Ricardo portrait"
@@ -31,7 +31,7 @@ function ModalVideoWrap({videoData}) {
 					style={{
 						objectFit: "cover",
 					}}
-					className='mobile:object-contain mobile:h-[300px]'
+					className='mobile:object-contain mobile:h-[280px]'
 				/>
 			</div>
 		</div>

@@ -51,7 +51,7 @@ function GiftSection({ romantic }) {
           />
         </div>
         <div className="py-[20px] ml-auto max-w-[500px] laptopHorizontal:max-w-[40%] laptop:py-40 tablet:max-w-none tablet:pl-10">
-          <span className="relative mb-20 w-full max-w-[520px] block h-[90px]">
+          <span className="relative mb-20 w-full max-w-[520px] block h-[90px] mobile:h-[60px]">
             <Image
               src={process.env.NEXT_PUBLIC_DATA + romantic?.small_image_path}
               alt="Ricardo portrait"
@@ -66,7 +66,7 @@ function GiftSection({ romantic }) {
           </span>
           <div className="mt-[40px]">
             <div
-              className={`text-[32px] relative font-semibold flex items-center pb-[5px] text-[#FFEED9] anim_title ${activeTitle === 'one' ? 'active_class' : ''}`}
+              className={`text-[32px] relative font-semibold flex items-center pb-[5px] text-[#FFEED9] anim_title mobile:text-2xl ${activeTitle === 'one' ? 'active_class' : ''}`}
               onMouseEnter={() => setActiveTitle('one')}
               // onMouseLeave={() => setActiveTitle(null)}
             >
@@ -77,7 +77,7 @@ function GiftSection({ romantic }) {
               {romantic?.description_one}
             </div>
             <div
-              className={`text-[32px] mt-[20px] relative font-semibold flex items-center pb-[5px] text-[#FFEED9] two anim_title ${activeTitle === 'two' ? 'active_class' : ''}`}
+              className={`text-[32px] mt-[20px] relative font-semibold flex items-center pb-[5px] text-[#FFEED9] two anim_title mobile:text-2xl ${activeTitle === 'two' ? 'active_class' : ''}`}
               onMouseEnter={() => setActiveTitle('two')}
               // onMouseLeave={() => setActiveTitle(null)}
             >
@@ -88,7 +88,7 @@ function GiftSection({ romantic }) {
               {romantic?.description_two}
             </div>
             <div
-              className={`text-[32px] mt-[20px] relative font-semibold flex items-center pb-[5px]  text-[#FFEED9] three anim_title ${activeTitle === 'three' ? 'active_class' : ''}`}
+              className={`text-[32px] mt-[20px] relative font-semibold flex items-center pb-[5px]  text-[#FFEED9] three anim_title mobile:text-2xl ${activeTitle === 'three' ? 'active_class' : ''}`}
               onMouseEnter={() => setActiveTitle('three')}
               // onMouseLeave={() => setActiveTitle(null)}
             >

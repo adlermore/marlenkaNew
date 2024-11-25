@@ -198,7 +198,79 @@
 			border-bottom: 2px solid #D3BA87;
 		}
 	}
+}
 
+.zoom_btn{
+	position: absolute;
+	z-index: 999;
+	top: 15px;
+	left: 0;
+	cursor: pointer;
+	transition: 0.3s;
+	>svg{
+		transform: scale(1.1);
+	}
+	&:hover{
+		opacity: 0.7;
+	}
+}
+
+.zoom_popup{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgb(82 14 17 / 10%);
+	z-index: 999999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	.zoom_inner{
+		background: white;
+		border-radius: 15px;
+		padding: 20px 30px 30px;
+		width: 850px;
+		height: 550px;
+		position: relative;
+		overflow: hidden;
+		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+		a{
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			z-index: 99;
+		}
+	}
+	.react-transform-wrapper{
+		display: flex;
+		margin: 0 auto;
+		// width: 100%;
+		align-items: center;
+		justify-content: center;
+	}
+	.zoom_control{
+		margin-bottom: 20px;
+		display: flex;
+		justify-content: center;
+		button{
+			font-size: 12px;
+			padding: 0 20px !important;
+			min-width: 100px;
+			height: 35px;
+		}
+	}
+	.react-transform-component{
+		// height: 500px !important;
+		margin:  0 auto;
+	}
+	.inner_div{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		position: relative;
+	}
 }
 
 @media (max-width: 1199px){
@@ -242,6 +314,15 @@
 }
 
 @media (max-width: 575px){
+	.zoom_popup .zoom_inner {
+    height: 95dvh;
+	}
+	.zoom_popup .zoom_control button {
+    font-size: 10px;
+    padding: 0 10px !important;
+    min-width: 70px;
+    height: 30px;
+	}
 	.product_section {
 		.big_images .images_slider .slick-arrow {
 			&:before {

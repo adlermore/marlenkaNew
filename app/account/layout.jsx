@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import "@/styles/account.scss";
 import IconUser from '@/public/icons/IconUser';
 import IconHeart from '@/public/icons/IconHeart';
-import IconProductCard from '@/public/icons/IconProductCard';
 import IconLogOut from '@/public/icons/IconLogOut';
 import { setAuthenticated } from '@/redux/authSlice';
 import IconShop from '@/public/icons/IconShop';
@@ -32,7 +31,6 @@ export default function AccountLayout({ children }) {
       router.push('/');
     }
   }, [isAuthChecked, isAuth, router]);
-
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -68,7 +66,6 @@ export default function AccountLayout({ children }) {
                   <IconShop /> My Orders
                 </Link>
               </li>
-              
               <li className='log_out'>
                 <a href="/" className='logout' onClick={(e) => handleLogout(e)}>
                   <IconLogOut /> Log Out

@@ -179,7 +179,7 @@ const Footer = () => {
             className="laptopHorizontal:max-w-[160px]"
           />
         </div>
-        <div className='flex footer_menu  mt-[70px] items-center gap-20 justify-between tablet:grid-cols-2 laptop:grid laptop:grid-cols-3 laptop:gap-40 mobile:grid-cols-1'>
+        <div className='flex footer_menu  mt-[70px] mobile:mt-[30px] items-center gap-20 justify-between tablet:grid-cols-2 laptop:grid laptop:grid-cols-3 laptop:gap-40 mobile:flex mobile:flex-wrap'>
           <div className="menu_block">
             <h2 className="text-xl  text-siteCrem pb-[2px]">Shortcuts</h2>
             <Link href="/">Home</Link>

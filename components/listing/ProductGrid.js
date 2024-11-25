@@ -72,7 +72,7 @@ const ProductGrid = ({ filters }) => {
 
 
   return (
-    <div className='w-full pl-[30px] laptopHorizontal:pl-0 pb-[60px]'>
+    <div className='w-full pl-[40px] laptopHorizontal:pl-0 pb-[60px] mobile:pl-0'>
       <div className='grid grid-cols-3 tablet:grid-cols-2 mobile:block gap-x-[30px] gap-y-[40px]'>
         {loading && listingData.length === 0 ? (
           Array.from({ length: 9 }).map((_, index) => (

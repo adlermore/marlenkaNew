@@ -43,8 +43,6 @@ const ListingPage = ({ categories }) => {
 		typeId: '',
 		finenessIds: [],
 	});
-
-	// console.log('filters' , filters);
 	
 	const currentCategory = useMemo(() => {
 		return categories.find(category => category.id.toString() === filters.subcategoryId) || {};
@@ -106,7 +104,7 @@ const ListingPage = ({ categories }) => {
 			<div className='cover_container flex laptop:block gap-[25px] !mt-[70px] laptop:!mt-[40px] laptopHorizontal:gap-20'>
 				<div className='filter_block p-[25px] max-w-[290px] laptop:max-w-none laptopHorizontal:max-w-[230px] laptopHorizontal:p-[15px] h-fit w-full'>
 					<div className='mb-[30px]'>
-						<div className='text-[#B62025]  text-[27px] laptopHorizontal:text-2xl mb-20 laptop:mx-auto laptop:mb-[40px] text-center max-w-fit'>Categories</div>
+						<div className='text-[#B62025]  text-[24px] laptopHorizontal:text-xl mb-20 laptop:mx-auto laptop:mb-[40px] font-medium text-center max-w-fit'>Categories</div>
 						<div className='laptop:flex laptop:flex-wrap tablet:flex-wrap tablet:gap-[20px] laptop:justify-between'>
 							{filterSubCategory.map((filter) => (
 								<div key={filter.id} className="mb-[10px] filter_line radio_line">
@@ -132,8 +130,8 @@ const ListingPage = ({ categories }) => {
 							))}
 						</div>
 						<div>
-							<div className='text-[#B62025]  text-[27px] laptopHorizontal:text-xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 laptop:text-center max-w-[170px]'>Flavors</div>
-							<div className='laptop:flex laptop:max-w-[350px] laptop:flex-wrap'>
+							<div className='text-[#B62025]  text-[24px] font-medium laptopHorizontal:text-xl mt-[30px] border-siteCrem pt-[10px] mobile:w-full mobile:max-w-none mb-20 border-t-2 laptop:text-center max-w-[170px]'>Flavors</div>
+							<div className='laptop:flex laptop:max-w-[350px] laptop:flex-wrap mobile:grid  mobile:grid-cols-2'>
 								{filterFineness.map((filter , index) => (
 									<div key={`${filter.id}-${index}`} className="mb-[10px] filter_line">
 										<label htmlFor={`filterFineness${filter.id}`}>
@@ -157,8 +155,8 @@ const ListingPage = ({ categories }) => {
 								))}
 							</div>
 						</div>
-						<div className='text-[#B62025] text-[27px] laptopHorizontal:text-2xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 laptop:text-center max-w-[170px]'>Servings</div>
-						<div className='laptop:flex laptop:max-w-[350px] laptop:flex-wrap'>
+						<div className='text-[#B62025] text-[24px]  font-medium laptopHorizontal:text-xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 mobile:max-w-none  laptop:text-center max-w-[170px]'>Servings</div>
+						<div className='laptop:flex laptop:max-w-[350px] laptop:flex-wrap mobile:justify-between'>
 							{filterType.map((filter , index) => (
 								<div key={`${filter.id}-${index}`} className="mb-[10px] filter_line radio_line">
 									<label htmlFor={`filter2${filter.id}`}>
@@ -182,13 +180,13 @@ const ListingPage = ({ categories }) => {
 								</div>
 							))}
 						</div>
-						<div className='mt-[30px] flex items-center gap-[20px]'>
-							<button className='site_btn clear_button normal_btn mx-auto' onClick={clearAllFilters}>Clear</button>
+						<div className='mt-[30px] flex items-center mobile:justify-center gap-[20px]'>
+							<button className='site_btn clear_button normal_btn mobile:!mx-auto mx-auto' onClick={clearAllFilters}>Clear</button>
 						</div>
 					</div>
 				</div>
 				<div className='w-full'>
-				<div className='text-[#B62025] text-[27px] whitespace-nowrap uppercase mt-[15px] laptopHorizontal:text-2xl pt-[10px] mb-[40px]  laptop:text-center max-w-[170px]'>
+				<div className='text-[#B62025] text-[26px] pl-[40px] whitespace-nowrap mobile:max-w-none uppercase mt-[15px] laptopHorizontal:text-2xl pt-[10px] mb-[40px]  laptop:text-center max-w-[170px]'>
 					{filterSubCategory[filters.subcategoryId]?.name || `All Products`}
 				</div>
 					<Suspense fallback={<PageLoader />}>

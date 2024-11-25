@@ -12,29 +12,20 @@ import Link from 'next/link';
 import PageLoader from '@/components/PageLoader';
 import AlsoLike from '@/components/alsoLikeProducts/AlsoLike';
 import newLook from "@/public/images/newLookInner.png";
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { TransformWrapper, TransformComponent, useControls } from 'react-zoom-pan-pinch';
 import Select from 'react-select';
-
+import IconClose from '@/public/icons/IconClose';
+import IconZoom from '@/public/icons/IconZoom';
 
 const ProductPage = ({ params }) => {
-
-	const options = [
-		{ value: 'Honey', label: 'Honey' },
-		{ value: 'Walnut', label: 'Walnut' },
-		{ value: 'Cocoa', label: 'Cocoa' },
-		{ value: 'Cinnamon', label: 'Cinnamon' },
-		{ value: 'Lemon', label: 'Lemon' },
-		{ value: 'Apricot', label: 'Apricot' },
-		{ value: 'Gluten Free', label: 'Gluten Free' }
-	];
 
 	const customStyles = {
 		control: (provided, state) => ({
 			...provided,
-			backgroundColor: '#fff', // Background color of the dropdown
-			borderRadius: '30px', // Round corners
-			padding: '5px 20px', // Padding
-			borderColor: '#A8894A', // Border color
+			backgroundColor: '#fff',
+			borderRadius: '30px',
+			padding: '5px 20px',
+			borderColor: '#A8894A',
 			boxShadow: state.isFocused ? null : null,
 		}),
 		menu: (provided) => ({
@@ -46,37 +37,39 @@ const ProductPage = ({ params }) => {
 
 		option: (provided, state) => ({
 			...provided,
-			backgroundColor: state.isSelected ? '#1a73e8' : '#fff', // Selected option background
-			color: state.isSelected ? '#fff' : '#000', // Text color
+			backgroundColor: state.isSelected ? '#eeeeee' : '#fff',
+			color: '#000',
 			padding: 10,
 			boxShadow: state.isFocused ? null : null,
 			borderRadius: '5px',
 			':hover': {
-				backgroundColor: '#eeeeee', // Hover effect for options
+				backgroundColor: '#eeeeee',
 				color: '#000',
 			},
 		}),
 		multiValue: (provided) => ({
 			...provided,
-			backgroundColor: '#B62025', // Background of selected items
+			backgroundColor: '#B62025',
 			color: '#fff',
 			borderRadius: '10px',
 			padding: '2px',
 		}),
 		multiValueLabel: (provided) => ({
 			...provided,
-			color: '#fff', // Text color of selected items
+			color: '#fff',
 		}),
 		multiValueRemove: (provided) => ({
 			...provided,
-			color: '#fff', // Color of remove icon
+			color: '#fff',
 			':hover': {
-				backgroundColor: '#d32f2f', // Hover effect on remove
+				backgroundColor: '#d32f2f',
 				color: '#fff',
 			},
 		}),
 	};
 
+	const [options, setOptions] = useState([]);
+	const [selectedOption, setSelectedOption] = useState(null);
 
 	const smallSliderRef = useRef(null);
 	const bigSliderRef = useRef(null);
@@ -87,9 +80,9 @@ const ProductPage = ({ params }) => {
 	const [product, setProduct] = useState(null);
 	const [showFullDetails, setShowFullDetails] = useState(false);
 
-	const [hovered, setHovered] = useState(false);
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const [productCount, setProductCount] = useState(1);
+	const [zoomUrl, setZommUrl] = useState(null);
 
 	const incrementCount = () => {
 		setProductCount((prevCount) => prevCount + 1);
@@ -162,15 +155,66 @@ const ProductPage = ({ params }) => {
 		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getProducts?product_id=${params?.id}`);
 		const data = await response.json();
 		setProduct(data.data.products[0])
+		setLoading(false);
+	};
+
+	const fetchFlavors = async () => {
+		if (product) {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getFlavors?category_id=${product.category_id}`);
+			const data = await response.json();
+			const flavorOptions = data.data.flavors.map(option => ({ value: option.id, label: option.name }));
+			setOptions(flavorOptions);
+			const defaultOption = flavorOptions.find(option => option.value === product.flavors[0].flavor_id);
+			setSelectedOption(defaultOption || null);
+		}
 	};
 
 	useEffect(() => {
 		fetchProduct();
-	}, [params?.id]);
+	}, [params]);
 
-	if (loading && !product) {
+
+	useEffect(() => {
+		if (product) {
+			fetchFlavors();
+		}
+	}, [product]);
+
+	if (loading) {
 		return <PageLoader />
 	}
+
+	const handleZommActive = (url) => {
+		setZommUrl(url)
+	}
+
+	const closeZoom = () => {
+		setZommUrl(null)
+	}
+
+	const handleSelectChange = async (selected) => {
+		setLoading(true);
+		setSelectedOption(selected);
+		
+		try {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getProductByFlavor?category_id=${product.category_id}&flavor=${selected.value}`, {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' }
+			});
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			const data = await response.json();
+
+			if(data.data.product){
+				setProduct(data.data.product);				
+			}
+		} catch (error) {
+			console.error('Error fetching product by flavor:', error);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	return (
 		<div className='product_inner_page !mt-[120px] mobile:!mt-[150px] !min-h-[100vh]'>
@@ -179,6 +223,72 @@ const ProductPage = ({ params }) => {
 					<Link className='pr-[5px]' href='/productListing'>All Products</Link>/ <Link className='pl-[5px] pr-[5px]' href={`/productListing?category=${product?.category_id}`}> {product?.category?.name}</Link> / {product?.name}
 				</div>
 			</div>
+			{zoomUrl &&
+				<div className='zoom_popup'>
+					<div className='zoom_inner'>
+						<a
+							href="/#"
+							className="popup_close absolute right-[20px] top-[20px] cursor-pointer"
+							onClick={(e) => {
+								e.preventDefault();
+								closeZoom();
+							}}
+						>
+							<IconClose />
+						</a>
+						<div className='absolute inner_div'>
+							<TransformWrapper
+								initialScale={1}
+								minScale={1}
+								maxScale={3}
+								centerZoomedOut={true}
+								centerOnInit
+
+							>
+								{({ zoomIn, zoomOut, resetTransform, state } = useControls()) => (
+									<>
+
+										<div className="zoom_control top-[20px] left-[20px] space-x-2 z-50">
+											<button className="bg-gray-200 p-2 normal_btn shadow" onClick={() => zoomIn()}>
+												Zoom In
+											</button>
+											<button className="bg-gray-200 p-2 normal_btn shadow" onClick={() => zoomOut()}>
+												Zoom Out
+											</button>
+											<button className="bg-gray-200 p-2 normal_btn shadow" onClick={() => resetTransform()}>
+												Reset
+											</button>
+										</div>
+										<TransformComponent>
+											<div
+												style={{
+													width: '700px',
+													height: '500px',
+													display: 'flex',
+													justifyContent: 'center',
+													alignItems: 'center',
+												}}
+											>
+												<img
+													src={`${process.env.NEXT_PUBLIC_DATA}${zoomUrl}`}
+													alt="Product"
+													className="object-contain"
+													style={{
+														width: "100%",
+														height: "auto",
+														cursor: "zoom-in",
+														transition: "transform 0.3s ease",
+													}}
+												/>
+											</div>
+										</TransformComponent>
+									</>
+								)}
+							</TransformWrapper>
+						</div>
+					</div>
+				</div>
+			}
 			<div className="product_section">
 				<div className='custom_container flex'>
 					<div className="product_images">
@@ -188,35 +298,21 @@ const ProductPage = ({ params }) => {
 									{product.images.map((image, index) => (
 										<div className="slide_block" key={index}>
 											<div className="img_block">
-												<div className='absolute inner_div'>
-
-													<TransformWrapper
-														initialScale={.7}
-														minScale={.7}
-														centerZoomedOut={true}
-														centerOnInit
-														centerPadding
-														maxScale={3}
-													>
-														<TransformComponent>
-															<img
-																src={process.env.NEXT_PUBLIC_DATA + image.image_path}
-																alt={`Product ${index}`}
-																className="object-contain"
-																style={{
-																	width: '100%',
-																	height: 'auto',
-																	cursor: 'zoom-in',
-																	transition: 'transform 0.3s ease', // Smooth transition for zoom
-																}}
-															/>
-														</TransformComponent>
-													</TransformWrapper>
-
-												</div>
-
+												<Image
+													src={process.env.NEXT_PUBLIC_DATA + image.image_path}
+													alt={`Product ${index}`}
+													fill
+													unoptimized
+													sizes="50vw, 100vw"
+													style={{
+														objectFit: 'contain',
+													}} />
 											</div>
-
+											<div className='zoom_btn'
+												onClick={() => handleZommActive(image.image_path)}
+											>
+												<IconZoom />
+											</div>
 										</div>
 									))}
 								</Slider>
@@ -283,15 +379,15 @@ const ProductPage = ({ params }) => {
 							</button>
 						</div>
 						<Select
-							isMulti
 							name="options"
 							options={options}
 							styles={customStyles}
+							value={selectedOption}
+							onChange={handleSelectChange}
 							placeholder="Select options..."
 							className="basic-multi-select"
 							classNamePrefix="select"
 						/>
-
 						<div className='flex  mt-[50px] laptop:mt-[30px] items-center gap-[20px] justify-between laptopHorizontal:justify-center'>
 							<div className='text-black text-[36px] font-medium laptopHorizontal:text-2xl'>
 								<span className='font-regular'>$</span>{product.price}
@@ -340,8 +436,8 @@ const ProductPage = ({ params }) => {
 						{product.package_technicals.length > 0 &&
 							product.package_technicals.map((item, index) => (
 								<div key={index} className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-												<div className='font-xl text-black font-bold'>{item.technical}</div>
-												<div className='font-medium'>{item.value}</div>
+									<div className='font-xl text-black font-bold'>{item.technical}</div>
+									<div className='font-medium'>{item.value}</div>
 								</div>
 							))
 						}

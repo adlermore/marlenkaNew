@@ -2068,6 +2068,113 @@ input::-webkit-inner-spin-button {
   margin: 0 !important;
 }
 
+.home_page{
+  overflow-x: hidden;
+}
+.hamburger_btn{
+  border-radius: 15px;
+  overflow: hidden;
+  &::before{
+    border-radius: 5px;
+  }
+}
+
+.old_user_popup{
+  position: fixed;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  padding: 30px 20px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  .popup_container{
+    position: relative;
+    max-width: 520px;
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    padding: 35px 30px;
+  }
+  .popup_title{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 20px;
+    font-family: 'MontserratMedium';
+  }
+  .popup_desc{
+    margin-top: 25px;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'MontserratMedium';
+    b{
+      margin-top: 15px;
+      font-family: 'MontserratBold';
+    }
+    span{
+      font-size: 14px;
+    }
+  }
+  .old_popup_checkbox{
+    margin-top: 40px;
+    margin-bottom: 10px;
+    label{
+      justify-content: center;
+    }
+    span{
+      font-family: 'MontserratMedium';
+      color: #BEBEBE;
+    }
+    .square_block{
+      border-color: #BEBEBE;
+      border-radius: 1px;
+      svg{
+        width: 9px !important;
+      }
+    }
+    label input[type=checkbox]:checked + .square_block {
+      background: #BEBEBE;
+    }
+  }
+  .popup_btn{
+    width: 132px;
+    height: 40px;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: 1px solid #BEBEBE;
+    color: #BEBEBE;
+    text-transform: uppercase;
+    font-size: 18px;
+    background: white;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50% , 0);
+    bottom: -20px;
+    cursor: no-drop;
+    &.active{
+      cursor: pointer;
+      background: #A8894A;
+      color: white;
+      border-color: #A8894A;
+      &:hover{
+        background: #ce080e;
+        border-color: #ce080e;
+      }
+    }
+  }
+}
 
 @media (max-width: 1199px) {
   .slick_wrapper {
@@ -2108,6 +2215,14 @@ input::-webkit-inner-spin-button {
   .blog_list .blog_block:nth-child(even) .blog_line {
     flex-direction: column;
   }
+  .search_li {
+    .search_btn{
+      margin-top: -3px;
+    }
+    input {
+      margin-top: -6px;
+    }
+  } 
 
   .blog_list .blog_line {
     // gap: 40px;
@@ -2124,6 +2239,9 @@ input::-webkit-inner-spin-button {
 }
 
 @media (max-width: 767px) {
+  .search_li.opened input {
+    width: 280px;
+  }
   .product_slider_list {
     >div:last-child {
       display: block !important;
@@ -2140,6 +2258,58 @@ input::-webkit-inner-spin-button {
 }
 
 @media (max-width: 575px) {
+  .menu_block {
+    h2 {
+      color: #F8E9E9;
+      font-size: 18px;
+      font-family: 'MontserratMedium';
+    }
+  
+    a {
+      display: block;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-top: 10px;
+      color: #ffeeda;
+  
+      svg path {
+        transition: 0.3s;
+      }
+  
+      &:hover {
+        opacity: 1;
+        color: #AE8839;
+  
+        svg path {
+          fill: #AE8839;
+        }
+      }
+    }
+  
+  
+    &.contact-block {
+      a {
+        margin-top: 20px;
+      }
+    }
+  
+    .pay_title {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+  }
+
+  .normal_btn{
+    height: 35px;
+    font-size: 14px;
+    padding: 0 20px;
+    min-width: 150px;
+  }
+
+  .search_li input {
+    border-radius: 10px;
+  }
+
   .wholeSaleForm {
     margin: 20px auto;
 
@@ -2181,16 +2351,79 @@ input::-webkit-inner-spin-button {
     }
 
     .slider_content {
+      margin-top: -30px;
       padding-right: 20px;
+    }
+    .slick-dots {
+      bottom: 45px !important;
+      left: 11px;
+      width: 200px;
+      margin: 0;
+      li {
+        margin: 0 3px;
+        button{
+          width: 8px;
+          height: 8px;
+        }
+      }
     }
 
     .slider_description {
       font-size: 14px;
+      height: auto;
+      max-width: 300px;
       margin-top: 6px;
     }
-
+    .slider_btn{
+      margin-top: 20px;
+      max-width: 140px;
+      font-size: 12px;
+      min-width: auto;
+      height: 34px;
+    }
     .slick-dots {
       bottom: 35px;
+    }
+  }
+
+  .old_user_popup{
+    .popup_container{
+      padding: 20px;
+      padding-bottom: 40px;
+    }
+    .popup_title{
+      font-size: 14px;
+      flex-wrap: wrap;
+      font-family: 'MontserratMedium';
+    }
+    .popup_desc{
+      margin-top: 15px;
+      b{
+        margin-top: 10px;
+      }
+      span{
+        font-size: 12px;
+      }
+    }
+    .old_popup_checkbox{
+      margin-top: 20px;
+      .square_block{
+        min-width: 12px
+      }
+      .check_label {
+        font-size: 11px;
+        text-align: center;
+      }
+      label {
+        justify-content: center;
+        flex-direction: column-reverse;
+      }
+    }
+    .popup_btn{
+      width: 120px;
+      height: 36px;
+      font-size: 16px;
+      bottom: -15px;
     }
   }
 }

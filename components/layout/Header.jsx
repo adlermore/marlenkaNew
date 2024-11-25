@@ -127,6 +127,7 @@ function Header() {
             priority={true}
             unoptimized={true}
             width={180}
+            className='mobile:w-[140px]'
           />
           <span className='logo_hover'>
             <Image
@@ -174,7 +175,7 @@ function Header() {
             <AccountToggle />
           </div>
         </div>
-        <div className="hidden z-20 laptop:flex  items-center justify-center color-black relative before:absolute before:w-40 before:bg-siteCrem before:h-40 mobile:right-[-5px]">
+        <div className="hidden z-20 hamburger_btn laptop:flex  items-center justify-center color-black relative before:absolute before:w-40 before:bg-siteCrem before:h-40 mobile:right-[-5px]">
           <Hamburger
             toggled={isOpen}
             toggle={setOpen}

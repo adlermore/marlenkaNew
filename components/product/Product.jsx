@@ -80,20 +80,12 @@ function Product({ product, onClick }) {
             />
           </span>
         }
-        <div className="product_image z-0 h-[289px] laptopHorizontal:h-[350px] overflow-hidden laptop:h-[260px] w-full flex justify-center items-center relative">
+        <div className="product_image z-0 h-[289px] laptopHorizontal:h-[350px] overflow-hidden laptop:h-[260px] mobile:h-[240px] w-full flex justify-center items-center relative">
           {product?.images &&
             <span
 
               className="w-full h-full flex justify-center items-center relative !opacity-1"
             >
-              {/* <Image
-              src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
-              unoptimized
-              alt={product.name || "Ricardo portrait"}
-              priority
-              fill
-              className="object-contain"
-            /> */}
               <span className="product_inner">
                 <Image
                   src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
@@ -112,21 +104,21 @@ function Product({ product, onClick }) {
               aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
               onClick={(e)=>handleAddToWishlist(e)}
             >
-              {isInWishlist ? <IconHeartFill2 className='!w-[20px] h-auto' /> : <IconProductHeart className='[&>path]:fill-[#e0be96] w-[22px]' />}
+              {isInWishlist ? <IconHeartFill2 className='!w-[20px] mobile:!w-[16px] h-auto' /> : <IconProductHeart className='[&>path]:fill-[#e0be96] mobile:w-[18px] w-[22px]' />}
             </button>
             <button
-              className="mt-[15px] block"
+              className="mt-[15px] mobile:mt-[8px] block"
               onClick={handleAddToCart}
               aria-label="Add to Cart"
             >
-              <IconShop className='[&>path]:fill-[#e0be96]' />
+              <IconShop className='[&>path]:fill-[#e0be96] mobile:w-[20px]' />
             </button>
           </span>
         </div>
-        <div className="flex items-center text-center text-[#B62025] font-medium text-xl justify-center gap-[5px]">
+        <div className="flex items-center text-center text-[#B62025] mobile:text-base font-medium text-xl justify-center gap-[5px]">
           {product.name}
         </div>
-        <div className="font-medium product_price mt-[5px] flex items-center gap-[5px] justify-center text-[18px] text-black">
+        <div className="font-medium product_price mt-[5px] flex items-center gap-[5px] justify-center mobile:text-[14px] text-[18px] text-black">
           <span></span>
           ${product.price}
           <span></span>

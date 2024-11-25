@@ -57,13 +57,6 @@ function BestSlider({ sliderContent }) {
         }
       },
       {
-        breakpoint: 991,
-        settings: {
-          arrows: false,
-          slidesToShow: 3,
-        }
-      },
-      {
         breakpoint: 767,
         settings: {
           arrows: false,
@@ -76,7 +69,7 @@ function BestSlider({ sliderContent }) {
         settings: {
           infinite: false,
           arrows: false,
-          slidesToShow: 1.3,
+          slidesToShow: 1.5,
         }
       }
     ]
