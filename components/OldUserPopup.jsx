@@ -56,7 +56,7 @@ function OldUserPopup() {
     <div className='old_user_popup'>
       <div className='popup_container'>
         <div className='popup_title'>
-          Welcome to the <span className='text-[#A8894A]'>NEW</span> Maarlenka.us!
+          Welcome to the <span className='text-[#A8894A]'>NEW</span> Marlenka.us!
         </div>
         <div className='popup_desc'>
           We’re thrilled to unveil our redesigned website, crafted to serve you better with enhanced features and improved functionality.

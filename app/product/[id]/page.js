@@ -219,7 +219,7 @@ const ProductPage = ({ params }) => {
 	return (
 		<div className='product_inner_page !mt-[120px] mobile:!mt-[150px] !min-h-[100vh]'>
 			<div className=' text-[24px] uppercase bg-siteCrem '>
-				<div className='custom_container h-[120px] laptopHorizontal:h-[80px] laptopHorizontal:text-base flex items-center text-xl text-[#B62025] font-medium'>
+				<div className='custom_container h-[120px] mobile:h-[60px] laptopHorizontal:h-[80px] laptopHorizontal:text-base mobile:text-[11px] flex items-center text-xl mobile:whitespace-nowrap text-[#B62025] font-medium'>
 					<Link className='pr-[5px]' href='/productListing'>All Products</Link>/ <Link className='pl-[5px] pr-[5px]' href={`/productListing?category=${product?.category_id}`}> {product?.category?.name}</Link> / {product?.name}
 				</div>
 			</div>
@@ -247,7 +247,6 @@ const ProductPage = ({ params }) => {
 							>
 								{({ zoomIn, zoomOut, resetTransform, state } = useControls()) => (
 									<>
-
 										<div className="zoom_control top-[20px] left-[20px] space-x-2 z-50">
 											<button className="bg-gray-200 p-2 normal_btn shadow" onClick={() => zoomIn()}>
 												Zoom In
@@ -261,13 +260,7 @@ const ProductPage = ({ params }) => {
 										</div>
 										<TransformComponent>
 											<div
-												style={{
-													width: '700px',
-													height: '500px',
-													display: 'flex',
-													justifyContent: 'center',
-													alignItems: 'center',
-												}}
+											 className='zomm_settings'
 											>
 												<img
 													src={`${process.env.NEXT_PUBLIC_DATA}${zoomUrl}`}
@@ -346,7 +339,7 @@ const ProductPage = ({ params }) => {
 					</div>
 					<div className='product_info relative z-0 pl-[80px] w-full flex flex-col justify-between laptopHorizontal:pl-[30px]'>
 						{product.isNew === 1 &&
-							<span className="new_look">
+							<span className="new_look mobile:hidden">
 								<Image
 									src={newLook}
 									unoptimized
@@ -358,21 +351,21 @@ const ProductPage = ({ params }) => {
 								/>
 							</span>
 						}
-						<div className='text-[#B62025] text-2xl'>{product.name}</div>
-						<div className='mt-[30px] text-base text-black font-medium max-w-[500px]'>
+						<div className='text-[#B62025] text-2xl mobile:text-xl'>{product.name}</div>
+						<div className='mt-[30px] mobile:mt-[15px] text-base text-black font-medium max-w-[500px]'>
 							{product.description}
 						</div>
 						<div className='w-full my-[40px] laptopHorizontal:my-[30px]'>
 							{product.technicals.length > 0 &&
 								product.technicals.map((item, index) => (
 									<div key={index} className='pb-[18px] mb-[18px] border-b-2 border-[#AE8839] flex items-center justify-between'>
-										<div className='font-xl text-black font-bold'>{item.technical}</div>
-										<div className='font-medium'>{item.value}</div>
+										<div className='font-xl mobile:text-[12px] text-black font-bold'>{item.technical}</div>
+										<div className='font-medium mobile:text-[12px]'>{item.value}</div>
 									</div>
 								))
 							}
 							<button
-								className='text-[#B62025] duration-300 ml-auto text-[20px] block uppercase'
+								className='text-[#B62025] duration-300 ml-auto text-[20px] mobile:text-base block uppercase'
 								onClick={handleFullDetailsClick}
 							>
 								{showFullDetails ? 'Hide details' : 'Full details'}
@@ -388,7 +381,7 @@ const ProductPage = ({ params }) => {
 							className="basic-multi-select"
 							classNamePrefix="select"
 						/>
-						<div className='flex  mt-[50px] laptop:mt-[30px] items-center gap-[20px] justify-between laptopHorizontal:justify-center'>
+						<div className='flex  mt-[50px] mobile:flex-col laptop:mt-[30px] items-center gap-[20px] justify-between laptopHorizontal:justify-center'>
 							<div className='text-black text-[36px] font-medium laptopHorizontal:text-2xl'>
 								<span className='font-regular'>$</span>{product.price}
 							</div>
@@ -397,7 +390,7 @@ const ProductPage = ({ params }) => {
 								<span>{productCount}</span>
 								<button onClick={incrementCount} className='py-[10px] text-2xl w-[40px] h-full flex items-center justify-center'>+</button>
 							</div>
-							<button className='site_btn normal_btn !ml-0 px-[15px] ' onClick={handleAddToCart} >Add to Cart</button>
+							<button className='site_btn normal_btn !ml-0 px-[15px] !mobile:px-[10px] ' onClick={handleAddToCart} >Add to Cart</button>
 						</div>
 					</div>
 				</div>

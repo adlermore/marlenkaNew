@@ -141,7 +141,7 @@ function Header() {
         </Link>
         <div className={`laptop:fixed  flex gap-[30px] laptop:overflow-hidden justify-around w-full max-w-[1100px] items-center z-20 ml-auto laptop:z-0 laptop:h-full laptop:bottom-0 laptop:right-0 duration-[0.7s] mobile:duration-[0.5s] ${isOpen ? 'menu-open laptop:w-full' : 'laptop:w-0'}`}>
           <div className="ml-auto w-full laptop:w-full laptop:m-0 laptop:flex laptop:justify-end tablet:w-[calc(100vw)] z-20 relative laptop:left-0 laptop:h-full laptop:bg-blueDark1 laptop:bg-opacity-35 laptop:z-[-1] laptop:top-[120px] tablet:bg-white mobile:bg-transparent tablet:text-black mobile:top-[150px]">
-            <div className={`${isScrolled && 'isScrolled'} header_links laptop:!w-0 ml-[-40px] noteBook:ml-0 mobile_container relative flex justify-center mobile:h-[calc(100vh-150px)] items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-0px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[70px] laptop:mr-0  laptop:justify-start laptop:gap-[30px]`}>
+            <div className={`${isScrolled && 'isScrolled'} header_links laptop:!w-0 ml-[-40px] noteBook:ml-0 mobile_container relative flex justify-center mobile:h-[calc(100vh-150px)] items-center gap-[38px] laptop:min-w-[350px] tablet:min-w-[calc(100%-0px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] mobile:bg-siteCrem laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[70px] laptop:mr-0  laptop:justify-start laptop:gap-[30px]`}>
               {categories ?
                 categories.slice(0, 7).map((category) => (
                   <Link
