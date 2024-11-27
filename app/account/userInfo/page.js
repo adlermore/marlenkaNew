@@ -146,8 +146,8 @@ export default function UserInfoPage() {
               defaultValue={user?.name.split(' ')[0] || ''}
               className="form-control opacity-70"
               name="name"
-              disabled
-              // {...userInfo("namefirst", { required: true })}
+              // disabled
+              {...userInfo("namefirst", { required: true })}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
               {errorUser?.namefirst?.message}
@@ -163,8 +163,8 @@ export default function UserInfoPage() {
               defaultValue={user?.name.split(' ')[1] || ''}
               className="form-control opacity-70"
               name="name"
-              disabled
-              // {...userInfo("surname", { required: true })}
+              // disabled
+              {...userInfo("surname", { required: true })}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
               {errorUser?.surname?.message}

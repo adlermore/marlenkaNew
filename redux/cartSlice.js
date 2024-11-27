@@ -40,41 +40,40 @@ const cartSlice = createSlice({
     addToCart(state, action) {
       const product = action.payload;
       const existingItemIndex = state.items.findIndex(item => item.id === product.id);
-  
+
       if (existingItemIndex >= 0) {
-          toast(`${product.name} is already in your cart`);
+        toast.error(`${product.name} is already in your cart`);
       } else {
-          // If item doesn't exist, add it to the cart
-          state.items.push({
-              ...product,
-              totalPrice: parseFloat(product.price) * product.quantity, // Total price based on initial quantity
-          });
-          toast.success(`${product.name} added to your cart`);
+        // Add new item with initial quantity
+        state.items.push({
+          ...product,
+          totalPrice: parseFloat(product.price) * product.quantity,
+        });
+        toast.success(`${product.name} added to your cart`);
       }
-  
+
       // Update total amount
       state.totalAmount = calculateTotalAmount(state.items);
-  
+
       // Save updated cart to localStorage
       saveCartToLocalStorage(state.items);
-  },  
-  updateCartQuantity(state, action) {
-    const { productId, amount } = action.payload;
-    const existingItemIndex = state.items.findIndex(item => item.id === productId);
+    },
+    updateCartQuantity(state, action) {
+      const { productId, amount } = action.payload;
+      const existingItemIndex = state.items.findIndex(item => item.id === productId);
 
-    if (existingItemIndex >= 0) {
-        // Update the quantity
+      if (existingItemIndex >= 0) {
         const newQuantity = state.items[existingItemIndex].quantity + amount;
 
         if (newQuantity <= 0) {
-            // Remove item if quantity is zero or less
-            state.items.splice(existingItemIndex, 1);
-            toast.success('Product removed from your cart');
+          // Remove item if quantity is zero or less
+          state.items.splice(existingItemIndex, 1);
+          toast.success('Product removed from your cart');
         } else {
-            // Update quantity and total price
-            state.items[existingItemIndex].quantity = newQuantity;
-            state.items[existingItemIndex].totalPrice = parseFloat(state.items[existingItemIndex].price) * newQuantity;
-            toast.success('Product quantity updated in your cart');
+          // Update quantity and total price
+          state.items[existingItemIndex].quantity = newQuantity;
+          state.items[existingItemIndex].totalPrice = parseFloat(state.items[existingItemIndex].price) * newQuantity;
+          // toast.success('Product quantity updated in your cart');
         }
 
         // Update total amount
@@ -82,10 +81,10 @@ const cartSlice = createSlice({
 
         // Save updated cart to localStorage
         saveCartToLocalStorage(state.items);
-    } else {
+      } else {
         toast.error('Item not found in your cart');
-    }
-},
+      }
+    },
     removeFromCart(state, action) {
       const productId = action.payload.id;
       const existingItemIndex = state.items.findIndex(item => item.id === productId);
@@ -94,7 +93,7 @@ const cartSlice = createSlice({
         // Remove item from cart
         state.items.splice(existingItemIndex, 1);
         toast.success('Item removed from your cart');
-        
+
         // Update total amount
         state.totalAmount = calculateTotalAmount(state.items);
 

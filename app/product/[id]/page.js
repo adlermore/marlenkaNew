@@ -5,8 +5,8 @@ import Slider from 'react-slick';
 import Image from 'next/image';
 import "@/styles/product_inner.scss";
 // import { bestProducts } from '@/utils/data/homeData';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '@/redux/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, updateCartQuantity } from '@/redux/cartSlice';
 import Product from '@/components/product/Product';
 import Link from 'next/link';
 import PageLoader from '@/components/PageLoader';
@@ -16,6 +16,7 @@ import { TransformWrapper, TransformComponent, useControls } from 'react-zoom-pa
 import Select from 'react-select';
 import IconClose from '@/public/icons/IconClose';
 import IconZoom from '@/public/icons/IconZoom';
+import toast from 'react-hot-toast';
 
 const ProductPage = ({ params }) => {
 
@@ -82,6 +83,7 @@ const ProductPage = ({ params }) => {
 
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const [productCount, setProductCount] = useState(1);
+	const items = useSelector((state) => state.cart.items);
 	const [zoomUrl, setZommUrl] = useState(null);
 
 	const incrementCount = () => {
@@ -141,14 +143,44 @@ const ProductPage = ({ params }) => {
 		setSelectedImageIndex(index);
 	};
 
+	// const handleAddToCart = (e) => {
+	// 	e.preventDefault();
+	// 	const productToAdd = {
+	// 		...product,
+	// 		quantity: productCount
+	// 	};
+	// 	dispatch(addToCart(productToAdd));
+	// };
+
+
 	const handleAddToCart = (e) => {
 		e.preventDefault();
 		const productToAdd = {
-			...product,
-			quantity: productCount
+				...product,
+				quantity: 1 // Always add 1 quantity when adding to cart
 		};
-		dispatch(addToCart(productToAdd));
-	};
+
+		const existingItemIndex = items.findIndex(item => item.id === product.id);
+
+		if (existingItemIndex >= 0) {
+				// Product exists in cart, increment quantity by current productCount
+				dispatch(updateCartQuantity({ productId: product.id, amount: productCount }));
+				// Update local count based on what's in cart
+				setProductCount((prevCount) => prevCount + 1); 
+				toast.success(`${product.name} quantity updated in your cart.`);
+		} else {
+				// If item doesn't exist, add it to the cart with quantity of 1
+				dispatch(addToCart(productToAdd));
+				// toast.success(`${product.name} added to your cart`);
+		}
+		
+		// Reset local count after adding/updating in cart
+		// This ensures that if you want to add again, it starts from 1
+		setProductCount(1);
+};
+
+
+
 
 	const fetchProduct = async () => {
 		setLoading(true);
@@ -195,7 +227,7 @@ const ProductPage = ({ params }) => {
 	const handleSelectChange = async (selected) => {
 		setLoading(true);
 		setSelectedOption(selected);
-		
+
 		try {
 			const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/getProductByFlavor?category_id=${product.category_id}&flavor=${selected.value}`, {
 				method: 'GET',
@@ -206,8 +238,8 @@ const ProductPage = ({ params }) => {
 			}
 			const data = await response.json();
 
-			if(data.data.product){
-				setProduct(data.data.product);				
+			if (data.data.product) {
+				setProduct(data.data.product);
 			}
 		} catch (error) {
 			console.error('Error fetching product by flavor:', error);
@@ -260,7 +292,7 @@ const ProductPage = ({ params }) => {
 										</div>
 										<TransformComponent>
 											<div
-											 className='zomm_settings'
+												className='zomm_settings'
 											>
 												<img
 													src={`${process.env.NEXT_PUBLIC_DATA}${zoomUrl}`}

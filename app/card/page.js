@@ -3,13 +3,10 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import "@/styles/product_inner.scss";
 import { useDispatch, useSelector } from 'react-redux';
-
-import emptybag from '@/public/images/emptybag.png';
-
+import emptybag from '@/public/images/emptybag2.png';
 import { removeFromCart, updateCartQuantity } from '@/redux/cartSlice';
 import IconTrash from '@/public/icons/IconTrash';
 import AlsoLike from '@/components/alsoLikeProducts/AlsoLike';
-
 
 const CardPage = () => {
 	const router = useRouter();
