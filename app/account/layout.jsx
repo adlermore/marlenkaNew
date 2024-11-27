@@ -28,7 +28,7 @@ export default function AccountLayout({ children }) {
 
   useEffect(() => {
     if (isAuthChecked && !isAuth) {
-      router.push('/');
+      // router.push('/');
     }
   }, [isAuthChecked, isAuth, router]);
 

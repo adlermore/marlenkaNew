@@ -101,7 +101,7 @@ export default function UserInfoPage() {
     fetchProfileData();
     setPhone(profileData?.phone_number)
 	}, []);
-
+  
   return (
     <div className='user_wrapper w-full'>
       <div className='text-2xl text-black'>
@@ -143,10 +143,11 @@ export default function UserInfoPage() {
             <input
               placeholder="Enter name"
               autoComplete="on"
-              defaultValue={profileData?.name || ''}
-              className="form-control"
+              defaultValue={user?.name.split(' ')[0] || ''}
+              className="form-control opacity-70"
               name="name"
-              {...userInfo("namefirst", { required: true })}
+              disabled
+              // {...userInfo("namefirst", { required: true })}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
               {errorUser?.namefirst?.message}
@@ -159,10 +160,11 @@ export default function UserInfoPage() {
             <input
               placeholder="Enter surname"
               autoComplete="on"
-              defaultValue={profileData?.surname || ''}
-              className="form-control"
+              defaultValue={user?.name.split(' ')[1] || ''}
+              className="form-control opacity-70"
               name="name"
-              {...userInfo("surname", { required: true })}
+              disabled
+              // {...userInfo("surname", { required: true })}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
               {errorUser?.surname?.message}

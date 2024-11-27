@@ -34,7 +34,8 @@ const Checkout = () => {
 
 	useEffect(() => {
 		if (isAuthChecked && !isAuth) {
-			router.push('/');
+			// router.push('/');
+			return
 		} else if (isAuthChecked && isAuth) {
 			fetchProfileData();
 		}
@@ -103,21 +104,21 @@ const Checkout = () => {
 	const saveInfo = async () => {
 		setLoading(true)
 		const formData = {
-			name: `${watch("namefirst")}` || profileData.name,
-			surname: `${watch("surname")}` || profileData.surname,
-			email: watch("email") || profileData.email,
-			phone_number: watch("phone") || profileData.phone_number,
-			company_name: watch("company") || profileData.company_name,
-			country: watch("region") || profileData.country,
-			city: watch("city") || profileData.city,
-			address: watch("street") || profileData.address,
+			name: `${watch("namefirst")}` || profileData?.name,
+			surname: `${watch("surname")}` || profileData?.surname,
+			email: watch("email") || profileData?.email,
+			phone_number: watch("phone") || profileData?.phone_number,
+			company_name: watch("company") || profileData?.company_name,
+			country: watch("region") || profileData?.country,
+			city: watch("city") || profileData?.city,
+			address: watch("street") || profileData?.address,
 			created_at: new Date().toISOString(),
 			updated_at: new Date().toISOString(),
-			apartment: watch("apartament") || profileData.apartment,
-			state: watch("state") || profileData.state,
-			zip_code: watch("zip") || profileData.zip_code,
-			notes: watch("notes") || profileData.notes,
-			type: "car" || profileData.type,
+			apartment: watch("apartament") || profileData?.apartment,
+			state: watch("state") || profileData?.state,
+			zip_code: watch("zip") || profileData?.zip_code,
+			notes: watch("notes") || profileData?.notes,
+			type: "car" || profileData?.type,
 		};
 
 		try {

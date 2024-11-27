@@ -99,7 +99,7 @@ const ProductGrid = ({ filters }) => {
       </div>
       {hasMore && (
         <button
-          className='more_btn'
+          className='more_btn uppercase'
           onClick={loadMoreProducts}
           disabled={loading}
         >
@@ -121,7 +121,7 @@ const ProductGrid = ({ filters }) => {
                 fill="#1C64F2"
               ></path>
             </svg>
-          ) : 'Load More Products'}
+          ) : 'Load More'}
         </button>
       )}
     </div>

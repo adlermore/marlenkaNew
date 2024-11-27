@@ -123,9 +123,9 @@ const CardPage = () => {
 							</div>
 							<div className='flex items-center justify-between text-[#525252] mb-20'>Sub total <span className='ml-auto text-black text-xl font-medium'>${cart?.totalAmount.toFixed(1)}</span></div>
 							<div className='flex items-center justify-between text-[#525252] mb-[40px]'>Delivery<span className='ml-auto text-black  text-xl font-medium'>$5</span></div>
-							<div className='flex items-center justify-between text-[#525252] border-t  border-[#CCC] pt-20 font-bold'>Total<span className='ml-auto text-black  text-xl font-medium'>${cart?.totalAmount + 5}</span></div>
+							<div className='flex items-center justify-between text-[#525252] border-t  border-[#CCC] pt-20 font-bold'>Total<span className='ml-auto text-black  text-xl font-medium'>  ${ (cart?.totalAmount + 5).toFixed(1) }</span></div>
 							<div className='flex items-end mt-40'>
-								<button onClick={handleCheckout} className={`bg-[#CE090F] duration-300 hover:opacity-70 text-white rounded-[30px]  w-full h-[46px] border-none ${cart?.totalAmount < 1 && 'opacity-50 cursor-no-drop pointer-events-none'}`}>Checkout Now</button>
+								<button onClick={handleCheckout} className={`bg-[#CE090F] duration-300 hover:opacity-70 text-white rounded-[30px] uppercase  w-full h-[46px] border-none ${cart?.totalAmount < 1 && 'opacity-50 cursor-no-drop pointer-events-none'}`}>Checkout</button>
 							</div>
 						</div>
 					</div>

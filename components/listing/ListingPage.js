@@ -104,8 +104,8 @@ const ListingPage = ({ categories }) => {
 			<div className='cover_container flex laptop:block gap-[25px] !mt-[70px] laptop:!mt-[40px] laptopHorizontal:gap-20'>
 				<div className='filter_block p-[25px] max-w-[290px] laptop:max-w-none laptopHorizontal:max-w-[230px] laptopHorizontal:p-[15px] h-fit w-full'>
 					<div className='mb-[30px]'>
-						<div className='text-[#B62025]  text-[24px] laptopHorizontal:text-xl mb-20 laptop:mx-auto laptop:mb-[40px] font-medium text-center max-w-fit'>Categories</div>
-						<div className='laptop:flex laptop:flex-wrap tablet:flex-wrap tablet:gap-[20px] mobile:gap-[10px] laptop:justify-between'>
+						<div className='text-[#B62025]  text-[20px] laptopHorizontal:text-xl mb-20 laptop:mx-auto laptop:mb-[40px] font-medium text-center max-w-fit'>Categories</div>
+						<div className='laptop:flex laptop:flex-wrap tablet:flex-wrap mobile:grid mobile:grid-cols-2 tablet:gap-[20px] mobile:gap-[10px] laptop:justify-between'>
 							{filterSubCategory.map((filter) => (
 								<div key={filter.id} className="mb-[10px] filter_line radio_line">
 									<label htmlFor={`filter1${filter.id}`}>
@@ -130,7 +130,7 @@ const ListingPage = ({ categories }) => {
 							))}
 						</div>
 						<div>
-							<div className='text-[#B62025]  text-[24px] font-medium laptopHorizontal:text-xl mt-[30px] border-siteCrem pt-[10px] mobile:w-full mobile:max-w-none mb-20 border-t-2 laptop:text-center max-w-[170px]'>Flavors</div>
+							<div className='text-[#B62025]  text-[20px] font-medium laptopHorizontal:text-xl mt-[30px] border-siteCrem pt-[10px] mobile:w-full mobile:max-w-none mb-20 border-t-2 laptop:text-center max-w-[170px]'>Flavors</div>
 							<div className='laptop:flex laptop:max-w-[350px] laptop:flex-wrap mobile:grid mobile:gap-[10px] mobile:grid-cols-2'>
 								{filterFineness.map((filter , index) => (
 									<div key={`${filter.id}-${index}`} className="mb-[10px] filter_line">
@@ -155,10 +155,10 @@ const ListingPage = ({ categories }) => {
 								))}
 							</div>
 						</div>
-						<div className='text-[#B62025] text-[24px]  font-medium laptopHorizontal:text-xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 mobile:max-w-none  laptop:text-center max-w-[170px]'>Servings</div>
+						<div className='text-[#B62025] text-[20px]  font-medium laptopHorizontal:text-xl mt-[30px] border-siteCrem pt-[10px] mb-20 border-t-2 mobile:max-w-none  laptop:text-center max-w-[170px]'>Servings</div>
 						<div className='laptop:flex laptop:max-w-[350px] laptop:flex-wrap mobile:justify-between'>
 							{filterType.map((filter , index) => (
-								<div key={`${filter.id}-${index}`} className="mb-[10px] filter_line radio_line">
+								<div key={`${filter.id}-${index}`} className="mb-[10px] filter_line lts_tst radio_line">
 									<label htmlFor={`filter2${filter.id}`}>
 										<input
 											type="radio"
