@@ -1,7 +1,7 @@
 'use client';
 
 import "@/styles/product_inner.scss";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,11 +16,12 @@ import IconTruch from "@/public/icons/IconTruch";
 import IconAir from "@/public/icons/IconAir";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
+import { fetchUserInfo } from "@/redux/authSlice";
 
 const Checkout = () => {
 	const cart = useSelector((state) => state.cart);
 	const router = useRouter();
-
+	const dispatch = useDispatch();
 	const isAuth = useSelector((state) => state.auth.isAuthenticated);
 	const [isAuthChecked, setIsAuthChecked] = useState(false);
 	const [profileData, setProfileData] = useState(null);
@@ -133,6 +134,7 @@ const Checkout = () => {
 
 			if (!response.ok) throw new Error('Failed to save profile data');
 			toast.success("Profile Information saved");
+			dispatch(fetchUserInfo())
 		} catch (error) {
 			console.error('Error saving profile:', error);
 		} finally {

@@ -174,8 +174,6 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isAuthenticated = true;
         toast.success("Login successful!");
-
-
         document.body.style.overflow = "";
         document.body.style.paddingRight = "";
         document.body.classList.remove("login_opened");
@@ -183,7 +181,6 @@ const authSlice = createSlice({
         fixedElements.forEach((el) => {
           el.style.paddingRight = "";
         });
-
       })
       .addCase(login.rejected, (state, action) => {
         state.status = "failed";
@@ -206,7 +203,6 @@ const authSlice = createSlice({
         document.body.classList.remove("register_opened");
         document.body.classList.add("success_opened");
         document.body.style.paddingRight = "";
-
       })
       .addCase(register.rejected, (state, action) => {
         state.status = "failed";
@@ -215,7 +211,7 @@ const authSlice = createSlice({
           const errorMessages = Object.entries(action.payload)
               .map(([key, messages]) => `${key}: ${messages.join(', ')}`)
               .join(' | ');
-  
+
           state.error = errorMessages; // Set error messages
       } else {
           state.error = action.error.message || "Unknown error occurred";
@@ -223,7 +219,6 @@ const authSlice = createSlice({
   
       // Ensure only one assignment of state.error
       toast.error(`Registration failed: ${state.error}`);
-
         document.body.classList.remove("register_opened");
         document.body.style.overflow = "visible";
         document.body.style.paddingRight = "";

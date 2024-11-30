@@ -5,7 +5,7 @@ import { userScheme } from '@/validation/userScheme';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputMask from "react-input-mask";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import visa from "@/public/images/icons/visa.png";
 import arca from "@/public/images/icons/arca.png";
 import discover from "@/public/images/icons/discover.png";
@@ -13,9 +13,10 @@ import amex from "@/public/images/icons/amex.png";
 import paypal from "@/public/images/icons/paypal.png";
 import { useEffect, useState } from 'react';
 import { toast } from "react-hot-toast";
+import { fetchUserInfo } from '@/redux/authSlice';
 
 export default function UserInfoPage() {
-
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
   const [profileData, setProfileData] = useState(null);
@@ -40,7 +41,7 @@ export default function UserInfoPage() {
 			if (!response.ok) throw new Error('Failed to fetch profile data');
 			const data = await response.json();
 			setProfileData(data.data.profile);
-
+      setPhone(data.data.profile?.phone_number)
 			reset({
         namefirst: data.data.profile.name || '',
         surname: data.data.profile.surname || ''
@@ -56,6 +57,7 @@ export default function UserInfoPage() {
   //sumbition Data
   const userInfoSubmit = async () => {    
     await saveInfo()
+    dispatch(fetchUserInfo())
   };
 
   const saveInfo = async () => {
@@ -99,7 +101,6 @@ export default function UserInfoPage() {
 
   useEffect(() => {
     fetchProfileData();
-    setPhone(profileData?.phone_number)
 	}, []);
   
   return (
