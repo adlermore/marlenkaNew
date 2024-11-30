@@ -145,7 +145,7 @@ export default function UserInfoPage() {
               placeholder="Enter name"
               autoComplete="on"
               defaultValue={user?.name.split(' ')[0] || ''}
-              className="form-control opacity-70"
+              className="form-control "
               name="name"
               // disabled
               {...userInfo("namefirst", { required: true })}
@@ -162,7 +162,7 @@ export default function UserInfoPage() {
               placeholder="Enter surname"
               autoComplete="on"
               defaultValue={user?.name.split(' ')[1] || ''}
-              className="form-control opacity-70"
+              className="form-control "
               name="name"
               // disabled
               {...userInfo("surname", { required: true })}
