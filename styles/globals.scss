@@ -68,6 +68,182 @@ body {
   }
 }
 
+.cards_wrapper{
+  position: relative;
+  margin-top: 10px;
+  .card_list{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  .card_block{
+     border-radius: 30px;
+     border: 1px solid #525252;
+     height: 46px;
+     padding: 10px 20px;
+     display: flex;
+     align-items: center;
+     width: 100%;
+  }
+  .card_image{
+    margin-right: 20px;
+  }
+  .card_number{
+    color: #525252;
+    font-size: 14px;
+  }
+  .card_actions{
+    margin-left: auto;
+    display: flex;
+    font-size: 14px;
+    gap: 10px;
+    align-items: center;
+    button{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: 10px;
+    }
+    .card_checkbox label{
+      flex-direction: row-reverse !important;
+      .square_block {
+        top: 0;
+      }
+    }
+  }
+  .add_card_btn{
+    margin-top: 20px;
+    border-radius: 30px;
+    border: 1px solid #525252;
+    height: 46px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover{
+      background: #f0f0f0;
+    }
+  }
+}
+
+.add_card_popup{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9999999;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  .popup_inner{
+    max-width: 570px;
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+  }
+  .popup_header{
+    padding: 25px 90px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  .popup_title{
+    font-size: 20px;
+    font-family: 'MontserratMedium';
+  }
+  .card_types{
+    margin-top: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    label{
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover{
+        opacity: 0.7;
+      }
+      img{
+        border-radius: 10px;
+      }
+      input{
+        &:checked ~ img{ 
+          border: 1px solid black;
+        }
+      }
+    }
+  }
+  .cardInfoForm{
+    margin-top: 20px;
+  }
+  .popup_form{
+    padding: 10px 90px;
+  }
+  .cardInfo_label{
+    font-family: 'MontserratMedium';
+    font-size: 11px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+  }
+  .inline_block{
+    display: flex;
+    gap: 20px;
+  }
+  .form_block{
+    margin-bottom: 15px;
+  }
+  .card_save{
+    background: #A9271C !important;
+    border: noen !important;
+    font-size: 14px !important;
+    color: white !important;
+   min-width: 106px !important;
+   margin-top: 20px;
+   margin-bottom: 20px;
+  }
+  .form_block input{
+    width: 100%;
+    height: 46px;
+    font-size: 12px;
+    border-radius: 30px;
+    padding: 0 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}
+.disabled_card_animation{
+  position: relative;
+  overflow: hidden;
+  background-color: #DDDBDD;
+  border: none !important;
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(#fff, 0) 0,
+      rgba(#fff, 0.2) 20%,
+      rgba(#fff, 0.5) 60%,
+      rgba(#fff, 0)
+    );
+    animation: shimmer 2s infinite;
+    content: '';
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
 .hamburger-react>div>div {
   background: #520e11 !important;
 }
