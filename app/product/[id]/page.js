@@ -71,7 +71,7 @@ const ProductPage = ({ params }) => {
 
 	const [options, setOptions] = useState([]);
 	const [selectedOption, setSelectedOption] = useState(null);
-
+	const zoomInnerRef = useRef(null);
 	const smallSliderRef = useRef(null);
 	const bigSliderRef = useRef(null);
 	const fullDetailsRef = useRef(null);
@@ -153,6 +153,28 @@ const ProductPage = ({ params }) => {
 	// };
 
 
+	const closeZoom = () => {
+		setZommUrl(null)
+	}
+
+	
+	// Handle click outside of popup to close it
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+				if (zoomInnerRef.current && !zoomInnerRef.current.contains(event.target)) {
+						closeZoom();
+				}
+		};
+
+		// Attach the event listener to detect clicks outside
+		document.addEventListener('mousedown', handleClickOutside);
+
+		return () => {
+				// Cleanup the event listener on component unmount
+				document.removeEventListener('mousedown', handleClickOutside);
+		};
+}, []);
+
 	const handleAddToCart = (e) => {
 		e.preventDefault();
 		const productToAdd = {
@@ -178,9 +200,6 @@ const ProductPage = ({ params }) => {
 		// This ensures that if you want to add again, it starts from 1
 		setProductCount(1);
 };
-
-
-
 
 	const fetchProduct = async () => {
 		setLoading(true);
@@ -220,10 +239,6 @@ const ProductPage = ({ params }) => {
 		setZommUrl(url)
 	}
 
-	const closeZoom = () => {
-		setZommUrl(null)
-	}
-
 	const handleSelectChange = async (selected) => {
 		setLoading(true);
 		setSelectedOption(selected);
@@ -257,7 +272,7 @@ const ProductPage = ({ params }) => {
 			</div>
 			{zoomUrl &&
 				<div className='zoom_popup'>
-					<div className='zoom_inner'>
+					<div className='zoom_inner' ref={zoomInnerRef}>
 						<a
 							href="/#"
 							className="popup_close absolute right-[20px] top-[20px] cursor-pointer"
@@ -269,7 +284,7 @@ const ProductPage = ({ params }) => {
 							<IconClose />
 						</a>
 						<div className='absolute inner_div'>
-							<TransformWrapper
+							{/* <TransformWrapper
 								initialScale={1}
 								minScale={1}
 								maxScale={3}
@@ -309,7 +324,16 @@ const ProductPage = ({ params }) => {
 										</TransformComponent>
 									</>
 								)}
-							</TransformWrapper>
+							</TransformWrapper> */}
+						<Image 
+								src={`${process.env.NEXT_PUBLIC_DATA}${zoomUrl}`}
+								fill
+								unoptimized
+								sizes="50vw, 100vw"
+								style={{
+									objectFit: 'cover',
+								}}
+						/>
 						</div>
 					</div>
 				</div>
