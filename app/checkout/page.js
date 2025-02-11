@@ -57,11 +57,11 @@ const Checkout = () => {
 			setProfileData(data.data.profile);
 
 			reset({
-        namefirst: data.data.profile.name || '',
-        surname: data.data.profile.surname || '',
-        company: data.data.profile.company_name || '',
-        region: data.data.profile.country || '',
-      });
+				namefirst: data.data.profile.name || '',
+				surname: data.data.profile.surname || '',
+				company: data.data.profile.company_name || '',
+				region: data.data.profile.country || '',
+			});
 
 		} catch (error) {
 			console.error('Error fetching profile:', error);
@@ -214,7 +214,7 @@ const Checkout = () => {
 												className="form-control"
 												{...register("namefirst", { required: "Name is required" })}
 											/>
-											{errors.namefirst && 
+											{errors.namefirst &&
 												<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
 													{errors.namefirst?.message}
 												</p>
@@ -230,7 +230,7 @@ const Checkout = () => {
 												className="form-control"
 												{...register("surname", { required: "Surname is required" })}
 											/>
-											{errors.surname && 
+											{errors.surname &&
 												<p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
 													{errors.surname?.message}
 												</p>

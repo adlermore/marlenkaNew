@@ -13,6 +13,7 @@ import Image from 'next/image';
 import eye from '@/public/images/eye.png'
 
 function RegisterPopup() {
+
   const [showPass, setShowPass] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
   const [initialized, setInitialized] = useState(false);
@@ -20,7 +21,7 @@ function RegisterPopup() {
   const ref = useRef();
   const dispatch = useDispatch();
 
-  const { status, error } = useSelector((state) => state.auth);
+  const { status } = useSelector((state) => state.auth);
   const user = useSelector((state) => state.auth.user);
 
   useOnClickOutside(ref, () => {
@@ -40,7 +41,7 @@ function RegisterPopup() {
   }
 
   //validation init
-  const { register: registerForm, reset, setError, handleSubmit: handleSubmitForm, formState: { errors: errorsRegister } } = useForm({
+  const { register: registerForm, reset, handleSubmit: handleSubmitForm, formState: { errors: errorsRegister }} = useForm({
     resolver: zodResolver(registerSchema)
   });
 

@@ -1,5 +1,5 @@
 'use client';
-// import userImg from '@/public/images/userImg.png';
+
 import Image from 'next/image';
 import { userScheme } from '@/validation/userScheme';
 import { useForm } from 'react-hook-form';
@@ -29,6 +29,7 @@ const cardTypes = [
 ];
 
 export default function UserInfoPage() {
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
@@ -37,10 +38,7 @@ export default function UserInfoPage() {
   const [phone, setPhone] = useState(profileData?.phone_number || '');
   const [cardNumber, setCardNumber] = useState('');
   const [cardDate, setCardDate] = useState('');
-  const [cardCvv, setCardCvv] = useState('');
-
   const [popupOpened, setPopupOpened] = useState(false);
-
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -117,10 +115,6 @@ export default function UserInfoPage() {
     setLoading(false);
   };
 
-  const handleAddNewCard = () => {
-    setPopupOpened(true)
-  }
-
   //validation init
   const { register: userInfo, handleSubmit: handleSubmitForm, reset, watch, formState: { errors: errorUser } } = useForm({
     resolver: zodResolver(userScheme)
@@ -160,8 +154,6 @@ export default function UserInfoPage() {
     await saveInfo()
     dispatch(fetchUserInfo())
   };
-
-
 
   const saveInfo = async () => {
     setLoading(true)
@@ -250,9 +242,7 @@ export default function UserInfoPage() {
             </svg>
             {loading ? " " : " Update"}
           </button>
-
         </div>
-
         <div className='userInfoForm'>
           <div className={errorUser?.namefirst ? "form_block has_error" : "form_block"}>
             <div className="userInfo_label text-sm font-light">
@@ -264,7 +254,6 @@ export default function UserInfoPage() {
               defaultValue={user?.name.split(' ')[0] || ''}
               className="form-control "
               name="name"
-              // disabled
               {...userInfo("namefirst", { required: true })}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -281,7 +270,6 @@ export default function UserInfoPage() {
               defaultValue={user?.name.split(' ')[1] || ''}
               className="form-control "
               name="name"
-              // disabled
               {...userInfo("surname", { required: true })}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -321,10 +309,9 @@ export default function UserInfoPage() {
               className="form-control"
               mask="(999)-999-999"
               value={phone || ''}
-              // value={profileData?.phone_number || ''}
               onChange={(e) => {
                 setPhone(e.target.value);
-                userInfo("phone").onChange(e); // Call react-hook-form's onChange
+                userInfo("phone").onChange(e); 
               }}
             />
             <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
@@ -460,7 +447,6 @@ export default function UserInfoPage() {
                   ))}
                 </div>
               </div>
-
               <div className='popup_form'>
                 <form onSubmit={handleCardSubmitForm(cardSave)} className="w-full">
                   <div className='cardInfoForm'>
@@ -468,7 +454,6 @@ export default function UserInfoPage() {
                       <div className="cardInfo_label text-sm font-light">
                         Card Number*
                       </div>
-
                       <InputMask
                         {...cardInfo("cardNumber", { required: true })}
                         placeholder="Enter Card Number"
@@ -483,7 +468,6 @@ export default function UserInfoPage() {
                           userInfo("cardNumber").onChange(e);
                         }}
                       />
-
                       <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
                         {errorCard?.cardNumber?.message}
                       </p>
@@ -493,7 +477,6 @@ export default function UserInfoPage() {
                         <div className="cardInfo_label text-sm font-light mb-[10px]">
                           Expiration Date*
                         </div>
-
                         <InputMask
                           {...cardInfo("cardExperationDate", { required: true })}
                           placeholder="Enter cardExperationDate"
@@ -508,7 +491,6 @@ export default function UserInfoPage() {
                             userInfo("cardExperationDate").onChange(e);
                           }}
                         />
-
                         <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
                           {errorCard?.cardExperationDate?.message}
                         </p>
@@ -554,7 +536,6 @@ export default function UserInfoPage() {
                       </p>
                     </div>
                   </div>
-
                   <button
                     type="submit"
                     className={`w-[100px] card_save h-[40px] !duration-0 !bg-siteCrem !max-w-[100px] !text-black border site_btn mb-[10px] text-opacity-1 [&>svg]:opacity-0 ${loading && "[&>svg]:opacity-100 pointer-events-none opacity-80 !text-opacity-0"}`}

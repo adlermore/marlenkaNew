@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import "@/styles/account.scss";
 import IconUser from '@/public/icons/IconUser';
 import IconHeart from '@/public/icons/IconHeart';
@@ -16,21 +16,21 @@ export default function AccountLayout({ children }) {
 
   const pathname = usePathname();
   const router = useRouter();
-  const isAuth = useSelector((state) => state.auth.isAuthenticated);
-  const [isAuthChecked, setIsAuthChecked] = useState(false);
+  // const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  // const [isAuthChecked, setIsAuthChecked] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (typeof isAuth !== 'undefined') {
-      setIsAuthChecked(true);
-    }
-  }, [isAuth]);
+  // useEffect(() => {
+  //   if (typeof isAuth !== 'undefined') {
+  //     setIsAuthChecked(true);
+  //   }
+  // }, [isAuth]);
 
-  useEffect(() => {
-    if (isAuthChecked && !isAuth) {
-      // router.push('/');
-    }
-  }, [isAuthChecked, isAuth, router]);
+  // useEffect(() => {
+  //   if (isAuthChecked && !isAuth) {
+  //     router.push('/');
+  //   }
+  // }, [isAuthChecked, isAuth, router]);
 
   const handleLogout = (e) => {
     e.preventDefault();

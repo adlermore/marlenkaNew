@@ -1,4 +1,5 @@
 'use client';
+
 import Image from 'next/image';
 import emptybag from '@/public/images/emptybag.png';
 import { useSelector } from 'react-redux';

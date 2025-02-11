@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/validation/loginSchema";
 import { initializeAuth, login } from "@/redux/authSlice";
+
 import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 import IconClose from "@/public/icons/IconClose.jsx";
 import loginLogo from '@/public/images/reverseLogo.svg'
@@ -15,8 +17,10 @@ import Image from "next/image";
 import IconChecked from "@/public/icons/IconChecked";
 
 function LoginPopup() {
+
   const ref = useRef();
   const dispatch = useDispatch();
+
   const [showPass, setShowPass] = useState(false);
   const [initialized, setInitialized] = useState(false);
 
@@ -63,7 +67,6 @@ function LoginPopup() {
     }
   }, [status, initialized, dispatch]);
 
-
   const detectScrollBarWidth = () => {
     const documentWidth = document.documentElement.clientWidth;
     const windowWidth = window.innerWidth;
@@ -88,7 +91,6 @@ function LoginPopup() {
       el.style.paddingRight = `${scrollBarWidth}px`;
     });
   };
-
 
   const registerSwitch = () => {
     closeLogin()
