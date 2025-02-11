@@ -1,4 +1,3 @@
-
 async function Terms() {
 
   // About Data Fetching

@@ -4,15 +4,12 @@ import { useState, useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import "@/styles/product_inner.scss";
-// import { bestProducts } from '@/utils/data/homeData';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, updateCartQuantity } from '@/redux/cartSlice';
-import Product from '@/components/product/Product';
 import Link from 'next/link';
 import PageLoader from '@/components/PageLoader';
 import AlsoLike from '@/components/alsoLikeProducts/AlsoLike';
 import newLook from "@/public/images/newLookInner.png";
-import { TransformWrapper, TransformComponent, useControls } from 'react-zoom-pan-pinch';
 import Select from 'react-select';
 import IconClose from '@/public/icons/IconClose';
 import IconZoom from '@/public/icons/IconZoom';
@@ -143,63 +140,44 @@ const ProductPage = ({ params }) => {
 		setSelectedImageIndex(index);
 	};
 
-	// const handleAddToCart = (e) => {
-	// 	e.preventDefault();
-	// 	const productToAdd = {
-	// 		...product,
-	// 		quantity: productCount
-	// 	};
-	// 	dispatch(addToCart(productToAdd));
-	// };
-
-
 	const closeZoom = () => {
 		setZommUrl(null)
 	}
 
-	
 	// Handle click outside of popup to close it
 	useEffect(() => {
 		const handleClickOutside = (event) => {
-				if (zoomInnerRef.current && !zoomInnerRef.current.contains(event.target)) {
-						closeZoom();
-				}
+			if (zoomInnerRef.current && !zoomInnerRef.current.contains(event.target)) {
+				closeZoom();
+			}
 		};
 
-		// Attach the event listener to detect clicks outside
 		document.addEventListener('mousedown', handleClickOutside);
 
 		return () => {
-				// Cleanup the event listener on component unmount
-				document.removeEventListener('mousedown', handleClickOutside);
+			document.removeEventListener('mousedown', handleClickOutside);
 		};
-}, []);
+	}, []);
 
 	const handleAddToCart = (e) => {
 		e.preventDefault();
 		const productToAdd = {
-				...product,
-				quantity: 1 // Always add 1 quantity when adding to cart
+			...product,
+			quantity: 1
 		};
 
 		const existingItemIndex = items.findIndex(item => item.id === product.id);
 
 		if (existingItemIndex >= 0) {
-				// Product exists in cart, increment quantity by current productCount
-				dispatch(updateCartQuantity({ productId: product.id, amount: productCount }));
-				// Update local count based on what's in cart
-				setProductCount((prevCount) => prevCount + 1); 
-				toast.success(`${product.name} quantity updated in your cart.`);
+			dispatch(updateCartQuantity({ productId: product.id, amount: productCount }));
+			setProductCount((prevCount) => prevCount + 1);
+			toast.success(`${product.name} quantity updated in your cart.`);
 		} else {
-				// If item doesn't exist, add it to the cart with quantity of 1
-				dispatch(addToCart(productToAdd));
-				// toast.success(`${product.name} added to your cart`);
+			dispatch(addToCart(productToAdd));
 		}
-		
-		// Reset local count after adding/updating in cart
-		// This ensures that if you want to add again, it starts from 1
+
 		setProductCount(1);
-};
+	};
 
 	const fetchProduct = async () => {
 		setLoading(true);
@@ -284,48 +262,7 @@ const ProductPage = ({ params }) => {
 							<IconClose />
 						</a>
 						<div className='absolute inner_div'>
-							{/* <TransformWrapper
-								initialScale={1}
-								minScale={1}
-								maxScale={3}
-								centerZoomedOut={true}
-								centerOnInit
-
-							>
-								{({ zoomIn, zoomOut, resetTransform, state } = useControls()) => (
-									<>
-										<div className="zoom_control top-[20px] left-[20px] space-x-2 z-50">
-											<button className="bg-gray-200 p-2 normal_btn shadow" onClick={() => zoomIn()}>
-												Zoom In
-											</button>
-											<button className="bg-gray-200 p-2 normal_btn shadow" onClick={() => zoomOut()}>
-												Zoom Out
-											</button>
-											<button className="bg-gray-200 p-2 normal_btn shadow" onClick={() => resetTransform()}>
-												Reset
-											</button>
-										</div>
-										<TransformComponent>
-											<div
-												className='zomm_settings'
-											>
-												<img
-													src={`${process.env.NEXT_PUBLIC_DATA}${zoomUrl}`}
-													alt="Product"
-													className="object-contain"
-													style={{
-														width: "100%",
-														height: "auto",
-														cursor: "zoom-in",
-														transition: "transform 0.3s ease",
-													}}
-												/>
-											</div>
-										</TransformComponent>
-									</>
-								)}
-							</TransformWrapper> */}
-						<Image 
+							<Image
 								src={`${process.env.NEXT_PUBLIC_DATA}${zoomUrl}`}
 								fill
 								unoptimized
@@ -333,7 +270,7 @@ const ProductPage = ({ params }) => {
 								style={{
 									objectFit: 'cover',
 								}}
-						/>
+							/>
 						</div>
 					</div>
 				</div>
