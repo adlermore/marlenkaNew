@@ -283,7 +283,9 @@ const ProductPage = ({ params }) => {
 								<Slider {...bigImagesOpts} ref={bigSliderRef}>
 									{product.images.map((image, index) => (
 										<div className="slide_block" key={index}>
-											<div className="img_block">
+											<div className="img_block"
+												onClick={() => handleZommActive(image.image_path)}
+											>
 												<Image
 													src={process.env.NEXT_PUBLIC_DATA + image.image_path}
 													alt={`Product ${index}`}
@@ -294,11 +296,11 @@ const ProductPage = ({ params }) => {
 														objectFit: 'contain',
 													}} />
 											</div>
-											<div className='zoom_btn'
+											{/* <div className='zoom_btn'
 												onClick={() => handleZommActive(image.image_path)}
 											>
 												<IconZoom />
-											</div>
+											</div> */}
 										</div>
 									))}
 								</Slider>

@@ -89,8 +89,8 @@ function Product({ product, onClick }) {
               <span className="product_inner">
                 <Image
                   src={process.env.NEXT_PUBLIC_DATA + product?.images[0]?.image_path}
-                  unoptimized
                   alt={product.name || "Ricardo portrait"}
+                  unoptimized
                   priority
                   fill
                   className="product_inner_img object-contain"
@@ -98,7 +98,7 @@ function Product({ product, onClick }) {
               </span>
             </span>
           }
-          <span className="product_links z-[999] flex flex-col items-center absolute top-0 right-0">
+          <span className="product_links z-[999] flex flex-col items-center absolute top-[5px] right-[5px] mobile:top-[15px] mobile:right-[15px]">
             <button
               className={`block`}
               aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
@@ -115,7 +115,7 @@ function Product({ product, onClick }) {
             </button>
           </span>
         </div>
-        <div className="flex items-center text-center text-[#B62025] mobile:text-base font-medium text-xl justify-center gap-[5px]">
+        <div className="flex items-center text-center text-[#B62025] mobile:text-base font-medium mt-[10px] text-xl justify-center gap-[5px]">
           {product.name}
         </div>
         <div className="font-medium product_price mt-[5px] flex items-center gap-[5px] justify-center mobile:text-[14px] text-[18px] text-black">
