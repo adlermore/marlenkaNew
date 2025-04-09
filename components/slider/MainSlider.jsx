@@ -14,7 +14,7 @@ function MainSlider({ sliderData }) {
     speed: 500,
     slidesToShow: 1,
     arrows: false,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 8000,
     slidesToScroll: 1,
     pauseOnHover: false
   };
